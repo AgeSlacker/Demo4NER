@@ -23,7 +23,6 @@ namespace Demo4NER.Views
         public ItemsPage()
         {
             InitializeComponent();
-
             BindingContext = viewModel = new ItemsViewModel();
         }
 
