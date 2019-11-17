@@ -5,7 +5,10 @@
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
             mc:Ignorable="d"
             xmlns:views="clr-namespace:Demo4NER.Views"
-            x:Class="Demo4NER.Views.MainPage">
+            xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+            android:TabbedPage.ToolbarPlacement="Bottom"
+            x:Class="Demo4NER.Views.MainPage"
+            >
 
     <TabbedPage.Children>
         <NavigationPage Title="Browse">
