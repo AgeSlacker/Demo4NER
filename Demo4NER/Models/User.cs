@@ -19,7 +19,7 @@ namespace Demo4NER.Models
         [Required]
         public string Nacionality { get; set; }
         public string Contact { get; set; }
-        public List<Bussiness> Bussinesses { get; set; }
+        public List<Business> Businesses { get; set; }
         public List<Service> Services{ get; set; }
         public DateTime LastLogin { get; set; }
 

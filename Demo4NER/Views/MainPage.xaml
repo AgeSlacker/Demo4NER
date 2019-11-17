@@ -9,8 +9,21 @@
             android:TabbedPage.ToolbarPlacement="Bottom"
             x:Class="Demo4NER.Views.MainPage"
             >
+    
+
 
     <TabbedPage.Children>
+        <NavigationPage Title="Business">
+            <NavigationPage.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="iOS" Value="tab_business.png"/>
+                </OnPlatform>
+            </NavigationPage.Icon>
+            <x:Arguments>
+                <views:BusinessPage />
+            </x:Arguments>
+        </NavigationPage>
+        
         <NavigationPage Title="Browse">
             <NavigationPage.Icon>
                 <OnPlatform x:TypeArguments="FileImageSource">
@@ -21,7 +34,7 @@
                 <views:ItemsPage />
             </x:Arguments>
         </NavigationPage>
-        
+
         <NavigationPage Title="About">
             <NavigationPage.Icon>
                 <OnPlatform x:TypeArguments="FileImageSource">
