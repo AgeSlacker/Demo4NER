@@ -13,6 +13,7 @@ namespace Demo4NER.ViewModels
     public class BaseViewModel : INotifyPropertyChanged
     {
         public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>() ?? new MockDataStore();
+        public IDataStore<User> UserStore => DependencyService.Get<IDataStore<User>>() ?? new UserDataStore();
 
         bool isBusy = false;
         public bool IsBusy

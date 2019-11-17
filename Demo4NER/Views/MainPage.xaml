@@ -21,7 +21,18 @@
                 <views:ItemsPage />
             </x:Arguments>
         </NavigationPage>
-        
+
+        <NavigationPage Title="Profile">
+            <NavigationPage.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="iOS" Value="tab_profile.png"/>
+                </OnPlatform>
+            </NavigationPage.Icon>
+            <x:Arguments>
+                <views:ProfilePage/>
+            </x:Arguments>
+        </NavigationPage>
+
         <NavigationPage Title="About">
             <NavigationPage.Icon>
                 <OnPlatform x:TypeArguments="FileImageSource">
