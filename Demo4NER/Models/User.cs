@@ -13,7 +13,7 @@ namespace Demo4NER.Models
 
         public int UserId { get; set; }
         [Required]
-        public string Name { get; set; }/*
+        public string Name { get; set; }
         
         public string Email { get; set; }
         
@@ -21,11 +21,14 @@ namespace Demo4NER.Models
         
         public string Nacionality { get; set; }
         public string Contact { get; set; }
-        [NotMapped]
         public List<Business> Businesses { get; set; }
-        [NotMapped]
         public List<Service> Services{ get; set; }
-        public DateTime LastLogin { get; set; }*/
+        DateTime? lastLogin;
+        public DateTime? LastLogin
+        {
+            get => lastLogin.HasValue ? lastLogin : DateTime.MinValue;
+            set => lastLogin = DateTime.Now;
+        }
 
     }
 }

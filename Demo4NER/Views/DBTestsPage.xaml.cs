@@ -21,7 +21,7 @@ namespace Demo4NER.Views
         public DBTestsPage()
         {
             InitializeComponent();
-            BindingContext = viewModel = new DBTestsViewModel();            
+            BindingContext = viewModel = new DBTestsViewModel();
         }
 
 

@@ -10,8 +10,18 @@ namespace Demo4NER.Services
     {
         private string myDbConnection = "Server=81.88.52.17;port=3306;Database=qm3jt7qs_4ner_app;User=qm3jt7qs_admin;Password=admin4NER;";
 
+        public DbSet<Business> Businesses { get; set; }
+        public DbSet<Click>  Cliks { get; set; }
+        public DbSet<Discount> Discounts { get; set; }
+        public DbSet<Feature> Features { get; set; }
+        public DbSet<Establishment> Establishments { get; set; }
+        public DbSet<Link> Links { get; set; }
+        public DbSet<Promotion> Promotions { get; set; }
+        public DbSet<Review> Reviews { get; set; }
+        public DbSet<Service> Services { get; set; }
         public DbSet<User> Users { get; set; }
 
+        public int MyProperty { get; set; }
         public NerContext() : base()
         {
             Database.EnsureCreated();
