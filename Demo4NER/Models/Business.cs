@@ -5,7 +5,7 @@ using Xamarin.Essentials;
 
 namespace Demo4NER.Models
 {
-    public class Bussiness
+    public class Business
     {
         [Required]
         public string Name { get; set; }
