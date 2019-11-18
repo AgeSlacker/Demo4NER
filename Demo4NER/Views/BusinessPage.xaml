@@ -7,10 +7,14 @@
              x:Class="Demo4NER.Views.BusinessPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Hi"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand"
-                TextColor="Black"/>
+            <Label x:Name="businessName"/>
+            <Frame OutlineColor="Black">
+                <Label x:Name="businessCategory"/>
+            </Frame>
+            <Label x:Name="businessDescription"/>
+            <Label x:Name="businessContact"/>
+            <Label x:Name="businessEmail"/>
+            <Label x:Name="businessRating"/>
         </StackLayout>
-    </ContentPage.Content>a
+    </ContentPage.Content>
 </ContentPage>

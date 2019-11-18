@@ -10,31 +10,30 @@ using Xamarin.Forms.Xaml;
 namespace Demo4NER.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class BusinessPage : ContentPage { 
+    public partial class BusinessPage : ContentPage
+    {
         public BusinessPage()
         {
             InitializeComponent();
-            //BindingContext = this;
+            BindingContext = this;
 
-            Models.Business business = new Models.Business
+            Models.Establishment fixePizza = new Models.Establishment
             {
-                Name = "FixePizza",
+                Name = "Fixeizza",
+                Category = Models.Establishment.CategoryType.BAR,
                 Description = "Lorem Ipsum",
                 Contact = "934 957 565",
-                Location = null,
                 Email = "fixepizza@gmail.com",
-                Features = null,
-                IsFeatured = false,
-                Promotions = null,
-                Discounts = null,
-                Clicks = null,
-                Rating = 4.9F,
-                Links = null
+                Rating = 4.9F
             };
 
-        Label businessName = new Label {Text = business.Name};
+            businessName.Text = fixePizza.Name;
+            businessCategory.Text = fixePizza.Category.ToString();
+            businessDescription.Text = fixePizza.Description;
+            businessContact.Text = fixePizza.Contact;
+            businessEmail.Text = fixePizza.Email;
+            businessRating.Text = fixePizza.Rating.ToString();
 
-
-    }
+        }
     }
 }
