@@ -2,7 +2,7 @@
 
 namespace Demo4NER.Models
 {
-    public class Service : Bussiness
+    public class Service : Business
     {
         public List<string> Tags { get; set; }
     }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Demo4NER.Models
 {
-    public class Establishment : Bussiness
+    public class Establishment : Business
     {
         public CategoryType Category { get; set; }
 

@@ -43,6 +43,12 @@
                 <views:AboutPage />
             </x:Arguments>
         </NavigationPage>
+
+        <NavigationPage Title="Testes DB">
+            <x:Arguments>
+                <views:DBTestsPage/>
+            </x:Arguments>
+        </NavigationPage>
     </TabbedPage.Children>
     
 </TabbedPage>
