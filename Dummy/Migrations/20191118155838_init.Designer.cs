@@ -3,14 +3,16 @@ using System;
 using Demo4NER.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Dummy.Migrations
 {
     [DbContext(typeof(NerContext))]
-    partial class NerContextModelSnapshot : ModelSnapshot
+    [Migration("20191118155838_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
