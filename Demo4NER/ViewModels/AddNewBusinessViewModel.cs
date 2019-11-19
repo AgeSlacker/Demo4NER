@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -19,6 +20,7 @@ namespace Demo4NER.ViewModels
         public Command RefreshBusinessListCommand { get; set; }
         public Command LoadBusinessListCommand { get; set; }
 
+        NerContext db = new NerContext();
         public AddNewBusinessViewModel()
         {
             AddNewBusinessCommand = new Command(() =>
@@ -29,17 +31,11 @@ namespace Demo4NER.ViewModels
                     db.SaveChanges();
                 }
             });
-            RefreshBusinessListCommand = new Command(async () =>
-            {
-                await LoadBusinesses();
-            });
-            LoadBusinessListCommand = new Command(async () =>
-            {
-                await LoadBusinesses();
-            });
+            RefreshBusinessListCommand = new Command(async () => await LoadBusinesses());
+            LoadBusinessListCommand = new Command(async () => await LoadBusinesses());
         }
 
-        public async Task LoadBusinesses()
+        private async Task LoadBusinesses()
         {
             if (IsBusy)
                 return;
@@ -48,21 +44,36 @@ namespace Demo4NER.ViewModels
 
             try
             {
+                Debug.WriteLine("Inside");
                 Businesses.Clear();
-                using (var db = new NerContext())
+                var businessesFromDb = await Task.Run(()=>GetBusinessesAsync());
+
+                foreach (var business in businessesFromDb)
                 {
-                    var _bus = await db.Businesses.ToListAsync();
-                    foreach(var business in _bus)
-                    {
-                        Businesses.Add(business);
-                    }
+                    Businesses.Add(business);
                 }
-            } catch (Exception ex)
+                Debug.WriteLine("Added to list");
+
+            }
+            catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-            } finally
+            }
+            finally
             {
                 IsBusy = false;
+            }
+            Debug.WriteLine("End");
+        }
+
+        private async Task<List<Business>> GetBusinessesAsync()
+        {
+            using (var db = new NerContext())
+            {
+                Debug.WriteLine("COntext created");
+                var _bus = await db.Businesses.ToListAsync();
+                Debug.WriteLine("ToLustAsync gotten");
+                return _bus;
             }
         }
     }
