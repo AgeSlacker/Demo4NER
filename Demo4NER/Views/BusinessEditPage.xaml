@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Demo4NER.Views.BusinessEditPage">
+    <ContentPage.Content>
+        <StackLayout Margin="10,10,10,0">
+            <Label Text="Business Name"/>
+            <Entry Text="{Binding } " Placeholder="Business Name"/>
+            <Label Text="Business Description"/>
+            <Editor Placeholder="Business Description"/>
+            <Label Text="Business Location"/>
+            <Entry Placeholder="Business Location"/>
+            <Label Text="Business Phone"/>
+            <Entry Placeholder="Business Phone"/>
+            <Label Text="Business E-mail"/>
+            <Entry Placeholder="Business E-mail"/>
+            <Button Text="Edit" Command="ViewBusiness"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
