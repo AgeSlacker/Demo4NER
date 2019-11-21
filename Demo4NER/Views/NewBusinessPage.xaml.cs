@@ -20,12 +20,12 @@ namespace Demo4NER.Views
             BindingContext = viewModel = new AddNewBusinessViewModel();
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
             //viewModel.LoadBusinessListCommand.Execute(null);
 
-            viewModel.LoadBusinessListCommand.Execute(null);
+            await viewModel.LoadBusinesses();
         }
     }
 
