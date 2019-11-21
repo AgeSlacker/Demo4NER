@@ -27,7 +27,7 @@ namespace Demo4NER.ViewModels
         private async Task LoadListCommandExecute()
         {
             using (var db = new NerContext()) {
-                var estabs = await db.Establishments.ToListAsync();
+                var estabs = await GetEstablismetnsAsync();
                 Establishments.Clear();
                 foreach(var e in estabs)
                 {
@@ -41,9 +41,17 @@ namespace Demo4NER.ViewModels
             using (var db = new NerContext())
             {
                 db.Add(NewEstab);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
             await LoadListCommandExecute();
+        }
+
+        private async Task<List<Establishment>> GetEstablismetnsAsync()
+        {
+            using (var db = new NerContext())
+            {
+                return await db.Establishments.ToListAsync();
+            }
         }
     }
 }
