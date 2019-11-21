@@ -20,19 +20,17 @@ namespace Demo4NER.ViewModels
 
         public NewEstablishmentViewModel()
         {
-            CreateNewCommand = new Command(async ()=> await CreateNewCommandExecute());
+            CreateNewCommand = new Command(async () => await CreateNewCommandExecute());
             LoadListCommand = new Command(async () => await LoadListCommandExecute());
         }
 
         private async Task LoadListCommandExecute()
         {
-            using (var db = new NerContext()) {
-                var estabs = await GetEstablismetnsAsync();
-                Establishments.Clear();
-                foreach(var e in estabs)
-                {
-                    Establishments.Add(e);
-                }
+            var estabs = await GetEstablismetnsAsync();
+            Establishments.Clear();
+            foreach (var e in estabs)
+            {
+                Establishments.Add(e);
             }
         }
 

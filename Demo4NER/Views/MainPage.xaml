@@ -28,6 +28,12 @@
             </x:Arguments>
         </NavigationPage>
 
+        <NavigationPage Title="New Service Page">
+            <x:Arguments>
+                <views:NewEstablishmentPage/>
+            </x:Arguments>
+        </NavigationPage>
+
         <NavigationPage Title="About">
             <NavigationPage.Icon>
                 <OnPlatform x:TypeArguments="FileImageSource">
