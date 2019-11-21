@@ -49,20 +49,27 @@ namespace Demo4NER.ViewModels
             try
             {
                 Businesses.Clear();
-                using (var db = new NerContext())
+                var _bus = await Task.Run(() => GetBusinessesAsync());
+                foreach (var business in _bus)
                 {
-                    var _bus = await db.Businesses.ToListAsync();
-                    foreach(var business in _bus)
-                    {
-                        Businesses.Add(business);
-                    }
+                    Businesses.Add(business);
                 }
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-            } finally
+            }
+            finally
             {
                 IsBusy = false;
+            }
+        }
+
+        public async Task<List<Business>> GetBusinessesAsync()
+        {
+            using (var db = new NerContext())
+            {
+                return await db.Businesses.ToListAsync();
             }
         }
     }

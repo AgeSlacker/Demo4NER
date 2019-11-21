@@ -28,12 +28,6 @@
             </x:Arguments>
         </NavigationPage>
 
-        <NavigationPage Title="New Establishment">
-            <x:Arguments>
-                <views:NewEstablishmentPage/>
-            </x:Arguments>
-        </NavigationPage>
-
         <NavigationPage Title="About">
             <NavigationPage.Icon>
                 <OnPlatform x:TypeArguments="FileImageSource">
