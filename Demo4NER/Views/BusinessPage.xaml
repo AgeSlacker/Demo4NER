@@ -7,14 +7,11 @@
              x:Class="Demo4NER.Views.BusinessPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label x:Name="businessName"/>
-            <Frame OutlineColor="Black">
-                <Label x:Name="businessCategory"/>
-            </Frame>
-            <Label x:Name="businessDescription"/>
-            <Label x:Name="businessContact"/>
-            <Label x:Name="businessEmail"/>
-            <Label x:Name="businessRating"/>
+            <Label Text="{Binding business.Name}"></Label>
+            <Label Text="{Binding business.Description}"></Label>
+            <Label Text="{Binding business.Contact}"></Label>
+            <Label Text="{Binding business.Location}"></Label>
+            <Label Text="{Binding business.Email}"></Label>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

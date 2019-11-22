@@ -22,15 +22,15 @@
             </x:Arguments>
         </NavigationPage>
 
-        <NavigationPage Title="New Business Page">
+        <NavigationPage Title="Business Page">
             <x:Arguments>
-                <views:NewBusinessPage/>
+                <views:BusinessPage/>
             </x:Arguments>
         </NavigationPage>
 
-        <NavigationPage Title="New Service Page">
+        <NavigationPage Title="New Business Page">
             <x:Arguments>
-                <views:NewEstablishmentPage/>
+                <views:NewBusinessPage/>
             </x:Arguments>
         </NavigationPage>
 
