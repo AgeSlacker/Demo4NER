@@ -9,7 +9,6 @@
             android:TabbedPage.ToolbarPlacement="Bottom"
             x:Class="Demo4NER.Views.MainPage"
 >
-
     <TabbedPage.Children>
         <NavigationPage Title="Destaques" IconImageSource="home.png">
             <x:Arguments>
