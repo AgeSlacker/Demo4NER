@@ -6,11 +6,25 @@
              mc:Ignorable="d"
              x:Class="Demo4NER.Views.BusinessPage">
     <ContentPage.Content>
-        <AbsoluteLayout>
-            <Label Text="{Binding business.Name}"></Label>
-            <Label Text="{Binding business.Description}"></Label>
-            <Label Text="{Binding business.Contact}"></Label>
-            <Label Text="{Binding business.Email}"></Label>
-        </AbsoluteLayout>
+        <ScrollView>
+            <RelativeLayout>
+                <Label Text="{Binding business.Name}" TextColor="#3B5A9A" FontAttributes="Bold" FontSize="26"
+                       HorizontalTextAlignment="Center" 
+                       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}"
+                       RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=X, Factor=0, Constant=10}"></Label>
+                <Label Text="{Binding business.Description}" TextColor="#3B5A9A" FontAttributes="Bold" FontSize="26"
+                       HorizontalTextAlignment="Center" 
+                       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=40}"
+                       RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=X, Factor=0, Constant=10}"></Label>
+                <Label Text="{Binding business.Contact}" TextColor="#3B5A9A" FontAttributes="Bold" FontSize="26"
+                       HorizontalTextAlignment="Center" 
+                       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=80}"
+                       RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=X, Factor=0, Constant=10}"></Label>
+                <Label Text="{Binding business.Email}" TextColor="#3B5A9A" FontAttributes="Bold" FontSize="26"
+                       HorizontalTextAlignment="Center" 
+                       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=120}"
+                       RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=X, Factor=0, Constant=10}"></Label>
+            </RelativeLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
