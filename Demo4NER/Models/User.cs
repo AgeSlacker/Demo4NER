@@ -22,6 +22,7 @@ namespace Demo4NER.Models
         public string Nacionality { get; set; }
         public string Contact { get; set; }
         public List<Business> Businesses { get; set; }
+        public List<Review> Reviews { get; set; }
         public List<Service> Services{ get; set; }
         DateTime? lastLogin;
         public DateTime? LastLogin
