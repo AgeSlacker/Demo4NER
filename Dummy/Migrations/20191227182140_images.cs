@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Dummy.Migrations
 {
-    public partial class init : Migration
+    public partial class images : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -33,6 +33,7 @@ namespace Dummy.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: false),
+                    BusinessImage = table.Column<byte[]>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     Contact = table.Column<string>(nullable: true),
                     Latitude = table.Column<double>(nullable: false),

@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Demo4NER.Models;
@@ -12,28 +15,64 @@ namespace Demo4NER.ViewModels
 {
     class SearchViewModel : BaseViewModel
     {
-        public ObservableCollection<Business> BusinessesList { get; set; }
+        public string SearchTerms { get; set; }
+        public ObservableCollection<Business> BusinessesList { get; set; } = new ObservableCollection<Business>();
 
         public Command UpdateBusinessesListCommand { get; set; }
-
+        public Command DoSearchCommand { get; set; }
         public SearchViewModel()
         {
             UpdateBusinessesListCommand = new Command(async () => await UpdateBusinessesListExecute());
-            UpdateBusinessesListExecute();
+            DoSearchCommand = new Command(async ()=> await DoSearchExecute());
+        }
+
+        private async Task DoSearchExecute()
+        {
+            BusinessesList.Clear();
+            var temp = await Task.Run(()=>GetBusinessByName(SearchTerms));
+            foreach (Business business in temp)
+            {
+                BusinessesList.Add(business);
+            }
+        }
+
+        private async Task<List<Business>> GetBusinessByName(String name)
+        {
+            using (var db = new NerContext())
+            {
+                return await db.Businesses.Where(b => b.Name.Contains(name)).ToListAsync();
+            }
         }
 
         private async Task UpdateBusinessesListExecute()
         {
-            var _result = await Task.Run(() =>
+            if (IsBusy)
+                return;
+
+            IsBusy = true;
+            try
             {
-                using (var db = new NerContext())
+                await Task.Run(() =>
                 {
-                    return db.Businesses.ToListAsync();
-                }
-            });
-            foreach (Business business in _result)
+                    using (var db = new NerContext())
+                    {
+                        var temp = db.Businesses.ToList();
+                        BusinessesList.Clear();
+                        foreach (Business business in temp)
+                        {
+                            BusinessesList.Add(business);
+                        }
+                        Debug.WriteLine("Updated Search page");
+                    }
+                });
+            }
+            catch (Exception exception)
             {
-                BusinessesList.Add(business);
+                Debug.WriteLine(exception);
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
     }

@@ -22,6 +22,8 @@ namespace Dummy.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<byte[]>("BusinessImage");
+
                     b.Property<string>("Contact");
 
                     b.Property<string>("Description");

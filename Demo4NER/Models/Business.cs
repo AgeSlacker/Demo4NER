@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Net.Mime;
 using Xamarin.Essentials;
 
 namespace Demo4NER.Models
@@ -12,6 +13,8 @@ namespace Demo4NER.Models
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
+
+        public byte[] BusinessImage { get; set; }
         public string Description { get; set; }
         public string Contact { get; set; }
         Location location = new Location();

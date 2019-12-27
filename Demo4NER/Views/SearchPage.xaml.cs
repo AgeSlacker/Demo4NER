@@ -18,5 +18,10 @@ namespace Demo4NER.Views
             InitializeComponent();
             BindingContext = viewModel = new SearchViewModel();
         }
+
+        protected override void OnAppearing()
+        {
+            viewModel.UpdateBusinessesListCommand.Execute(null);
+        }
     }
 }

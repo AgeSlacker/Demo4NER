@@ -7,16 +7,28 @@
              x:Class="Demo4NER.Views.SearchPage">
     <ContentPage.Content>
         <StackLayout>
+            <Entry Placeholder="Procurar" Text="{Binding SearchTerms}"></Entry>
+            <Button Text="Go" Command="{Binding DoSearchCommand}"></Button>
             <Label Text="Filter"></Label>
             <ListView ItemsSource="{Binding BusinessesList}"
-                      RefreshCommand="{Binding UpdateBusinessesListCommand}">
+                      RefreshCommand="{Binding UpdateBusinessesListCommand}"
+                      IsPullToRefreshEnabled="True"
+                      IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                      RowHeight="100"
+                      >
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Orientation="Horizontal">
-                                <Image></Image>
-                                <Label Text="{Binding Name}"></Label>
-                            </StackLayout>
+                            <Frame Padding="8" Margin="10" BorderColor="DodgerBlue">
+                                <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
+                                    <Image ></Image>
+                                    <Label Text="{Binding Name}" 
+                                           HorizontalOptions="CenterAndExpand"
+                                           FontAttributes="Bold"
+                                           FontFamily="Comic Sans"
+                                           ></Label>
+                                </StackLayout>
+                            </Frame>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
