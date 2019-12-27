@@ -1,5 +1,4 @@
-﻿using Demo4NER.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,20 +10,16 @@ using Xamarin.Forms.Xaml;
 namespace Demo4NER.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class NewBusinessPage : ContentPage
+    public partial class ProfilePage : ContentPage
     {
-        NewBusinessViewModel viewModel;
-        public NewBusinessPage()
+        public ProfilePage()
         {
             InitializeComponent();
-            BindingContext = viewModel = new NewBusinessViewModel();
         }
 
         private void Button_OnClicked(object sender, EventArgs e)
         {
-            viewModel.CreateNewBusinessCommand.Execute(null);
-            Navigation.PopModalAsync();
+            Navigation.PushModalAsync(new NewBusinessPage());
         }
     }
-
 }

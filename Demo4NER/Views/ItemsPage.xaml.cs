@@ -19,7 +19,6 @@ namespace Demo4NER.Views
     public partial class ItemsPage : ContentPage
     {
         ItemsViewModel viewModel;
-
         public ItemsPage()
         {
             InitializeComponent();

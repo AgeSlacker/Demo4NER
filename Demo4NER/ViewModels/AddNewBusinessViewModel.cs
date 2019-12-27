@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -20,7 +19,6 @@ namespace Demo4NER.ViewModels
         public Command RefreshBusinessListCommand { get; set; }
         public Command LoadBusinessListCommand { get; set; }
 
-        NerContext db = new NerContext();
         public AddNewBusinessViewModel()
         {
             AddNewBusinessCommand = new Command(() =>
@@ -31,11 +29,17 @@ namespace Demo4NER.ViewModels
                     db.SaveChanges();
                 }
             });
-            RefreshBusinessListCommand = new Command(async () => await LoadBusinesses());
-            LoadBusinessListCommand = new Command(async () => await LoadBusinesses());
+            RefreshBusinessListCommand = new Command(async () =>
+            {
+                await LoadBusinesses();
+            });
+            LoadBusinessListCommand = new Command(async () =>
+            {
+                await LoadBusinesses();
+            });
         }
 
-        private async Task LoadBusinesses()
+        public async Task LoadBusinesses()
         {
             if (IsBusy)
                 return;
@@ -44,16 +48,12 @@ namespace Demo4NER.ViewModels
 
             try
             {
-                Debug.WriteLine("Inside");
                 Businesses.Clear();
-                var businessesFromDb = await Task.Run(()=>GetBusinessesAsync());
-
-                foreach (var business in businessesFromDb)
+                var _bus = await Task.Run(() => GetBusinessesAsync());
+                foreach (var business in _bus)
                 {
                     Businesses.Add(business);
                 }
-                Debug.WriteLine("Added to list");
-
             }
             catch (Exception ex)
             {
@@ -63,18 +63,15 @@ namespace Demo4NER.ViewModels
             {
                 IsBusy = false;
             }
-            Debug.WriteLine("End");
         }
 
-        private async Task<List<Business>> GetBusinessesAsync()
+        public async Task<List<Business>> GetBusinessesAsync()
         {
             using (var db = new NerContext())
             {
-                Debug.WriteLine("COntext created");
-                var _bus = await db.Businesses.ToListAsync();
-                Debug.WriteLine("ToLustAsync gotten");
-                return _bus;
+                return await db.Businesses.ToListAsync();
             }
+            
         }
     }
 }

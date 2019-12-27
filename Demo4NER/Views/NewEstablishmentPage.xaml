@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Demo4NER.Views.NewEstablishmentPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Entry Text="{Binding NewEstab.Name}" Placeholder="Name"/>
+            <Editor Text="{Binding NewEstab.Description}" Placeholder="Descrição"/>
+            <Entry Text="{Binding NewEstab.Contact}" Placeholder="Contact"/>
+            <Entry Text="{Binding NewEstab.Email}" Placeholder="Email"/>
+            <Button Text="Create" Command="{Binding CreateNewCommand}"/>
+
+            <ListView ItemsSource="{Binding Establishments}"
+                      RefreshCommand="{Binding LoadListCommand}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding Name}"/>
+                                <Label Text="{Binding Description}"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

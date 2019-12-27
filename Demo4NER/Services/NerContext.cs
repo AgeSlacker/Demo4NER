@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Demo4NER.Services
 {
@@ -24,6 +23,5 @@ namespace Demo4NER.Services
         {
             optionsBuilder.UseMySql(myDbConnection);
         }
-
     }
 }
