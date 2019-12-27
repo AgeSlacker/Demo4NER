@@ -7,9 +7,21 @@
              x:Class="Demo4NER.Views.SearchPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Label Text="Filter"></Label>
+            <ListView ItemsSource="{Binding BusinessesList}"
+                      RefreshCommand="{Binding UpdateBusinessesListCommand}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Image></Image>
+                                <Label Text="{Binding Name}"></Label>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+                      
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
