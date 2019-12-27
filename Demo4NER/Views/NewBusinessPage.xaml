@@ -6,28 +6,14 @@
              mc:Ignorable="d"
              x:Class="Demo4NER.Views.NewBusinessPage">
     <ContentPage.Content>
-        <StackLayout Padding="20">
-            <Entry Placeholder="Nome" Text="{Binding NewBusiness.Name}"/>
-            <Editor Placeholder="Descrição" Text="{Binding NewBusiness.Description}"/>
-            <Entry Placeholder="Contacto" Text="{Binding NewBusiness.Contact}"/>
-            <Entry Placeholder="Email" Text="{Binding NewBusiness.Email}"/>
-            <Button Text="AddNewBussiness" Command="{Binding AddNewBusinessCommand}"/>
-            <ListView RefreshCommand="{Binding RefreshBusinessListCommand}"
-                      ItemsSource="{Binding Businesses}"
-                      IsRefreshing="{Binding IsBusy,Mode=OneWay}"
-                      IsPullToRefreshEnabled="True"
-                      CachingStrategy="RecycleElement">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text="{Binding Name}"/>
-                                <Label Text="{Binding Contact}"/>
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+        <StackLayout>
+            <Label Text="Imagem"></Label>
+            <Entry Placeholder="Nome" Text="{Binding NewBusiness.Name}"></Entry>
+            <Entry Placeholder="Descrição" Text="{Binding NewBusiness.Description}"></Entry>
+            <Entry Placeholder="Morada" Text="{Binding NewBusiness.WrittenAddress}"></Entry>
+            <Entry Placeholder="Telemóvel" Text="{Binding NewBusiness.Contact}"></Entry>
+            <Entry Placeholder="Email" Text="{Binding NewBusiness.Email}"></Entry>
+            <Button Text="Create" Clicked="Button_OnClicked"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

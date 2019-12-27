@@ -35,6 +35,7 @@ namespace Demo4NER.Models
             get => location.Longitude;
             set => location.Longitude = value;
         }
+        public  string WrittenAddress { get; set; }
         public string Email { get; set; }
         public List<Feature> Features { get; set; }
         public bool IsFeatured { get; set; }

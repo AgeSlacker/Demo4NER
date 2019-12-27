@@ -46,6 +46,8 @@ namespace Dummy.Migrations
 
                     b.Property<int?>("UserId");
 
+                    b.Property<string>("WrittenAddress");
+
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dummy.Migrations
 {
     [DbContext(typeof(NerContext))]
-    [Migration("20191118155838_init")]
+    [Migration("20191227161834_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -47,6 +47,8 @@ namespace Dummy.Migrations
                     b.Property<float>("Rating");
 
                     b.Property<int?>("UserId");
+
+                    b.Property<string>("WrittenAddress");
 
                     b.HasKey("Id");
 

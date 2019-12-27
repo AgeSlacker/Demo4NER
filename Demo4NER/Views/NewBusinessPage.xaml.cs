@@ -13,18 +13,17 @@ namespace Demo4NER.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NewBusinessPage : ContentPage
     {
-        AddNewBusinessViewModel viewModel;
+        NewBusinessViewModel viewModel;
         public NewBusinessPage()
         {
             InitializeComponent();
-            BindingContext = viewModel = new AddNewBusinessViewModel();
+            BindingContext = viewModel = new NewBusinessViewModel();
         }
 
-        protected override void OnAppearing()
+        private void Button_OnClicked(object sender, EventArgs e)
         {
-            base.OnAppearing();
-            viewModel.LoadBusinessListCommand.Execute(null);
-            //await viewModel.LoadBusinesses();
+            viewModel.CreateNewBusinessCommand.Execute(null);
+            Navigation.PopModalAsync();
         }
     }
 
