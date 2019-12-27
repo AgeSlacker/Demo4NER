@@ -6,12 +6,11 @@
              mc:Ignorable="d"
              x:Class="Demo4NER.Views.BusinessPage">
     <ContentPage.Content>
-        <StackLayout>
+        <AbsoluteLayout>
             <Label Text="{Binding business.Name}"></Label>
             <Label Text="{Binding business.Description}"></Label>
             <Label Text="{Binding business.Contact}"></Label>
-            <Label Text="{Binding business.Location}"></Label>
             <Label Text="{Binding business.Email}"></Label>
-        </StackLayout>
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -19,7 +19,11 @@ namespace Demo4NER.ViewModels
 
         public BusinessPageViewModel()
         {
-            LoadBusinessCommand = new Command(async () => await LoadBusinessCommandExecute());
+            //LoadBusinessCommand = new Command(async () => await LoadBusinessCommandExecute());
+            business.Name = "Fixepizza";
+            business.Description = "Pizzaria";
+            business.Contact = "961234567";
+            business.Email = "fixepizza@gmail.com";
         }
 
         private async Task LoadBusinessCommandExecute()
