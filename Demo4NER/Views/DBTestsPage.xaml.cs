@@ -4,6 +4,7 @@ using Demo4NER.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +29,7 @@ namespace Demo4NER.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            Debug.WriteLine("Appearing " + this.Title);
             viewModel.LoadUsersCommand.Execute(null);
         }
 
