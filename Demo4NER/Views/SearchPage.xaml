@@ -7,9 +7,18 @@
              x:Class="Demo4NER.Views.SearchPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Entry Placeholder="Procurar" Text="{Binding SearchTerms}"></Entry>
+            <Button Text="Go" Command="{Binding DoSearchCommand}"></Button>
+            <Label Text="Filter"></Label>
+            <ListView ItemsSource="{Binding BusinessesList}"
+                      RefreshCommand="{Binding UpdateBusinessesListCommand}"
+                      IsPullToRefreshEnabled="True"
+                      IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                      RowHeight="100"
+                      ItemSelected="ListView_OnItemSelected"
+                      CachingStrategy="RecycleElement"
+                      ItemTemplate="{StaticResource BusinessDataTemplateSimple}"
+                      />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

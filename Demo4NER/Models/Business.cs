@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Net.Mime;
 using Xamarin.Essentials;
 
 namespace Demo4NER.Models
@@ -12,30 +13,35 @@ namespace Demo4NER.Models
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
+
+        public byte[] BusinessImage { get; set; }
         public string Description { get; set; }
         public string Contact { get; set; }
-        Location location = new Location();
+        private Location _location = new Location();
         [NotMapped]
         public Location Location
         {
-            get => location;
+            get => _location;
             set
             {
                 Longitude = value.Longitude;
                 Latitude = value.Latitude;
-                location = value;
+                _location = value;
             }
         }
         public double Latitude
         {
-            get => location.Latitude;
-            set => location.Latitude = value;
+            get => _location.Latitude;
+            set => _location.Latitude = value;
         }
-        public double Longitude {
-            get => location.Longitude;
-            set => location.Longitude = value;
+        public double Longitude
+        {
+            get => _location.Longitude;
+            set => _location.Longitude = value;
         }
-        public  string WrittenAddress { get; set; }
+        [NotMapped]
+        public double Distance { get; set; }
+        public string WrittenAddress { get; set; }
         public string Email { get; set; }
         public List<Feature> Features { get; set; }
         public bool IsFeatured { get; set; }

@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dummy.Migrations
 {
     [DbContext(typeof(NerContext))]
-    [Migration("20191227161834_init")]
-    partial class init
+    [Migration("20191227182140_images")]
+    partial class images
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,8 @@ namespace Dummy.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<byte[]>("BusinessImage");
 
                     b.Property<string>("Contact");
 
