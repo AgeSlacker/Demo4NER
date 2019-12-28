@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Demo4NER.ViewModels;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -20,7 +23,9 @@ namespace Demo4NER.Views
 
         protected override async void OnAppearing()
         {
-            Location location =  await ((App) Application.Current).GetLocationAsync();
+            var request = new GeolocationRequest(GeolocationAccuracy.Best);
+
+            Location location = await Geolocation.GetLocationAsync(request);
 
             Debug.WriteLine(location.Accuracy + " " + location.Latitude + " " + location.Longitude);
             ((StackLayout)this.Content).Children.Add(
@@ -28,7 +33,6 @@ namespace Demo4NER.Views
                 {
                     Text = location.Accuracy + " " + location.Latitude + " " + location.Longitude
                 });
-
 
             var placemarks = await Geocoding.GetPlacemarksAsync(location.Latitude, location.Longitude);
 
@@ -48,7 +52,7 @@ namespace Demo4NER.Views
                     $"Thoroughfare:    {placemark.Thoroughfare}\n";
 
                 Console.WriteLine(geocodeAddress);
-                (Content as StackLayout).Children.Add(new Label() { Text = geocodeAddress });
+                (Content as StackLayout).Children.Add(new Label(){Text = geocodeAddress});
             }
         }
     }

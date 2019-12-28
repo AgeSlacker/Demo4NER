@@ -14,24 +14,6 @@
                 <Setter Property="BarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
                 <Setter Property="BarTextColor" Value="White" />
             </Style>
-            <DataTemplate x:Key="BusinessDataTemplateSimple">
-                <ViewCell>
-                    <Frame Padding="8" Margin="10" BorderColor="DodgerBlue">
-                        <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
-                            <Image Source="https://media.boingboing.net/wp-content/uploads/2018/01/5121537762_28b40d8ff1_o.jpg"></Image>
-                            <StackLayout HorizontalOptions="CenterAndExpand">
-                                <Label Text="{Binding Name}" 
-                                       HorizontalOptions="CenterAndExpand"
-                                       FontAttributes="Bold"
-                                       FontFamily="Comic Sans"
-                                />
-                                <Label Text="{Binding Distance, StringFormat='a {0:F2}Km de sí'}"/>
-                            </StackLayout>
-                            
-                        </StackLayout>
-                    </Frame>
-                </ViewCell>
-            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
     

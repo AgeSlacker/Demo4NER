@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using Demo4NER.Models;
 using Demo4NER.Services;
 using Microsoft.EntityFrameworkCore;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace Demo4NER.ViewModels
@@ -53,21 +52,19 @@ namespace Demo4NER.ViewModels
             IsBusy = true;
             try
             {
-                var result = await Task.Run(async ()=> 
+                await Task.Run(() =>
                 {
                     using (var db = new NerContext())
                     {
-                        return await db.Businesses.ToListAsync();
+                        var temp = db.Businesses.ToList();
+                        BusinessesList.Clear();
+                        foreach (Business business in temp)
+                        {
+                            BusinessesList.Add(business);
+                        }
+                        Debug.WriteLine("Updated Search page");
                     }
                 });
-                BusinessesList.Clear();
-                Location userLocation = await ((App) Application.Current).GetLocationAsync();
-                foreach (Business business in result)
-                {
-                    business.Distance =
-                        Location.CalculateDistance(business.Location, userLocation, DistanceUnits.Kilometers);
-                    BusinessesList.Add(business);
-                }
             }
             catch (Exception exception)
             {

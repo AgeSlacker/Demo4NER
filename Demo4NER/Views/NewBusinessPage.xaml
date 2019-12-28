@@ -13,8 +13,6 @@
             <Entry Placeholder="Morada" Text="{Binding WrittenAddress}"></Entry>
             <Entry Placeholder="Telemóvel" Text="{Binding Contact}"></Entry>
             <Entry Placeholder="Email" Text="{Binding Email}"></Entry>
-            <Entry Placeholder="TEMP Latitide" Text="{Binding Latitude}"></Entry>
-            <Entry Placeholder="TEMP Longitude" Text="{Binding Longitude}"></Entry>
             <Button Text="Create" Clicked="Button_OnClicked"></Button>
         </StackLayout>
     </ContentPage.Content>
