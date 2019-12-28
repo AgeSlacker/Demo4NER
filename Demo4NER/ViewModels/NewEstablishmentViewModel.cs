@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Xamarin.Forms;
 
 namespace Demo4NER.ViewModels
@@ -32,6 +33,7 @@ namespace Demo4NER.ViewModels
             {
                 Establishments.Add(e);
             }
+            
         }
 
         private async Task CreateNewCommandExecute()
