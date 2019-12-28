@@ -32,7 +32,10 @@ namespace Demo4NER.ViewModels
                 NewUser = new User();
                 await LoadUsers();
             });
-            LoadUsersCommand = new Command(execute: async () => await LoadUsers());
+            LoadUsersCommand = new Command(execute: async () =>
+            {
+                await LoadUsers();
+            });
 
         }
         private async Task CreateNewUser(User user)

@@ -37,6 +37,7 @@ namespace Dummy.Migrations
                     Contact = table.Column<string>(nullable: true),
                     Latitude = table.Column<double>(nullable: false),
                     Longitude = table.Column<double>(nullable: false),
+                    WrittenAddress = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
                     IsFeatured = table.Column<bool>(nullable: false),
                     FeaturedEndDate = table.Column<DateTime>(nullable: false),
