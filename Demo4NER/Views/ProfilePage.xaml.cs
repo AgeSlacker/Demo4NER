@@ -16,5 +16,10 @@ namespace Demo4NER.Views
         {
             InitializeComponent();
         }
+
+        private void Button_OnClicked(object sender, EventArgs e)
+        {
+            Navigation.PushModalAsync(new NewBusinessPage());
+        }
     }
 }
