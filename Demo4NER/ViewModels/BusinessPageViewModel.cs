@@ -11,7 +11,7 @@ namespace Demo4NER.ViewModels
     public class BusinessPageViewModel:BaseViewModel
     {
 
-        public Business Business { get; set; } = new Business();
+        public Business business { get; set; } = new Business();
 
         public int businessID = 1;
 
@@ -20,16 +20,16 @@ namespace Demo4NER.ViewModels
         public BusinessPageViewModel()
         {
             //LoadBusinessCommand = new Command(async () => await LoadBusinessCommandExecute());
-            Business.Name = "Fixepizza";
-            Business.Description = "Pizzaria";
-            Business.Contact = "961234567";
-            Business.Email = "fixepizza@gmail.com";
+            business.Name = "Fixepizza";
+            business.Description = "Pizzaria";
+            business.Contact = "961234567";
+            business.Email = "fixepizza@gmail.com";
         }
 
         private async Task LoadBusinessCommandExecute()
         {
             var auxBusiness = await GetBusinessAsync();
-            Business = auxBusiness;
+            business = auxBusiness;
         }
 
         private async Task<Business> GetBusinessAsync()
