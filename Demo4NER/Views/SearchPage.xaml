@@ -15,6 +15,7 @@
                       IsPullToRefreshEnabled="True"
                       IsRefreshing="{Binding IsBusy, Mode=OneWay}"
                       RowHeight="100"
+                      ItemSelected="ListView_OnItemSelected"
                       >
                 <ListView.ItemTemplate>
                     <DataTemplate>
