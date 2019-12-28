@@ -16,25 +16,9 @@
                       IsRefreshing="{Binding IsBusy, Mode=OneWay}"
                       RowHeight="100"
                       ItemSelected="ListView_OnItemSelected"
-                      >
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Frame Padding="8" Margin="10" BorderColor="DodgerBlue">
-                                <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
-                                    <Image ></Image>
-                                    <Label Text="{Binding Name}" 
-                                           HorizontalOptions="CenterAndExpand"
-                                           FontAttributes="Bold"
-                                           FontFamily="Comic Sans"
-                                           ></Label>
-                                </StackLayout>
-                            </Frame>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-                      
+                      CachingStrategy="RecycleElement"
+                      ItemTemplate="{StaticResource BusinessDataTemplateSimple}"
+                      />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
