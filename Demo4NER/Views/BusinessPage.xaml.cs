@@ -11,7 +11,7 @@ namespace Demo4NER.Views
         public BusinessPageViewModel viewModel;
         public BusinessPage()
         {
-            InitializeComponent();
+            InitializeComponent(); 
             BindingContext = viewModel = new BusinessPageViewModel();
 
         }
