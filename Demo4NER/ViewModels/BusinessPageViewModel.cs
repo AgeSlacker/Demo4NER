@@ -22,6 +22,10 @@ namespace Demo4NER.ViewModels
         public BusinessPageViewModel(Business selectedBusiness)
         {
             Business = selectedBusiness;
+            Business.Links = new List<Link>();
+            Link link1 = new Link(); link1.Name = "Site"; link1.URL = "4nerapp.com";
+            Link link2 = new Link(); link1.Name = "Facebook"; link1.URL = "facebook.com/4nerapp";
+            Business.Links.Add(link1); Business.Links.Add(link2);
             //business.Name = "Fixepizza";
             //business.Description = "Pizzaria";
             //business.Contact = "961234567";

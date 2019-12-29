@@ -11,7 +11,8 @@
                 <Image Source="{Binding ImageSource}"></Image>
                 <Label Text="{Binding Name}" 
                        TextColor="#3B5A9A" 
-                       FontAttributes="Bold" FontSize="40"
+                       FontAttributes="Bold" 
+                       FontSize="40"
                        HorizontalTextAlignment="Center" />
                 <Label Text="Restaurante" 
                        TextColor="Black" 
@@ -22,10 +23,24 @@
                        FontAttributes="Bold" FontSize="32"/>
                 <Label Text="{Binding WrittenAddress}"
                        FontSize="26"/>
-                <Label Text="Descrição" TextColor="#3B5A9A" FontAttributes="Bold" FontSize="32"/>
-                <Label Text="{Binding Description}" FontSize="26"/>
-                <Label Text="Contacto" TextColor="#3B5A9A" FontAttributes="Bold" FontSize="32"/>
-                <Label Text="{Binding Contact}" FontSize="26"/>
+                <Label Text="Descrição" 
+                       TextColor="#3B5A9A" 
+                       FontAttributes="Bold" 
+                       FontSize="32"/>
+                <Label Text="{Binding Description}" 
+                       FontSize="26"/>
+                <Label Text="Contacto" 
+                       TextColor="#3B5A9A" 
+                       FontAttributes="Bold" 
+                       FontSize="32"/>
+                <Label Text="{Binding Contact}" 
+                       FontSize="26"/>
+                <Label Text="Links"
+                       TextColor="#3B5A9A" 
+                       FontAttributes="Bold" 
+                       FontSize="32"/>
+                <ListView ItemsSource="{Binding Links}"
+                   ItemTemplate="{StaticResource LinkListTemplate}"/>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

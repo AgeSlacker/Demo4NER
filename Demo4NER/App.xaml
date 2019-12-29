@@ -32,6 +32,19 @@
                     </Frame>
                 </ViewCell>
             </DataTemplate>
+            <DataTemplate x:Key="LinkListTemplate">
+                <Label BindingContext="{Binding Link}">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="{Binding Name}"/>
+                            <Span Text="{Binding URL}"
+                                  TextColor="Blue"
+                                  TextDecorations="Underline">
+                            </Span>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
     
