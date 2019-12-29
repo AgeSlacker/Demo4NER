@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel;
 using Xamarin.Forms;
 
@@ -11,6 +12,11 @@ namespace Demo4NER.Views
         public RegisterPage()
         {
             InitializeComponent();
+        }
+
+        private async void BackToLoginTap(object sender, EventArgs e)
+        {
+            await Navigation.PopAsync();
         }
     }
 }

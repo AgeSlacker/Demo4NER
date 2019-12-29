@@ -5,6 +5,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="Demo4NER.Views.RegisterPage"
+             NavigationPage.HasNavigationBar="False"
+             NavigationPage.HasBackButton="False"
              BackgroundColor="White">
 
     <ContentPage.Content>
@@ -32,7 +34,7 @@
                 <Image Source="downarrow.png" HeightRequest="10" Opacity="0.6" VerticalOptions="Start" Margin="0,17,5,0"/>
             </StackLayout>
 
-            <Grid Grid.Row="0" Margin="20,0,20,0">
+            <Grid Grid.Row="1" Margin="20,0,20,0">
 
                 <Grid.RowDefinitions>
 
@@ -80,7 +82,11 @@
             <StackLayout Grid.Row="2" BackgroundColor="#ffffff">
 
                 <Label HeightRequest="1" BackgroundColor="#e3e3e3"/>
-                <Label Text="Already have an account? Sign In" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                <Label Text="Already have an account? Sign In" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="BackToLoginTap"></TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
 
             </StackLayout>
 
