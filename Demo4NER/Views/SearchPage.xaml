@@ -17,8 +17,7 @@
                       RowHeight="100"
                       ItemSelected="ListView_OnItemSelected"
                       CachingStrategy="RecycleElement"
-                      ItemTemplate="{StaticResource BusinessDataTemplateSimple}"
-                      />
+                      ItemTemplate="{StaticResource BusinessDataTemplateSimple}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
