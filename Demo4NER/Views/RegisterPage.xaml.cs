@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using Demo4NER.ViewModels;
 using Xamarin.Forms;
 
 namespace Demo4NER.Views
@@ -9,14 +10,17 @@ namespace Demo4NER.Views
     [DesignTimeVisible(false)]
     public partial class RegisterPage : ContentPage
     {
+        private RegisterViewModel viewModel;
         public RegisterPage()
         {
             InitializeComponent();
+            BindingContext = viewModel = new RegisterViewModel();
         }
 
         private async void BackToLoginTap(object sender, EventArgs e)
         {
             await Navigation.PopAsync();
         }
+
     }
 }

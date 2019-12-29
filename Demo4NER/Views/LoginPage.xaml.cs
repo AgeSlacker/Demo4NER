@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using Demo4NER.ViewModels;
 using Xamarin.Forms;
 
 namespace Demo4NER.Views
@@ -9,13 +10,16 @@ namespace Demo4NER.Views
     [DesignTimeVisible(false)]
     public partial class LoginPage : ContentPage
     {
+        private LoginViewModel viewModel;
         public LoginPage()
         {
             InitializeComponent();
+            BindingContext = viewModel = new LoginViewModel();
         }
 
-        private void Button_OnClicked(object sender, EventArgs e)
+        private void LoginButtonClicked(object sender, EventArgs e)
         {
+            
             (App.Current as Application).MainPage = new MainPage();
         }
 
