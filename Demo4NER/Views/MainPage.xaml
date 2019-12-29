@@ -18,7 +18,7 @@
 
         <NavigationPage Title="Descontos" IconImageSource="discount.png">
             <x:Arguments>
-                <views:BusinessPage></views:BusinessPage>
+                <views:DiscountsPage></views:DiscountsPage>
             </x:Arguments>
         </NavigationPage>
 

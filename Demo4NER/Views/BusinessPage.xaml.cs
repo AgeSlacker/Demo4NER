@@ -1,4 +1,5 @@
-﻿using Demo4NER.ViewModels;
+﻿using Demo4NER.Models;
+using Demo4NER.ViewModels;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -9,13 +10,10 @@ namespace Demo4NER.Views
     public partial class BusinessPage : ContentPage
     {
         public BusinessPageViewModel viewModel;
-        public BusinessPage()
+        public BusinessPage(Business selectedBusiness)
         {
-            InitializeComponent(); 
-            BindingContext = viewModel = new BusinessPageViewModel();
-
+            InitializeComponent();
+            BindingContext = viewModel = new BusinessPageViewModel(selectedBusiness);
         }
-
-        protected async override void OnAppearing() => base.OnAppearing();
     }
 }

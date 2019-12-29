@@ -10,34 +10,22 @@ namespace Demo4NER.ViewModels
 {
     public class BusinessPageViewModel:BaseViewModel
     {
+        private Business _business;
 
-        public Business business { get; set; } = new Business();
-
-        public int businessID = 1;
-
+        public Business Business
+        {
+            get => _business;
+            set => SetProperty(ref _business, value);
+        }
         public Command LoadBusinessCommand { get; set; }
 
-        public BusinessPageViewModel()
+        public BusinessPageViewModel(Business selectedBusiness)
         {
-            //LoadBusinessCommand = new Command(async () => await LoadBusinessCommandExecute());
-            business.Name = "Fixepizza";
-            business.Description = "Pizzaria";
-            business.Contact = "961234567";
-            business.Email = "fixepizza@gmail.com";
-        }
-
-        private async Task LoadBusinessCommandExecute()
-        {
-            var auxBusiness = await GetBusinessAsync();
-            business = auxBusiness;
-        }
-
-        private async Task<Business> GetBusinessAsync()
-        {
-            using (var db = new NerContext())
-            {
-                return await db.Businesses.FindAsync(businessID);
-            }
+            Business = selectedBusiness;
+            //business.Name = "Fixepizza";
+            //business.Description = "Pizzaria";
+            //business.Contact = "961234567";
+            //business.Email = "fixepizza@gmail.com";
         }
     }
 }
