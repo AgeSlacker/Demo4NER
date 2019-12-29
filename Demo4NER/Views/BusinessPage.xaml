@@ -39,8 +39,8 @@
                        TextColor="#3B5A9A" 
                        FontAttributes="Bold" 
                        FontSize="32"/>
-                <ListView ItemsSource="{Binding Links}"
-                   ItemTemplate="{StaticResource LinkListTemplate}"/>
+                <ListView ItemsSource="{Binding Links}" ItemTemplate="{StaticResource LinkListTemplate}">
+                </ListView>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

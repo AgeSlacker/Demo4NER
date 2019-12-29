@@ -27,25 +27,27 @@
                                 />
                                 <Label Text="{Binding Distance, StringFormat='a {0:F2}Km de sí'}"/>
                             </StackLayout>
-                            
+
                         </StackLayout>
                     </Frame>
                 </ViewCell>
             </DataTemplate>
             <DataTemplate x:Key="LinkListTemplate">
-                <Label BindingContext="{Binding Link}">
-                    <Label.FormattedText>
-                        <FormattedString>
-                            <Span Text="{Binding Name}"/>
-                            <Span Text="{Binding URL}"
+                <ViewCell>
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{Binding Name}"/>
+                                <Span Text="{Binding URL}"
                                   TextColor="Blue"
                                   TextDecorations="Underline">
-                            </Span>
-                        </FormattedString>
-                    </Label.FormattedText>
-                </Label>
+                                </Span>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </ViewCell>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
-    
+
 </Application>
