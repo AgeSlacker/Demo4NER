@@ -46,7 +46,7 @@ namespace Demo4NER.Views
             //stream.Close();
             //if (stream != null)
             //{
-            //    businessImage.Source = ImageSource.FromStream(() => new MemoryStream(buffer));
+            //    businessImage.Source = ImageSourceSource.FromStream(() => new MemoryStream(buffer));
             //}
 
             ////await stream.CopyToAsync(memoryStream);
@@ -59,7 +59,7 @@ namespace Demo4NER.Views
             MemoryStream memoryStream = new MemoryStream();
             image.GetStream().CopyTo(memoryStream);
             viewModel.NewBusiness.BusinessImage = memoryStream.ToArray();
-            viewModel.NewBusiness.Image = businessImage;
+            viewModel.NewBusiness.ImageSource = businessImage.Source;
         }
     }
 

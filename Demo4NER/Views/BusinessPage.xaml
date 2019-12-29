@@ -8,6 +8,7 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout BindingContext="{Binding Business}">
+                <Image Source="{Binding ImageSource}"></Image>
                 <Label Text="{Binding Name}" 
                        TextColor="#3B5A9A" 
                        FontAttributes="Bold" FontSize="40"

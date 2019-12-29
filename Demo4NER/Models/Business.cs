@@ -18,23 +18,20 @@ namespace Demo4NER.Models
         public string Name { get; set; }
 
         public byte[] BusinessImage { get; set; }
-        private Image _image = null;
+        private ImageSource _imageSource = null;
         [NotMapped]
-        public Image Image
+        public ImageSource ImageSource
         {
             get
             {
-                if (_image == null && BusinessImage != null)
+                if (_imageSource == null && BusinessImage != null)
                 {
-                    _image = new Image()
-                    {
-                        Source = ImageSource.FromStream(() => new MemoryStream(BusinessImage))
-                    };
+                    _imageSource = ImageSource.FromStream(() => new MemoryStream(BusinessImage));
                 }
-                return _image;
+                return _imageSource;
 
             }
-            set => _image = value;
+            set => _imageSource = value;
         }
         public string Description { get; set; }
         public string Contact { get; set; }
