@@ -22,7 +22,7 @@ namespace Demo4NER
         protected override void OnStart()
         {
             // Handle when your app starts
-            MainPage = new MainPage();
+            MainPage = new LoginPage();
 
         }
 
