@@ -5,6 +5,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Demo4NER.Services;
 using Demo4NER.Views;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Xamarin.Essentials;
 
 namespace Demo4NER
@@ -16,12 +17,13 @@ namespace Demo4NER
         {
             InitializeComponent();
             DependencyService.Register<MockDataStore>();
-            MainPage = new MainPage();
         }
 
         protected override void OnStart()
         {
             // Handle when your app starts
+            MainPage = new MainPage();
+
         }
 
         protected override void OnSleep()

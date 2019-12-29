@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Demo4NER.Views.TestPage">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="200"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Button Grid.Row="0"></Button>
+            <Picker Grid.Row="1">
+                <Picker.Items>
+                    <x:String>Test</x:String>
+                    <x:String>Test2</x:String>
+                </Picker.Items>
+            </Picker>
+            <Entry Grid.Row="2" Placeholder="Test"></Entry>
+        </Grid>
+
+    </ContentPage.Content>
+</ContentPage>
