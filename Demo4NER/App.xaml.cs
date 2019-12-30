@@ -17,22 +17,21 @@ namespace Demo4NER
         {
             InitializeComponent();
             DependencyService.Register<MockDataStore>();
-            //MainPage = new MainPage();
         }
 
         protected override void OnStart()
         {
             // Handle when your app starts
-            if (Properties.ContainsKey("logged"))
+            if (!Properties.ContainsKey("logged"))
             {
-                MainPage = new MainPage();
+                LoginPage loginPage = new LoginPage();
+                MainPage = new NavigationPage(loginPage);
+                MainPage.Navigation.InsertPageBefore(new MainPage(), loginPage);
             }
             else
             {
-                NavigationPage navLoginPage = new NavigationPage(new LoginPage());
-                MainPage = navLoginPage;
+                MainPage = new MainPage();
             }
-
         }
 
         protected override void OnSleep()
