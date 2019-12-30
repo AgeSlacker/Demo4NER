@@ -20,62 +20,39 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <StackLayout BackgroundColor="{StaticResource Accent}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
-                <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
-                    <Image Source="xamarin_logo.png" VerticalOptions="Center" HeightRequest="64" />
-                </ContentView>
-            </StackLayout>
+    <ScrollView>
+        <StackLayout>
+            <Label Margin="0,10,0,0" HorizontalOptions="Center" FontSize="32" FontAttributes="Bold" TextColor="#3B5A9A">About 4NER</Label>
+            <Image Source="logologin.png" HeightRequest="200"></Image>
+            <Label Margin="10,0,10,0">4NER is an app that allows people to easely find businesses and/or services of a selected nationality.</Label>
+            <Label Margin="10,0,10,0">The users can enjoy discounts and advertise their own services.</Label>
+            <Label Margin="10,0,10,0">It's great for people living abroad, businesses looking to boost their reach and to get to know new cultures.</Label>
+
+            <Label Margin="0,20,0,0" HorizontalOptions="Center" FontSize="32" FontAttributes="Bold" TextColor="#3B5A9A">About Us</Label>
+            <Image Source="us.jpg" WidthRequest="500"></Image>
+            <Label Margin="10,20,10,40">We are a group of Software Engineering students from the Faculty of Science and Techonology of Universidade de Coimbra developing this app for the class of Processes of Management and Inovation.</Label>
+
+            <Grid WidthRequest="100" HorizontalOptions="Center" Margin="0,0,0,50">
+                <ImageButton Source="facebook_round.png"
+                             Clicked="FacebookHandler"
+                             HeightRequest="30"
+                             HorizontalOptions="Center"
+                             VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="0" />
+
+                <ImageButton Source="instagram.png"
+                             Clicked="InstagramHandler"
+                             HeightRequest="30"
+                             HorizontalOptions="Center"
+                             VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="1" />
+
+                <ImageButton Source="logologin.png"
+                             Clicked="WebsiteHandler"
+                             HeightRequest="30"
+                             HorizontalOptions="Center"
+                             VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="2" />
+            </Grid>
+
         </StackLayout>
-        <ScrollView Grid.Row="1">
-            <StackLayout Orientation="Vertical" Padding="16,40,16,40" Spacing="10">
-                <Label FontSize="22">
-                    <Label.FormattedText>
-                        <FormattedString>
-                            <FormattedString.Spans>
-                                <Span Text="AppName" FontAttributes="Bold" FontSize="22" />
-                                <Span Text=" " />
-                                <Span Text="1.0" ForegroundColor="{StaticResource LightTextColor}" />
-                            </FormattedString.Spans>
-                        </FormattedString>
-                    </Label.FormattedText>
-                </Label>
-                <Label>
-                    <Label.FormattedText>
-                        <FormattedString>
-                            <FormattedString.Spans>
-                                <Span Text="This app is written in C# and native APIs using the" />
-                                <Span Text=" " />
-                                <Span Text="Xamarin Platform" FontAttributes="Bold" />
-                                <Span Text="." />
-                            </FormattedString.Spans>
-                        </FormattedString>
-                    </Label.FormattedText>
-                </Label>
-                <Label>
-                    <Label.FormattedText>
-                        <FormattedString>
-                            <FormattedString.Spans>
-                                <Span Text="It shares code with its" />
-                                <Span Text=" " />
-                                <Span Text="iOS, Android, and Windows" FontAttributes="Bold" />
-                                <Span Text=" " />
-                                <Span Text="versions." />
-                            </FormattedString.Spans>
-                        </FormattedString>
-                    </Label.FormattedText>
-                </Label>
-                <Button Margin="0,10,0,0" Text="Learn more"
-                        Command="{Binding OpenWebCommand}"
-                        BackgroundColor="{StaticResource Primary}"
-                        TextColor="White" />
-            </StackLayout>
-        </ScrollView>
-    </Grid>
-    
+    </ScrollView>
+
 </ContentPage>

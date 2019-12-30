@@ -14,5 +14,16 @@ namespace Demo4NER.Views
         {
             InitializeComponent();
         }
+
+        public void ProfileRequest()
+        {
+         //   if(user is logged)
+         //   {
+         //     Navigation.PushModalAsync(new ProfilePage());
+         //   } else
+         //   {
+                Navigation.PushModalAsync(new LoginPage());
+         //   }
+        }
     }
 }
