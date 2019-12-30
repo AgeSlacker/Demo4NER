@@ -34,10 +34,12 @@
             </DataTemplate>
             <DataTemplate x:Key="LinkListTemplate">
                 <ViewCell>
-                    <Label>
+                    <Label VerticalOptions="CenterAndExpand"
+                           FontSize="26">
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span Text="{Binding Name}"/>
+                                <Span Text="   "/>
                                 <Span Text="{Binding URL}"
                                   TextColor="Blue"
                                   TextDecorations="Underline">
