@@ -4,7 +4,8 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="Demo4NER.Views.SearchPage">
+             x:Class="Demo4NER.Views.SearchPage"
+             Padding="10">
     <ContentPage.Content>
         <StackLayout>
             <Entry Placeholder="Procurar" Text="{Binding SearchTerms}"></Entry>
@@ -17,8 +18,7 @@
                       RowHeight="100"
                       ItemSelected="ListView_OnItemSelected"
                       CachingStrategy="RecycleElement"
-                      ItemTemplate="{StaticResource BusinessDataTemplateSimple}"
-                      />
+                      ItemTemplate="{StaticResource BusinessDataTemplateSimple}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

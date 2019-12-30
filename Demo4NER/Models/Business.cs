@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics;
+using System.IO;
 using System.Net.Mime;
 using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace Demo4NER.Models
 {
@@ -15,6 +18,21 @@ namespace Demo4NER.Models
         public string Name { get; set; }
 
         public byte[] BusinessImage { get; set; }
+        private ImageSource _imageSource = null;
+        [NotMapped]
+        public ImageSource ImageSource
+        {
+            get
+            {
+                if (_imageSource == null && BusinessImage != null)
+                {
+                    _imageSource = ImageSource.FromStream(() => new MemoryStream(BusinessImage));
+                }
+                return _imageSource;
+
+            }
+            set => _imageSource = value;
+        }
         public string Description { get; set; }
         public string Contact { get; set; }
         private Location _location = new Location();

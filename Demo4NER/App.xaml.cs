@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Demo4NER.Services;
 using Demo4NER.Views;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Xamarin.Essentials;
 
 namespace Demo4NER
@@ -15,12 +17,22 @@ namespace Demo4NER
         {
             InitializeComponent();
             DependencyService.Register<MockDataStore>();
-            MainPage = new MainPage();
+            //MainPage = new MainPage();
         }
 
         protected override void OnStart()
         {
             // Handle when your app starts
+            if (Properties.ContainsKey("logged"))
+            {
+                MainPage = new MainPage();
+            }
+            else
+            {
+                NavigationPage navLoginPage = new NavigationPage(new LoginPage());
+                MainPage = navLoginPage;
+            }
+
         }
 
         protected override void OnSleep()
@@ -33,11 +45,20 @@ namespace Demo4NER
             // Handle when your app resumes
         }
 
-        public async Task<Location> GetLocationAsync()
+        public async Task<Location> GetLocationAsync(bool forceNew = false)
         {
-            var request = new GeolocationRequest(GeolocationAccuracy.Best);
 
-            Location location = await Geolocation.GetLocationAsync(request);
+            Location cachedLocation = await Geolocation.GetLastKnownLocationAsync();
+            Location location;
+            TimeSpan diff = DateTimeOffset.Now.Subtract(cachedLocation.Timestamp);
+            Debug.WriteLine(diff);
+            if (forceNew || diff.Minutes > 1)
+            {
+                var request = new GeolocationRequest(GeolocationAccuracy.Best);
+                location = await Geolocation.GetLocationAsync(request);
+            }
+            else location = cachedLocation;
+
 
             if (Current.Properties.ContainsKey("UserLocation"))
                 Current.Properties["UserLocation"] = location;
