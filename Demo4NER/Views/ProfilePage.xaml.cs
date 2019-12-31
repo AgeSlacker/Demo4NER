@@ -61,9 +61,10 @@ namespace Demo4NER.Views
         public Business BusinessA { get; set; } = new Business();
         public Business BusinessB { get; set; } = new Business();
 
-        public ProfilePage()
+        public ProfilePage(/*User MyUser*/)
         {
             InitializeComponent();
+            //NewUser = MyUser
 
             //DUMMY USER WITH DUMMY REVIEWS LIST
             NewUser.Name = "Fernandinho Silveira";

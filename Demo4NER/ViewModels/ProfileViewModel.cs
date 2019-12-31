@@ -63,6 +63,10 @@ namespace Demo4NER.ViewModels
     {
         public User NewUser { get; set; } = new User();
 
+        public string ImageSource;
+
+        Dictionary<string, string> Nationality = new Dictionary<string, string>();
+
         //public ObservableCollection<Review> Reviews { get; set; } = new ObservableCollection<Review>();
 
         public Command LoadUserCommand { get; set; }
@@ -72,6 +76,14 @@ namespace Demo4NER.ViewModels
         public ProfileViewModel(User MyUser)
         {
             NewUser = MyUser;
+            //tamanho 30/20
+            Nationality.Add("Brasileira","br.png");
+            Nationality.Add("Portuguesa", "pt.png");
+            Nationality.Add("Ucraniana", "ua.png");
+            if (!Nationality.TryGetValue(MyUser.Nationality, out ImageSource))
+            {
+                ImageSource = "earth.png";
+            }
             //LoadUserCommand = new Command(async () => await LoadUserCommandExecute());
             //LoadReviewsCommand = new Command(async () => await LoadReviewsCommandExecute());
         }
@@ -94,5 +106,6 @@ namespace Demo4NER.ViewModels
                 NewUser = await db.Users.Where(s => s.Name.Equals("test")).FirstOrDefaultAsync<User>();
             }
         }
+
     }
 }
