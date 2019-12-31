@@ -5,14 +5,28 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="Demo4NER.Views.BusinessPage">
-            Title="{Binding Title}"
-             x:Name="BrowseBusinessesPage">
     <ContentPage.Content>
-        <StackLayout>
-            <ListView />
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <ScrollView>
+            <StackLayout BindingContext="{Binding Business}">
+                <Image Source="{Binding ImageSource}"></Image>
+                <Label Text="{Binding Name}" 
+                       TextColor="#3B5A9A" 
+                       FontAttributes="Bold" FontSize="40"
+                       HorizontalTextAlignment="Center" />
+                <Label Text="Restaurante" 
+                       TextColor="Black" 
+                       FontSize="26"
+                       HorizontalTextAlignment="Center"/>
+                <Label Text="Morada" 
+                       TextColor="#3B5A9A" 
+                       FontAttributes="Bold" FontSize="32"/>
+                <Label Text="{Binding WrittenAddress}"
+                       FontSize="26"/>
+                <Label Text="Descrição" TextColor="#3B5A9A" FontAttributes="Bold" FontSize="32"/>
+                <Label Text="{Binding Description}" FontSize="26"/>
+                <Label Text="Contacto" TextColor="#3B5A9A" FontAttributes="Bold" FontSize="32"/>
+                <Label Text="{Binding Contact}" FontSize="26"/>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

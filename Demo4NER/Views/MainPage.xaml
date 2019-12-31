@@ -8,30 +8,39 @@
             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
             android:TabbedPage.ToolbarPlacement="Bottom"
             x:Class="Demo4NER.Views.MainPage"
-            >
-
+            NavigationPage.HasNavigationBar="False"
+>
     <TabbedPage.Children>
-        <NavigationPage Title="Browse">
-            <NavigationPage.Icon>
-                <OnPlatform x:TypeArguments="FileImageSource">
-                    <On Platform="iOS" Value="tab_feed.png"/>
-                </OnPlatform>
-            </NavigationPage.Icon>
+        <NavigationPage Title="Destaques" IconImageSource="home.png">
             <x:Arguments>
-                <views:ItemsPage />
+                <views:HighlightsPage></views:HighlightsPage>
             </x:Arguments>
         </NavigationPage>
-        
-        <NavigationPage Title="About">
-            <NavigationPage.Icon>
-                <OnPlatform x:TypeArguments="FileImageSource">
-                    <On Platform="iOS" Value="tab_about.png"/>
-                </OnPlatform>
-            </NavigationPage.Icon>
+
+        <NavigationPage Title="Descontos" IconImageSource="discount.png">
             <x:Arguments>
-                <views:AboutPage />
+                <views:DiscountsPage></views:DiscountsPage>
             </x:Arguments>
         </NavigationPage>
+
+        <NavigationPage Title="Map" IconImageSource="placeholder.png">
+            <x:Arguments>
+                <views:MapPage></views:MapPage>
+            </x:Arguments>
+        </NavigationPage>
+
+        <NavigationPage Title="Procurar" IconImageSource="magnifying_glass.png">
+            <x:Arguments>
+                <views:SearchPage></views:SearchPage>
+            </x:Arguments>
+        </NavigationPage>
+
+        <NavigationPage Title="Perfil" IconImageSource="avatar.png">
+            <x:Arguments>
+                <views:ProfilePage></views:ProfilePage>
+            </x:Arguments>
+        </NavigationPage>
+
     </TabbedPage.Children>
     <leibel></leibel>
 </TabbedPage>

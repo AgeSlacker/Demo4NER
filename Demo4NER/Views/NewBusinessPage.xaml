@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Demo4NER.Views.NewBusinessPage">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout BindingContext="{Binding NewBusiness}">
+                <Label Text="Imagem"></Label>
+                <Image x:Name="businessImage"></Image>
+                <Button Text="Escolher imagem" Clicked="ButtonImageSelect_OnClicked"></Button>
+                <Entry Placeholder="Nome" Text="{Binding Name}"></Entry>
+                <Entry Placeholder="Descrição" Text="{Binding Description}"></Entry>
+                <Entry Placeholder="Morada" Text="{Binding WrittenAddress}"></Entry>
+                <Entry Placeholder="Telemóvel" Text="{Binding Contact}"></Entry>
+                <Entry Placeholder="Email" Text="{Binding Email}"></Entry>
+                <Entry Placeholder="TEMP Latitide" Text="{Binding Latitude}"></Entry>
+                <Entry Placeholder="TEMP Longitude" Text="{Binding Longitude}"></Entry>
+                <Button Text="Create" Clicked="Button_OnClicked"></Button>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

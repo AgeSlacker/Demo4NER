@@ -4,24 +4,32 @@ using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Security.Cryptography;
 
 namespace Demo4NER.Models
 {
     public class User
     {
 
+        public int UserId { get; set; }
         [Required]
         public string Name { get; set; }
-        [Required]
+        
         public string Email { get; set; }
-        [Required]
+
         public string Password { get; set; }
-        [Required]
-        public string Nacionality { get; set; }
+        
+        public string Nationality { get; set; }
         public string Contact { get; set; }
-        public List<Bussiness> Bussinesses { get; set; }
+        public List<Business> Businesses { get; set; }
         public List<Service> Services{ get; set; }
-        public DateTime LastLogin { get; set; }
+        DateTime? lastLogin;
+        public DateTime? LastLogin
+        {
+            get => lastLogin.HasValue ? lastLogin : DateTime.MinValue;
+            set => lastLogin = DateTime.Now;
+        }
 
     }
 }
