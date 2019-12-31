@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using Demo4NER.Models;
 using Demo4NER.ViewModels;
 using Xamarin.Forms;
 
@@ -23,28 +24,20 @@ namespace Demo4NER.Views
 
         private async void ViewModel_LoginAttempted(object sender, LoginViewModel.LoginResult e)
         {
-            Debug.WriteLine("Result :" + e);
-            var dict = (App.Current as Application).Properties;
-            if (dict.ContainsKey("logged"))
-                dict["logged"] = null; // TODO change para o User em questão
-            else
-                dict.Add("logged", null);
 
+            (Application.Current as App).SaveUserInProperties(viewModel.User);
             if (Navigation.ModalStack.Contains(this.Parent))
                 await Navigation.PopModalAsync();
             else
                 await Navigation.PopAsync();
         }
 
-        private async void LoginButtonClicked(object sender, EventArgs e)
-        {
-
-
-        }
 
         private async void RegisterClickGesture(object sender, EventArgs e)
         {
+            viewModel.Error = null;
             await Navigation.PushAsync(new RegisterPage());
         }
+
     }
 }
