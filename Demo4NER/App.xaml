@@ -18,16 +18,15 @@
                 <ViewCell>
                     <Frame Padding="8" Margin="10" BorderColor="DodgerBlue">
                         <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
-                            <Image Source="{Binding ImageSource}"></Image>
-                            <StackLayout HorizontalOptions="CenterAndExpand">
+                            <Image Source="{Binding ImageSource}" WidthRequest="100" VerticalOptions="Center" Grid.Column="0"></Image>
+                            <StackLayout HorizontalOptions="CenterAndExpand" Grid.Column="1">
                                 <Label Text="{Binding Name}" 
-                                       HorizontalOptions="CenterAndExpand"
-                                       FontAttributes="Bold"
-                                       FontFamily="Comic Sans"
-                                />
+                                    HorizontalOptions="CenterAndExpand"
+                                    FontAttributes="Bold"
+                                    FontFamily="Comic Sans"
+                            />
                                 <Label Text="{Binding Distance, StringFormat='a {0:F2}Km de sí'}"/>
                             </StackLayout>
-                            
                         </StackLayout>
                     </Frame>
                 </ViewCell>

@@ -14,7 +14,7 @@ using Xamarin.Forms;
 
 namespace Demo4NER.ViewModels
 {
-    class SearchViewModel : BaseViewModel
+    public class SearchViewModel : BaseViewModel
     {
         public string SearchTerms { get; set; }
         public ObservableCollection<Business> BusinessesList { get; set; } = new ObservableCollection<Business>();
@@ -39,9 +39,10 @@ namespace Demo4NER.ViewModels
 
         private async Task<List<Business>> GetBusinessByName(String name)
         {
+            
             using (var db = new NerContext())
             {
-                return await db.Businesses.Where(b => b.Name.Contains(name)).ToListAsync();
+                return await db.Businesses.Where(b => b.Name.ToLower().Contains(name.ToLower())).ToListAsync();
             }
         }
 
