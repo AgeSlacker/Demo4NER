@@ -71,6 +71,7 @@ namespace Demo4NER.ViewModels
             {
                 return await db.Businesses.ToListAsync();
             }
+            
         }
     }
 }

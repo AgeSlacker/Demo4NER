@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Demo4NER.Views.NewServicePage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Entry Placeholder="Name" Text="{Binding NewService.Name}"/>
+            <Editor Placeholder="Descrição" Text="{Binding NewService.Description}"/>
+            <Entry Placeholder="Contact" Text="{Binding NewService.Contact}"/>
+            <Entry Placeholder="LACATION TODO, nao vale a pena preencher"/>
+            <Entry Placeholder="Email" Text="{Binding NewService.Email}"/>
+            <ListView ItemsSource="{Binding NewService.Links}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                <Label Text="{Binding Name}"/>
+                                <Label Text="{Binding URL}"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

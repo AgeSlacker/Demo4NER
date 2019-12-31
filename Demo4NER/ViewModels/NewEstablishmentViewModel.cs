@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Xamarin.Forms;
 
 namespace Demo4NER.ViewModels
@@ -20,20 +21,19 @@ namespace Demo4NER.ViewModels
 
         public NewEstablishmentViewModel()
         {
-            CreateNewCommand = new Command(async ()=> await CreateNewCommandExecute());
+            CreateNewCommand = new Command(async () => await CreateNewCommandExecute());
             LoadListCommand = new Command(async () => await LoadListCommandExecute());
         }
 
         private async Task LoadListCommandExecute()
         {
-            using (var db = new NerContext()) {
-                var estabs = await db.Establishments.ToListAsync();
-                Establishments.Clear();
-                foreach(var e in estabs)
-                {
-                    Establishments.Add(e);
-                }
+            var estabs = await GetEstablismetnsAsync();
+            Establishments.Clear();
+            foreach (var e in estabs)
+            {
+                Establishments.Add(e);
             }
+            
         }
 
         private async Task CreateNewCommandExecute()
@@ -41,9 +41,17 @@ namespace Demo4NER.ViewModels
             using (var db = new NerContext())
             {
                 db.Add(NewEstab);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
             await LoadListCommandExecute();
+        }
+
+        private async Task<List<Establishment>> GetEstablismetnsAsync()
+        {
+            using (var db = new NerContext())
+            {
+                return await db.Establishments.ToListAsync();
+            }
         }
     }
 }

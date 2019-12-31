@@ -15,9 +15,9 @@ namespace Demo4NER.Services
             users = new List<User>();
             var actualUsers = new List<User>
             {
-                new User { Name = "Achilles", Email = "achilles_o_krl@ezmail.com", Password="o krl", Nacionality="Brasileira"},
-                new User { Name = "Oleksandr", Email = "hackerman@ezmail.com", Password="cyka", Nacionality="Ucraniana"},
-                new User { Name = "Ricardo", Email = "atuamaede4@ezmail.com", Password="boomer", Nacionality="Portuguesa"}
+                new User { Name = "Achilles", Email = "achilles_o_krl@ezmail.com", Password="o krl", Nationality="Brasileira"},
+                new User { Name = "Oleksandr", Email = "hackerman@ezmail.com", Password="cyka", Nationality="Ucraniana"},
+                new User { Name = "Ricardo", Email = "atuamaede4@ezmail.com", Password="boomer", Nationality="Portuguesa"}
             };
 
             foreach (var user in actualUsers)
