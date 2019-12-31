@@ -16,6 +16,7 @@ namespace Demo4NER
 {
     public partial class App : Application
     {
+        public ProfilePage ProfilePage { get; set; }
 
         public App()
         {
@@ -26,17 +27,16 @@ namespace Demo4NER
 
         protected override void OnStart()
         {
-
-            // Handle when your app starts
+            var _mainPage = new MainPage();
             if (!Properties.ContainsKey("logged"))
             {
                 LoginPage loginPage = new LoginPage();
                 MainPage = new NavigationPage(loginPage);
-                MainPage.Navigation.InsertPageBefore(new MainPage(), loginPage);
+                MainPage.Navigation.InsertPageBefore(_mainPage, loginPage);
             }
             else
             {
-                MainPage = new MainPage();
+                MainPage = _mainPage;
             }
         }
 
@@ -87,7 +87,7 @@ namespace Demo4NER
         {
             User user = null;
             if (Properties.ContainsKey("logged"))
-                user = JsonConvert.DeserializeObject<User>((string) Properties["logged"]);
+                user = JsonConvert.DeserializeObject<User>((string)Properties["logged"]);
             return user;
         }
     }

@@ -13,7 +13,7 @@ namespace Demo4NER.ViewModels
 {
     public class ProfileViewModel : BaseViewModel
     {
-        public User NewUser { get; set; } = new User();
+        public User User { get; set; } = new User();
 
         //public ObservableCollection<Review> Reviews { get; set; } = new ObservableCollection<Review>();
 
@@ -41,7 +41,7 @@ namespace Demo4NER.ViewModels
         private async Task LoadUserCommandExecute()
         {
             using (var db = new NerContext()) {
-                NewUser = await db.Users.Where(s => s.Name.Equals("Ricardo")).FirstOrDefaultAsync<User>();
+                User = await db.Users.Where(s => s.Name.Equals("Ricardo")).FirstOrDefaultAsync<User>();
             }
         }
     }
@@ -55,13 +55,69 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Android.Content.Res;
 using Xamarin.Forms;
 
 namespace Demo4NER.ViewModels
 {
     public class ProfileViewModel : BaseViewModel
     {
-        public User NewUser { get; set; } = new User();
+        private User _user;
+
+        public User User
+        {
+            get => _user;
+            set {
+                // Corre sempre que a página atualiza
+                if (value != null)
+                {
+                    //tamanho 30/20
+                        value.Contact = "912313452";
+                    Business BusinessA = new Business { Name = "FixePizza" };
+                    Review RevA = new Review
+                    {
+                        Comment = "Este sitio é brutal.",
+                        Rating = 5,
+                        User = value,
+                        Id = 1,
+                        Business = BusinessA,
+                        BusinessName = BusinessA.Name
+                    };
+                    Business BusinessB = new Business { Name = "SomeOtherStore" };
+                    Review RevB = new Review
+                    {
+                        Comment = "Nada de especial.",
+                        Rating = 3,
+                        User = value,
+                        Id = 2,
+                        Business = BusinessB,
+                        BusinessName = BusinessB.Name
+                    };
+                    value.Reviews = new List<Review>
+                    {
+                        RevA,
+                        RevB,
+                        RevA,
+                        RevB,
+                        RevA,
+                        RevB,
+                        RevA,
+                        RevB,
+                        RevA,
+                        RevB,
+                        RevA,
+                        RevB,
+                        RevA,
+                        RevB,
+                        RevA,
+                        RevB
+                    };
+                    if (!Nationality.TryGetValue(value.Nationality, out ImageSource))
+                        ImageSource = "earth.png";
+                    SetProperty(ref _user, value);
+                }
+            }
+        }
 
         public string ImageSource;
 
@@ -73,19 +129,12 @@ namespace Demo4NER.ViewModels
 
         //public Command LoadReviewsCommand { get; set; }
 
-        public ProfileViewModel(User MyUser)
+        public ProfileViewModel(User user)
         {
-            NewUser = MyUser;
-            //tamanho 30/20
-            Nationality.Add("Brasileira","br.png");
+            User = user;
+            Nationality.Add("Brasileira", "br.png");
             Nationality.Add("Portuguesa", "pt.png");
             Nationality.Add("Ucraniana", "ua.png");
-            if (!Nationality.TryGetValue(MyUser.Nationality, out ImageSource))
-            {
-                ImageSource = "earth.png";
-            }
-            //LoadUserCommand = new Command(async () => await LoadUserCommandExecute());
-            //LoadReviewsCommand = new Command(async () => await LoadReviewsCommandExecute());
         }
 
         /*private async Task LoadReviewsCommandExecute()
@@ -103,7 +152,7 @@ namespace Demo4NER.ViewModels
         {
             using (var db = new NerContext())
             {
-                NewUser = await db.Users.Where(s => s.Name.Equals("test")).FirstOrDefaultAsync<User>();
+                User = await db.Users.Where(s => s.Name.Equals("test")).FirstOrDefaultAsync<User>();
             }
         }
 

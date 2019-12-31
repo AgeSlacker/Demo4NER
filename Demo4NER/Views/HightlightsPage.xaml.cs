@@ -18,5 +18,11 @@ namespace Demo4NER.Views
             InitializeComponent();
             BindingContext = viewModel = new HighlightsViewModel();
         }
+
+        private async void ClearPropertiesDEBUG(object sender, EventArgs e)
+        {
+            (Application.Current as App).Properties.Clear();
+            await Application.Current.SavePropertiesAsync();
+        }
     }
 }

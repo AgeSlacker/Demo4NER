@@ -33,7 +33,7 @@
 
     <ContentPage.Content>
         <ScrollView>
-            <RelativeLayout BindingContext="{Binding NewUser}">
+            <RelativeLayout BindingContext="{Binding User}">
                 <BoxView Color="White" HeightRequest="1000" CornerRadius="500"
             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=2}" 
             RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=-600}"/>

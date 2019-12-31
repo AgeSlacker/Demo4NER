@@ -23,10 +23,10 @@ namespace Demo4NER.Views
         {
             base.OnCurrentPageChanged();
 
+            // Prompt login
             if (((NavigationPage)CurrentPage).RootPage.GetType() == typeof(ProfilePage))
             {
-                var dict = (App.Current as Application).Properties;
-                if (dict["logged"] == null)
+                if ((Application.Current as App).GetUserFromProperties() == null)
                 {
                     await Navigation.PushModalAsync(new NavigationPage(new LoginPage()));
                     CurrentPage = this.Children.First();

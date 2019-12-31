@@ -24,13 +24,15 @@ namespace Demo4NER.Views
 
         private async void ViewModel_LoginAttempted(object sender, LoginViewModel.LoginResult e)
         {
-
-            (Application.Current as App).SaveUserInProperties(viewModel.User);
+            // Login Success
+            ((App) Application.Current).SaveUserInProperties(viewModel.User);
+            
             if (Navigation.ModalStack.Contains(this.Parent))
                 await Navigation.PopModalAsync();
             else
                 await Navigation.PopAsync();
         }
+
 
 
         private async void RegisterClickGesture(object sender, EventArgs e)
@@ -39,5 +41,12 @@ namespace Demo4NER.Views
             await Navigation.PushAsync(new RegisterPage());
         }
 
+        private async void AnonimusLogin(object sender, EventArgs e)
+        {
+            if (Navigation.ModalStack.Contains(this.Parent))
+                await Navigation.PopModalAsync();
+            else
+                await Navigation.PopAsync();
+        }
     }
 }
