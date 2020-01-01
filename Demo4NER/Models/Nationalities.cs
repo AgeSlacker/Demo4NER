@@ -10,6 +10,24 @@ namespace Demo4NER.Models
 
         static Nationalities() {
             Nats = new List<Nationality>();
+            Nats.Add(new Nationality
+            {
+                Name = "Brasileira",
+                Country = "Brasil",
+                ImageSource = "br.jpg"
+            });
+            Nats.Add(new Nationality
+            {
+                Name = "Portuguesa",
+                Country = "Portugal",
+                ImageSource = "pt.jpg"
+            });
+            Nats.Add(new Nationality
+            {
+                Name = "Ucraniana",
+                Country = "Ucrania",
+                ImageSource = "ua.jpg"
+            });
         }
     }
 }

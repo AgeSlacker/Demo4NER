@@ -12,6 +12,7 @@
             <Label Text="Página de Destaques"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
+            <Button Text="Clear app properties" BackgroundColor="Crimson" Clicked="ClearPropertiesDEBUG"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
