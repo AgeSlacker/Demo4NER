@@ -7,7 +7,9 @@ namespace Demo4NER.Models
     public class Nationality
     {
         public string Name { get; set; }
-        public string Country { get; set; }
-        public string ImageSource { get; set; }
+        public Nationality(string v)
+        {
+            this.Name = v;
+        }
     }
 }

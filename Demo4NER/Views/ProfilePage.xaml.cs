@@ -74,7 +74,7 @@ namespace Demo4NER.Views
 
         private void Edit_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new EditProfilePage());
+            Navigation.PushAsync(new EditProfilePage((Application.Current as App).GetUserFromProperties()));
         }
     }
 }

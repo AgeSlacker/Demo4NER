@@ -21,12 +21,10 @@
              mc:Ignorable="d"
              BackgroundColor="LightGray"
              x:Class="Demo4NER.Views.ProfilePage"
-             IconImageSource="logobranco.jpg"
+             IconImageSource="logo_branco.png"
              Title="4NER">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem IconImageSource="logobranco.jpg"/>
-        <ToolbarItem Text="4NER" StyleId="Bold"/>
         <ToolbarItem Text="Edit"
                     Clicked="Edit_Clicked"/>
     </ContentPage.ToolbarItems>

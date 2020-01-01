@@ -16,10 +16,10 @@ namespace Demo4NER.Views
     {
         public EditProfileViewModel viewModel;
        
-        public EditProfilePage()
+        public EditProfilePage(User MyUser)
         {
             InitializeComponent();
-            BindingContext = viewModel = new EditProfileViewModel();
+            BindingContext = viewModel = new EditProfileViewModel(MyUser);
         }
         private void Save_Clicked(object sender, EventArgs e)
         {

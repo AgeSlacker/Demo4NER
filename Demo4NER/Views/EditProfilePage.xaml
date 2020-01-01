@@ -18,12 +18,12 @@
                 <Label Text="Nacionalidade" TextColor="#3B5A9A" FontAttributes="Bold" FontSize="18"
             HorizontalTextAlignment="Center" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=20}" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.5}" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=0}"/>
                 <Image Source="avatar.jpg" HeightRequest="120" WidthRequest="120" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width, Factor=0, Constant = 40}" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0, Property=Y, Constant=50}" />
-                <Image Source="{Binding SelectedNat.ImageSource}" HeightRequest="100" WidthRequest="120" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width, Factor=0.5, Constant = 40}" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0, Property=Y, Constant=50}" />
+                <Image Source="{Binding ImageSource}" HeightRequest="100" WidthRequest="120" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width, Factor=0.5, Constant = 40}" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0, Property=Y, Constant=50}" />
                 <Picker Title="Selection" TitleColor="#3B5A9A" TextColor="#3B5A9A" FontSize="18"
              RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=140}" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.3}" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.5, Constant=40}"
                     ItemsSource="{Binding Nationals}"
                     ItemDisplayBinding="{Binding Name}"
-                    SelectedItem="{Binding SelectedNat}"/>
+                    SelectedItem="{Binding selectedNat}"/>
                 <RelativeLayout Padding="5,0,0,0">
                         <Label FontSize="18" Text="Nome:" TextColor="#3B5A9A" FontAttributes="Bold"
             RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0,Constant=300}"
