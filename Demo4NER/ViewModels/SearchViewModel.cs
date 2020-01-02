@@ -79,18 +79,16 @@ namespace Demo4NER.ViewModels
                         {
                             business.Distance =
                                 Location.CalculateDistance(business.Location, userLocation, DistanceUnits.Kilometers);
-                            BusinessesList.Add(business);
                         }
                         DisplayLocationError = false;
                     }
                 }
                 else
-                {
-                    foreach (Business business in result)
-                    {
-                        BusinessesList.Add(business);
-                    }
                     DisplayLocationError = true;
+
+                foreach (Business business in result)
+                {
+                    BusinessesList.Add(business);
                 }
             }
             catch (Exception exception)

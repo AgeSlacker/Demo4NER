@@ -19,6 +19,7 @@ namespace Demo4NER.Views
     public partial class HighlightsPage : ContentPage
     {
         private HighlightsViewModel viewModel;
+        private bool firstTime = true;
         public HighlightsPage()
         {
             InitializeComponent();
@@ -27,25 +28,38 @@ namespace Demo4NER.Views
 
         protected override async void OnAppearing()
         {
+            base.OnAppearing();
+            if (firstTime)
+            {
+                await CheckLocationPermissions();
+                firstTime = false;
+            }
+        }
+
+        private async Task CheckLocationPermissions()
+        {
             PermissionStatus status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
             if (status != PermissionStatus.Granted)
             {
                 // ask for permission
-                if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Location))
+                //if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Location))
+                //{
+                bool requestPermission = await DisplayAlert("Hot babes in your area", "They want to know your location", "Of course!",
+                    "Maybe another time");
+                //}
+                if (requestPermission)
                 {
-                    await DisplayAlert("Hot babes in your area", "They want to know your location", "Of course!",
-                        "Maybe another time");
+                    var permissionStatuses = await CrossPermissions.Current.RequestPermissionsAsync(Permission.Location);
+                    status = permissionStatuses[Permission.Location];
                 }
-
-                var permissionStatuses= await CrossPermissions.Current.RequestPermissionsAsync(Permission.Location);
-                status = permissionStatuses[Permission.Location];
             }
 
             if (status == PermissionStatus.Granted)
             {
                 // grated
-
-            } else if (status == PermissionStatus.Disabled)
+                ((App) Application.Current).LocationGranted = true;
+            }
+            else if (status == PermissionStatus.Disabled)
             {
                 await DisplayAlert("Oh no", "Enable location in your phone setting", "Sry im dumb");
             }
@@ -55,7 +69,6 @@ namespace Demo4NER.Views
 
             }
         }
-
         private async void ClearPropertiesDEBUG(object sender, EventArgs e)
         {
             (Application.Current as App).Properties.Clear();
