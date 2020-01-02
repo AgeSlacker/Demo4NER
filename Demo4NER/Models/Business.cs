@@ -69,5 +69,6 @@ namespace Demo4NER.Models
         public List<Click> Clicks { get; set; }
         public float Rating { get; set; }
         public List<Link> Links { get; set; }
+        public String Schedule { get; set; }
     }
 }
