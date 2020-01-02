@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Demo4NER.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Demo4NER.Services;
 using Demo4NER.Views;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.EntityFrameworkCore.Query.ExpressionVisitors.Internal;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using Xamarin.Essentials;
 
 namespace Demo4NER
@@ -17,10 +21,12 @@ namespace Demo4NER
         {
             InitializeComponent();
             DependencyService.Register<MockDataStore>();
+            Debug.WriteLine(Properties.ToString());
         }
 
         protected override void OnStart()
         {
+
             // Handle when your app starts
             if (!Properties.ContainsKey("logged"))
             {
@@ -36,7 +42,8 @@ namespace Demo4NER
 
         protected override void OnSleep()
         {
-            // Handle when your app sleeps
+
+            SavePropertiesAsync();
         }
 
         protected override void OnResume()
@@ -59,12 +66,29 @@ namespace Demo4NER
             else location = cachedLocation;
 
 
-            if (Current.Properties.ContainsKey("UserLocation"))
-                Current.Properties["UserLocation"] = location;
-            else
-                Current.Properties.Add("UserLocation", location);
+            //if (Current.Properties.ContainsKey("UserLocation"))
+            //    Current.Properties["UserLocation"] = location;
+            //else
+            //    Current.Properties.Add("UserLocation", location);
 
             return location;
+        }
+
+        public void SaveUserInProperties(User user)
+        {
+            String serialized = JsonConvert.SerializeObject(user);
+            if (Properties.ContainsKey("logged"))
+                Properties["logged"] = serialized;
+            else
+                Properties.Add("logged", serialized);
+        }
+
+        public User GetUserFromProperties()
+        {
+            User user = null;
+            if (Properties.ContainsKey("logged"))
+                user = JsonConvert.DeserializeObject<User>((string) Properties["logged"]);
+            return user;
         }
     }
 }
