@@ -29,6 +29,5 @@ namespace Demo4NER.Models
             get => lastLogin.HasValue ? lastLogin : DateTime.MinValue;
             set => lastLogin = DateTime.Now;
         }
-
     }
 }

@@ -34,19 +34,59 @@
             </DataTemplate>
             <DataTemplate x:Key="LinkListTemplate">
                 <ViewCell>
-                    <Label VerticalOptions="CenterAndExpand"
-                           FontSize="26">
+                    <Label VerticalOptions="CenterAndExpand">
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="{Binding Name}"/>
-                                <Span Text="   "/>
+                                <Span Text="{Binding Name}"
+                                      FontSize="20"/>
+                                <Span Text="   "
+                                       FontSize="20"/>
                                 <Span Text="{Binding URL}"
-                                  TextColor="Blue"
-                                  TextDecorations="Underline">
-                                </Span>
+                                      TextColor="Blue"
+                                      TextDecorations="Underline"
+                                      FontSize="20"/>
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
+                </ViewCell>
+            </DataTemplate>
+            <DataTemplate x:Key="ReviewListTemplate">
+                <ViewCell>
+                    <StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Image Source="avatar.png"
+                                   HeightRequest="40"/>
+                            <Label Text="John Done"
+                                   VerticalOptions="CenterAndExpand"
+                                   HorizontalOptions="CenterAndExpand"
+                                   FontSize="26"/>
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand">
+                                <Image Source="favorite.png"
+                                       HorizontalOptions="EndAndExpand"
+                                       HeightRequest="30" 
+                                       VerticalOptions="Center"/>   
+                                <Label HorizontalOptions="FillAndExpand" 
+                                       VerticalOptions="Center"
+                                       HorizontalTextAlignment="End" 
+                                       Margin="0,10,0,0">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding Rating}"
+                                                  TextColor="#3B5A9A" 
+                                                  FontAttributes="Bold" 
+                                                  FontSize="32"/>
+                                            <Span Text="/5" 
+                                                  TextColor="#3B5A9A" 
+                                                  FontAttributes="Bold"
+                                                  FontSize="20"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </StackLayout>
+                        </StackLayout>
+                        <Label Text="{Binding Comment}" 
+                               FontSize="15"/>
+                    </StackLayout>
                 </ViewCell>
             </DataTemplate>
         </ResourceDictionary>

@@ -70,5 +70,6 @@ namespace Demo4NER.Models
         public float Rating { get; set; }
         public List<Link> Links { get; set; }
         public String Schedule { get; set; }
+        public List<Review> Reviews { get; set; }
     }
 }
