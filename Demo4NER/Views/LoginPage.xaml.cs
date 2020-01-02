@@ -1,5 +1,9 @@
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Linq;
+using Demo4NER.Models;
+using Demo4NER.ViewModels;
 using Xamarin.Forms;
 
 namespace Demo4NER.Views
@@ -9,19 +13,40 @@ namespace Demo4NER.Views
     [DesignTimeVisible(false)]
     public partial class LoginPage : ContentPage
     {
+        private LoginViewModel viewModel;
+        
         public LoginPage()
         {
             InitializeComponent();
+            BindingContext = viewModel = new LoginViewModel();
+            viewModel.LoginAttempted += ViewModel_LoginAttempted;
         }
 
-        private void Button_OnClicked(object sender, EventArgs e)
+        private async void ViewModel_LoginAttempted(object sender, LoginViewModel.LoginResult e)
         {
-            (App.Current as Application).MainPage = new MainPage();
+            // Login Success
+            ((App) Application.Current).SaveUserInProperties(viewModel.User);
+            //Debug.WriteLine(viewModel.User.ToString());
+            Navigation.InsertPageBefore(new MainPage(), this);
+            if (Navigation.ModalStack.Contains(this.Parent))
+                await Navigation.PopModalAsync();
+            else
+                await Navigation.PopAsync();
         }
 
         private async void RegisterClickGesture(object sender, EventArgs e)
         {
+            viewModel.Error = null;
             await Navigation.PushAsync(new RegisterPage());
+        }
+
+        private async void AnonimusLogin(object sender, EventArgs e)
+        {
+            Navigation.InsertPageBefore(new MainPage(), this);
+            if (Navigation.ModalStack.Contains(this.Parent))
+                await Navigation.PopModalAsync();
+            else
+                await Navigation.PopAsync();
         }
     }
 }

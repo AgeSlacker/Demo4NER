@@ -1,43 +1,53 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Demo4NER.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Demo4NER.Services;
 using Demo4NER.Views;
+using Java.Util;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.EntityFrameworkCore.Query.ExpressionVisitors.Internal;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using Xamarin.Essentials;
 
 namespace Demo4NER
 {
     public partial class App : Application
     {
+        public ProfilePage ProfilePage { get; set; }
+
+        public bool LocationEnabled { get; set; }
+        public bool LocationGranted { get; set; } = false;
 
         public App()
         {
             InitializeComponent();
             DependencyService.Register<MockDataStore>();
-            //MainPage = new MainPage();
+            Debug.WriteLine(Properties.ToString());
         }
 
         protected override void OnStart()
         {
-            // Handle when your app starts
-            if (Properties.ContainsKey("logged"))
+            if (!Properties.ContainsKey("logged"))
             {
-                MainPage = new MainPage();
+                LoginPage loginPage = new LoginPage();
+                MainPage = new NavigationPage(loginPage);
             }
             else
             {
-                NavigationPage navLoginPage = new NavigationPage(new LoginPage());
-                MainPage = navLoginPage;
+                MainPage = new NavigationPage(new MainPage());
             }
-
         }
 
         protected override void OnSleep()
         {
-            // Handle when your app sleeps
+
+            SavePropertiesAsync();
         }
 
         protected override void OnResume()
@@ -45,27 +55,78 @@ namespace Demo4NER
             // Handle when your app resumes
         }
 
-        public async Task<Location> GetLocationAsync(bool forceNew = false)
+        public async Task<Location> GetLocationAsync(bool forcenew = false)
         {
-
-            Location cachedLocation = await Geolocation.GetLastKnownLocationAsync();
-            Location location;
-            TimeSpan diff = DateTimeOffset.Now.Subtract(cachedLocation.Timestamp);
-            Debug.WriteLine(diff);
-            if (forceNew || diff.Minutes > 1)
+            Location location = null;
+            if (LocationGranted)
             {
-                var request = new GeolocationRequest(GeolocationAccuracy.Best);
-                location = await Geolocation.GetLocationAsync(request);
+                try
+                {
+                    if (!forcenew)
+                    {
+                        Location cachedLocation = await Geolocation.GetLastKnownLocationAsync();
+                        TimeSpan diff;
+                        if (cachedLocation != null)
+                        {
+                            diff = DateTimeOffset.Now.Subtract(cachedLocation.Timestamp);
+                            if (diff.Minutes > 1)
+                                forcenew = true;
+                            else
+                                location = cachedLocation;
+                        }
+                        else forcenew = true;
+                    }
+                    if (forcenew)
+                    {
+                        var request = new GeolocationRequest(GeolocationAccuracy.Best);
+                        location = await Geolocation.GetLocationAsync(request);
+                    }
+
+                    LocationEnabled = true;
+
+                }
+                catch (FeatureNotSupportedException fns)
+                {
+                    Debug.WriteLine(fns);
+                }
+                catch (FeatureNotEnabledException fne)
+                {
+                    LocationEnabled = false;
+                    Debug.WriteLine(fne);
+                }
+                catch (PermissionException pe)
+                {
+                    Debug.WriteLine(pe);
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e);
+                }
             }
-            else location = cachedLocation;
-
-
-            if (Current.Properties.ContainsKey("UserLocation"))
-                Current.Properties["UserLocation"] = location;
-            else
-                Current.Properties.Add("UserLocation", location);
-
             return location;
         }
+
+        public void SaveUserInProperties(User user)
+        {
+            String serialized = JsonConvert.SerializeObject(user);
+            if (Properties.ContainsKey("logged"))
+                Properties["logged"] = serialized;
+            else
+                Properties.Add("logged", serialized);
+        }
+
+        public User GetUserFromProperties()
+        {
+            User user = null;
+            if (Properties.ContainsKey("logged"))
+                user = JsonConvert.DeserializeObject<User>((string)Properties["logged"]);
+            return user;
+        }
+
+        public enum LocationProperties
+        {
+            On, NotEnabled, NotSupported, PermissionError
+        }
+
     }
 }

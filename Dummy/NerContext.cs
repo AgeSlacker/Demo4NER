@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace Demo4NER.Services
@@ -21,10 +22,18 @@ namespace Demo4NER.Services
         public DbSet<Service> Services { get; set; }
         public DbSet<User> Users { get; set; }
 
-        public int MyProperty { get; set; }
         public NerContext() : base()
         {
-            Database.EnsureCreated();
+            try
+            {
+                Database.EnsureCreated();
+                Database.CreateExecutionStrategy(); // Todo https://github.com/aspnet/EntityFrameworkCore/issues/12526
+
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

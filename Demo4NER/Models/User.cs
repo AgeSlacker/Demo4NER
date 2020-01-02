@@ -5,6 +5,7 @@ using System.Text;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Security.Cryptography;
 
 namespace Demo4NER.Models
 {
@@ -16,12 +17,13 @@ namespace Demo4NER.Models
         public string Name { get; set; }
         
         public string Email { get; set; }
-        
+
         public string Password { get; set; }
         
-        public string Nacionality { get; set; }
+        public string Nationality { get; set; }
         public string Contact { get; set; }
         public List<Business> Businesses { get; set; }
+        public List<Review> Reviews { get; set; }
         public List<Service> Services{ get; set; }
         DateTime? lastLogin;
         public DateTime? LastLogin

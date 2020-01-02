@@ -1,10 +1,13 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
+using Android.OS;
 using Demo4NER.ViewModels;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Debug = System.Diagnostics.Debug;
 
 namespace Demo4NER.Views
 {
@@ -20,35 +23,42 @@ namespace Demo4NER.Views
 
         protected override async void OnAppearing()
         {
-            Location location =  await ((App) Application.Current).GetLocationAsync();
-
-            Debug.WriteLine(location.Accuracy + " " + location.Latitude + " " + location.Longitude);
-            ((StackLayout)this.Content).Children.Add(
-                new Label()
-                {
-                    Text = location.Accuracy + " " + location.Latitude + " " + location.Longitude
-                });
-
-
-            var placemarks = await Geocoding.GetPlacemarksAsync(location.Latitude, location.Longitude);
-
-            var placemark = placemarks?.FirstOrDefault();
-            if (placemark != null)
+            // Esta página precisa de localização
+            var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
+            if (status == PermissionStatus.Granted)
             {
-                var geocodeAddress =
-                    $"AdminArea:       {placemark.AdminArea}\n" +
-                    $"CountryCode:     {placemark.CountryCode}\n" +
-                    $"CountryName:     {placemark.CountryName}\n" +
-                    $"FeatureName:     {placemark.FeatureName}\n" +
-                    $"Locality:        {placemark.Locality}\n" +
-                    $"PostalCode:      {placemark.PostalCode}\n" +
-                    $"SubAdminArea:    {placemark.SubAdminArea}\n" +
-                    $"SubLocality:     {placemark.SubLocality}\n" +
-                    $"SubThoroughfare: {placemark.SubThoroughfare}\n" +
-                    $"Thoroughfare:    {placemark.Thoroughfare}\n";
+                Location location = await ((App)Application.Current).GetLocationAsync();
+                if (((App) Application.Current).LocationEnabled)
+                {
+                    Debug.WriteLine(location.Accuracy + " " + location.Latitude + " " + location.Longitude);
+                    ((StackLayout)this.Content).Children.Add(
+                        new Label()
+                        {
+                            Text = location.Accuracy + " " + location.Latitude + " " + location.Longitude
+                        });
 
-                Console.WriteLine(geocodeAddress);
-                (Content as StackLayout).Children.Add(new Label() { Text = geocodeAddress });
+                    var placemarks = await Geocoding.GetPlacemarksAsync(location.Latitude, location.Longitude);
+
+                    var placemark = placemarks?.FirstOrDefault();
+                    if (placemark != null)
+                {
+                    var geocodeAddress =
+                        $"AdminArea:       {placemark.AdminArea}\n" +
+                        $"CountryCode:     {placemark.CountryCode}\n" +
+                        $"CountryName:     {placemark.CountryName}\n" +
+                        $"FeatureName:     {placemark.FeatureName}\n" +
+                        $"Locality:        {placemark.Locality}\n" +
+                        $"PostalCode:      {placemark.PostalCode}\n" +
+                        $"SubAdminArea:    {placemark.SubAdminArea}\n" +
+                        $"SubLocality:     {placemark.SubLocality}\n" +
+                        $"SubThoroughfare: {placemark.SubThoroughfare}\n" +
+                        $"Thoroughfare:    {placemark.Thoroughfare}\n";
+
+                    Console.WriteLine(geocodeAddress);
+                    (Content as StackLayout).Children.Add(new Label() { Text = geocodeAddress });
+                }
+
+                }
             }
         }
     }
