@@ -1,11 +1,6 @@
 ﻿using Demo4NER.Models;
 using Demo4NER.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -16,14 +11,14 @@ namespace Demo4NER.Views
     {
         public EditProfileViewModel viewModel;
        
-        public EditProfilePage()
+        public EditProfilePage(User MyUser)
         {
             InitializeComponent();
-            BindingContext = viewModel = new EditProfileViewModel();
+            BindingContext = viewModel = new EditProfileViewModel(MyUser);
         }
-        private void Save_Clicked(object sender, EventArgs e)
+        private void Button_OnClicked(object sender, EventArgs e)
         {
-            //guardar os inputs
+            viewModel.EditProfileCommand.Execute(null);
             Navigation.PopAsync();
         }
     }
