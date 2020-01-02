@@ -25,7 +25,7 @@ namespace Demo4NER.Services
         {
             try
             {
-                Database.Migrate();
+                Database.EnsureCreated();
                 Database.CreateExecutionStrategy(); // Todo https://github.com/aspnet/EntityFrameworkCore/issues/12526
 
             }
