@@ -21,10 +21,10 @@ namespace Demo4NER.Views
             InitializeComponent();
             BindingContext = viewModel = new EditProfileViewModel(MyUser);
         }
-        private void Save_Clicked(object sender, EventArgs e)
+        private void Button_OnClicked(object sender, EventArgs e)
         {
-            //guardar os inputs
-            Navigation.PopAsync();
+            viewModel.EditProfileCommand.Execute(null);
+            Navigation.PopModalAsync();
         }
     }
 }

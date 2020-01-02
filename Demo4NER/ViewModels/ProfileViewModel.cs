@@ -57,6 +57,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Android.Content.Res;
 using Xamarin.Forms;
+using System.Diagnostics;
 
 namespace Demo4NER.ViewModels
 {
@@ -71,8 +72,7 @@ namespace Demo4NER.ViewModels
                 // Corre sempre que a página atualiza
                 if (value != null)
                 {
-                    //tamanho 30/20
-                        value.Contact = "912313452";
+                    value.Contact = "912313452";
                     Business BusinessA = new Business { Name = "FixePizza" };
                     Review RevA = new Review
                     {
@@ -112,14 +112,30 @@ namespace Demo4NER.ViewModels
                         RevA,
                         RevB
                     };
-                    if (!Nationality.TryGetValue(value.Nationality, out ImageSource))
+                    string temp;
+                    if (!Nationality.TryGetValue(value.Nationality, out temp))
+                    {
                         ImageSource = "earth.png";
+                    }
+                    else
+                    {
+                        ImageSource = temp;
+                    }
                     SetProperty(ref _user, value);
                 }
             }
         }
 
-        public string ImageSource;
+        private string imageSource;
+        public string ImageSource
+        {
+            get { return imageSource; }
+            set
+            {
+                imageSource = value;
+                OnPropertyChanged();
+            }
+        }
 
         Dictionary<string, string> Nationality = new Dictionary<string, string>();
 
@@ -135,6 +151,22 @@ namespace Demo4NER.ViewModels
             Nationality.Add("Brasileira", "br.png");
             Nationality.Add("Portuguesa", "pt.png");
             Nationality.Add("Ucraniana", "ua.png");
+            string temp;
+            //ALERTA, remendo para evitar nullpointer exception no inicio da app, nao sei se faz load da pagina previamente tb mas estava a dar erro por isso aqui.
+            if (User == null) {
+                User fake = new User();
+                fake.Nationality = "Brasileira";
+                fake.Name = "Fake Bastard";
+                User = fake;
+            }
+            if (!Nationality.TryGetValue(User.Nationality, out temp))
+            {
+                ImageSource = "earth.png";
+            }
+            else
+            {
+                ImageSource = temp;
+            }
         }
 
         /*private async Task LoadReviewsCommandExecute()
