@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:demo4Ner="clr-namespace:Demo4NER;assembly=Demo4NER"
              mc:Ignorable="d"
              x:Class="Demo4NER.App">
 
@@ -14,12 +15,12 @@
                 <Setter Property="BarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
                 <Setter Property="BarTextColor" Value="White" />
             </Style>
-            <DataTemplate x:Key="BusinessDataTemplateSimple">
+            <DataTemplate x:Key="BusinessDataTemplateWithDistance">
                 <ViewCell>
                     <Frame Padding="8" Margin="10" BorderColor="DodgerBlue">
                         <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
                             <Image Source="{Binding ImageSource}" WidthRequest="100" VerticalOptions="Center"></Image>
-                            <StackLayout HorizontalOptions="CenterAndExpand">
+                            <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="Center">
                                 <Label Text="{Binding Name}" 
                                        HorizontalOptions="CenterAndExpand"
                                        FontAttributes="Bold"
@@ -27,11 +28,29 @@
                                 />
                                 <Label Text="{Binding Distance, StringFormat='a {0:F2}Km de sí'}"/>
                             </StackLayout>
-                            
                         </StackLayout>
                     </Frame>
                 </ViewCell>
             </DataTemplate>
+            <DataTemplate x:Key="BusinessDataTemplateWithoutDistance">
+                <ViewCell>
+                    <Frame Padding="8" Margin="10" BorderColor="DodgerBlue">
+                        <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
+                            <Image Source="{Binding ImageSource}" WidthRequest="100" VerticalOptions="Center"></Image>
+                            <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="Center">
+                                <Label Text="{Binding Name}" 
+                                       HorizontalOptions="CenterAndExpand"
+                                       FontAttributes="Bold"
+                                       FontFamily="Comic Sans"
+                                />
+                            </StackLayout>
+                        </StackLayout>
+                    </Frame>
+                </ViewCell>
+            </DataTemplate>
+            <demo4Ner:BusinessTemplateSelector x:Key="BusinessTemplateSelector"
+                BusinessDataTemplateWithDistance="{StaticResource BusinessDataTemplateWithDistance}"
+                BusinessDataTemplateWithoutDistance="{StaticResource BusinessDataTemplateWithoutDistance}"/>
         </ResourceDictionary>
     </Application.Resources>
     

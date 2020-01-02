@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using Demo4NER.Models;
 using Demo4NER.Services;
 using Microsoft.EntityFrameworkCore;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -21,16 +23,22 @@ namespace Demo4NER.ViewModels
 
         public Command UpdateBusinessesListCommand { get; set; }
         public Command DoSearchCommand { get; set; }
+        private bool _displayLocationError = false;
+        public bool DisplayLocationError
+        {
+            get => _displayLocationError; 
+            set => SetProperty(ref _displayLocationError, value);
+        }
         public SearchViewModel()
         {
             UpdateBusinessesListCommand = new Command(async () => await UpdateBusinessesListExecute());
-            DoSearchCommand = new Command(async ()=> await DoSearchExecute());
+            DoSearchCommand = new Command(async () => await DoSearchExecute());
         }
 
         private async Task DoSearchExecute()
         {
             BusinessesList.Clear();
-            var temp = await Task.Run(()=>GetBusinessByName(SearchTerms));
+            var temp = await Task.Run(() => GetBusinessByName(SearchTerms));
             foreach (Business business in temp)
             {
                 BusinessesList.Add(business);
@@ -53,7 +61,7 @@ namespace Demo4NER.ViewModels
             IsBusy = true;
             try
             {
-                var result = await Task.Run(async ()=> 
+                var result = await Task.Run(async () =>
                 {
                     using (var db = new NerContext())
                     {
@@ -61,12 +69,29 @@ namespace Demo4NER.ViewModels
                     }
                 });
                 BusinessesList.Clear();
-                Location userLocation = await ((App) Application.Current).GetLocationAsync();
-                foreach (Business business in result)
+
+                var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
+                if (status == PermissionStatus.Granted)
                 {
-                    business.Distance =
-                        Location.CalculateDistance(business.Location, userLocation, DistanceUnits.Kilometers);
-                    BusinessesList.Add(business);
+                    Location userLocation = await ((App)Application.Current).GetLocationAsync();
+                    if (((App) Application.Current).LocationEnabled)
+                    {
+                        foreach (Business business in result)
+                        {
+                            business.Distance =
+                                Location.CalculateDistance(business.Location, userLocation, DistanceUnits.Kilometers);
+                            BusinessesList.Add(business);
+                        }
+                        DisplayLocationError = false;
+                    }
+                    else
+                    {
+                        foreach (Business business in result)
+                        {
+                            BusinessesList.Add(business);
+                        }
+                        DisplayLocationError = true;
+                    }
                 }
             }
             catch (Exception exception)

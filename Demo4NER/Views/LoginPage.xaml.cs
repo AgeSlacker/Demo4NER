@@ -26,7 +26,7 @@ namespace Demo4NER.Views
         {
             // Login Success
             ((App) Application.Current).SaveUserInProperties(viewModel.User);
-            
+            Navigation.InsertPageBefore(new MainPage(), this);
             if (Navigation.ModalStack.Contains(this.Parent))
                 await Navigation.PopModalAsync();
             else
@@ -43,6 +43,7 @@ namespace Demo4NER.Views
 
         private async void AnonimusLogin(object sender, EventArgs e)
         {
+            Navigation.InsertPageBefore(new MainPage(), this);
             if (Navigation.ModalStack.Contains(this.Parent))
                 await Navigation.PopModalAsync();
             else

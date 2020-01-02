@@ -67,12 +67,13 @@ namespace Demo4NER.ViewModels
         public User User
         {
             get => _user;
-            set {
+            set
+            {
                 // Corre sempre que a página atualiza
                 if (value != null)
                 {
                     //tamanho 30/20
-                        value.Contact = "912313452";
+                    value.Contact = "912313452";
                     Business BusinessA = new Business { Name = "FixePizza" };
                     Review RevA = new Review
                     {

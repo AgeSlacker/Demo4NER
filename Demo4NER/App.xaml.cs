@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Demo4NER.Models;
@@ -6,6 +8,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Demo4NER.Services;
 using Demo4NER.Views;
+using Java.Util;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.EntityFrameworkCore.Query.ExpressionVisitors.Internal;
 using Microsoft.Extensions.Logging;
@@ -18,6 +21,8 @@ namespace Demo4NER
     {
         public ProfilePage ProfilePage { get; set; }
 
+        public bool LocationEnabled { get; set; }
+
         public App()
         {
             InitializeComponent();
@@ -27,16 +32,14 @@ namespace Demo4NER
 
         protected override void OnStart()
         {
-            var _mainPage = new MainPage();
             if (!Properties.ContainsKey("logged"))
             {
                 LoginPage loginPage = new LoginPage();
                 MainPage = new NavigationPage(loginPage);
-                MainPage.Navigation.InsertPageBefore(_mainPage, loginPage);
             }
             else
             {
-                MainPage = _mainPage;
+                MainPage = new NavigationPage(new MainPage());
             }
         }
 
@@ -51,27 +54,54 @@ namespace Demo4NER
             // Handle when your app resumes
         }
 
-        public async Task<Location> GetLocationAsync(bool forceNew = false)
+        public async Task<Location> GetLocationAsync(bool forcenew = false)
         {
 
-            Location cachedLocation = await Geolocation.GetLastKnownLocationAsync();
-            Location location;
-            TimeSpan diff = DateTimeOffset.Now.Subtract(cachedLocation.Timestamp);
-            Debug.WriteLine(diff);
-            if (forceNew || diff.Minutes > 1)
+            Location location = null;
+            try
             {
-                var request = new GeolocationRequest(GeolocationAccuracy.Best);
-                location = await Geolocation.GetLocationAsync(request);
+                if (!forcenew)
+                {
+                    Location cachedLocation = await Geolocation.GetLastKnownLocationAsync();
+                    TimeSpan diff;
+                    if (cachedLocation != null)
+                    {
+                        diff = DateTimeOffset.Now.Subtract(cachedLocation.Timestamp);
+                        if (diff.Minutes > 1)
+                            forcenew = true;
+                        else
+                            location = cachedLocation;
+                    }
+                    else forcenew = true;
+                }
+                if (forcenew)
+                {
+                    var request = new GeolocationRequest(GeolocationAccuracy.Best);
+                    location = await Geolocation.GetLocationAsync(request);
+                }
+
+                LocationEnabled = true;
+
             }
-            else location = cachedLocation;
-
-
-            //if (Current.Properties.ContainsKey("UserLocation"))
-            //    Current.Properties["UserLocation"] = location;
-            //else
-            //    Current.Properties.Add("UserLocation", location);
-
+            catch (FeatureNotSupportedException fns)
+            {
+                Debug.WriteLine(fns);
+            }
+            catch (FeatureNotEnabledException fne)
+            {
+                LocationEnabled = false;
+                Debug.WriteLine(fne);
+            }
+            catch (PermissionException pe)
+            {
+                Debug.WriteLine(pe);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
             return location;
+
         }
 
         public void SaveUserInProperties(User user)
@@ -90,5 +120,11 @@ namespace Demo4NER
                 user = JsonConvert.DeserializeObject<User>((string)Properties["logged"]);
             return user;
         }
+
+        public enum LocationProperties
+        {
+            On,NotEnabled,NotSupported,PermissionError
+        }
+
     }
 }
