@@ -63,7 +63,9 @@ namespace Demo4NER.Views
         public ProfilePage()
         {
             InitializeComponent();
-            BindingContext = viewModel = new ProfileViewModel((Application.Current as App).GetUserFromProperties());
+            if((Application.Current as App).GetUserFromProperties() != null) { 
+                BindingContext = viewModel = new ProfileViewModel((Application.Current as App).GetUserFromProperties()); 
+            }
         }
 
         protected override void OnAppearing()
@@ -74,7 +76,7 @@ namespace Demo4NER.Views
 
         private void Edit_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new EditProfilePage());
+            Navigation.PushAsync(new EditProfilePage((Application.Current as App).GetUserFromProperties()));
         }
     }
 }
