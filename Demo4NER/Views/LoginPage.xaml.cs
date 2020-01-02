@@ -26,15 +26,13 @@ namespace Demo4NER.Views
         {
             // Login Success
             ((App) Application.Current).SaveUserInProperties(viewModel.User);
-            Debug.WriteLine(viewModel.User.ToString());
-            
+            //Debug.WriteLine(viewModel.User.ToString());
+            Navigation.InsertPageBefore(new MainPage(), this);
             if (Navigation.ModalStack.Contains(this.Parent))
                 await Navigation.PopModalAsync();
             else
                 await Navigation.PopAsync();
         }
-
-
 
         private async void RegisterClickGesture(object sender, EventArgs e)
         {

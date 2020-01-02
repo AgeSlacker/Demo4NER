@@ -25,7 +25,7 @@ namespace Demo4NER.Services
         {
             try
             {
-                Database.EnsureCreated();
+                Database.Migrate();
                 Database.CreateExecutionStrategy(); // Todo https://github.com/aspnet/EntityFrameworkCore/issues/12526
 
             }
@@ -37,7 +37,9 @@ namespace Demo4NER.Services
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySql(myDbConnection);
+            optionsBuilder.UseMySql(
+                myDbConnection,
+                options=>options.EnableRetryOnFailure());
         }
     }
 }
