@@ -69,7 +69,6 @@ namespace Demo4NER.ViewModels
                     }
                 });
                 BusinessesList.Clear();
-
                 var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
                 if (status == PermissionStatus.Granted)
                 {
