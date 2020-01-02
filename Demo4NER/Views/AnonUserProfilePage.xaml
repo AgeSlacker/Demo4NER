@@ -4,15 +4,10 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="Demo4NER.Views.HighlightsPage"
-             Title="Destaques"
->
+             x:Class="Demo4NER.Views.AnonUserProfilePage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Página de Destaques"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-            <Button Text="Clear app properties" BackgroundColor="Crimson" Clicked="ClearPropertiesDEBUG"></Button>
+            <Label Text="TODO pagina de anon, n estás logged in"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

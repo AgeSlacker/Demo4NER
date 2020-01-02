@@ -13,7 +13,7 @@ namespace Demo4NER.ViewModels
 {
     public class ProfileViewModel : BaseViewModel
     {
-        public User NewUser { get; set; } = new User();
+        public User User { get; set; } = new User();
 
         //public ObservableCollection<Review> Reviews { get; set; } = new ObservableCollection<Review>();
 
@@ -41,7 +41,7 @@ namespace Demo4NER.ViewModels
         private async Task LoadUserCommandExecute()
         {
             using (var db = new NerContext()) {
-                NewUser = await db.Users.Where(s => s.Name.Equals("Ricardo")).FirstOrDefaultAsync<User>();
+                User = await db.Users.Where(s => s.Name.Equals("Ricardo")).FirstOrDefaultAsync<User>();
             }
         }
     }
@@ -55,15 +55,87 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Android.Content.Res;
 using Xamarin.Forms;
+using System.Diagnostics;
 
 namespace Demo4NER.ViewModels
 {
     public class ProfileViewModel : BaseViewModel
     {
-        public User NewUser { get; set; } = new User();
+        private User _user;
 
-        public string ImageSource;
+        public User User
+        {
+            get => _user;
+            set {
+                // Corre sempre que a página atualiza
+                if (value != null)
+                {
+                    value.Contact = "912313452";
+                    Business BusinessA = new Business { Name = "FixePizza" };
+                    Review RevA = new Review
+                    {
+                        Comment = "Este sitio é brutal.",
+                        Rating = 5,
+                        User = value,
+                        Id = 1,
+                        Business = BusinessA,
+                        BusinessName = BusinessA.Name
+                    };
+                    Business BusinessB = new Business { Name = "SomeOtherStore" };
+                    Review RevB = new Review
+                    {
+                        Comment = "Nada de especial.",
+                        Rating = 3,
+                        User = value,
+                        Id = 2,
+                        Business = BusinessB,
+                        BusinessName = BusinessB.Name
+                    };
+                    value.Reviews = new List<Review>
+                    {
+                        RevA,
+                        RevB,
+                        RevA,
+                        RevB,
+                        RevA,
+                        RevB,
+                        RevA,
+                        RevB,
+                        RevA,
+                        RevB,
+                        RevA,
+                        RevB,
+                        RevA,
+                        RevB,
+                        RevA,
+                        RevB
+                    };
+                    string temp;
+                    if (!Nationality.TryGetValue(value.Nationality, out temp))
+                    {
+                        ImageSource = "earth.png";
+                    }
+                    else
+                    {
+                        ImageSource = temp;
+                    }
+                    SetProperty(ref _user, value);
+                }
+            }
+        }
+
+        private string imageSource;
+        public string ImageSource
+        {
+            get { return imageSource; }
+            set
+            {
+                imageSource = value;
+                OnPropertyChanged();
+            }
+        }
 
         Dictionary<string, string> Nationality = new Dictionary<string, string>();
 
@@ -73,19 +145,28 @@ namespace Demo4NER.ViewModels
 
         //public Command LoadReviewsCommand { get; set; }
 
-        public ProfileViewModel(User MyUser)
+        public ProfileViewModel(User user)
         {
-            NewUser = MyUser;
-            //tamanho 30/20
-            Nationality.Add("Brasileira","br.png");
+            User = user;
+            Nationality.Add("Brasileira", "br.png");
             Nationality.Add("Portuguesa", "pt.png");
             Nationality.Add("Ucraniana", "ua.png");
-            if (!Nationality.TryGetValue(MyUser.Nationality, out ImageSource))
+            string temp;
+            //ALERTA, remendo para evitar nullpointer exception no inicio da app, nao sei se faz load da pagina previamente tb mas estava a dar erro por isso aqui.
+            /*if (User == null) {
+                User fake = new User();
+                fake.Nationality = "Brasileira";
+                fake.Name = "Fake Bastard";
+                User = fake;
+            }*/
+            if (!Nationality.TryGetValue(User.Nationality, out temp))
             {
                 ImageSource = "earth.png";
             }
-            //LoadUserCommand = new Command(async () => await LoadUserCommandExecute());
-            //LoadReviewsCommand = new Command(async () => await LoadReviewsCommandExecute());
+            else
+            {
+                ImageSource = temp;
+            }
         }
 
         /*private async Task LoadReviewsCommandExecute()
@@ -103,7 +184,7 @@ namespace Demo4NER.ViewModels
         {
             using (var db = new NerContext())
             {
-                NewUser = await db.Users.Where(s => s.Name.Equals("test")).FirstOrDefaultAsync<User>();
+                User = await db.Users.Where(s => s.Name.Equals("test")).FirstOrDefaultAsync<User>();
             }
         }
 

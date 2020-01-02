@@ -1,43 +1,49 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Demo4NER.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Demo4NER.Services;
 using Demo4NER.Views;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.EntityFrameworkCore.Query.ExpressionVisitors.Internal;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using Xamarin.Essentials;
 
 namespace Demo4NER
 {
     public partial class App : Application
     {
+        public ProfilePage ProfilePage { get; set; }
 
         public App()
         {
             InitializeComponent();
             DependencyService.Register<MockDataStore>();
-            //MainPage = new MainPage();
+            Debug.WriteLine(Properties.ToString());
         }
 
         protected override void OnStart()
         {
-            // Handle when your app starts
-            if (Properties.ContainsKey("logged"))
+            var _mainPage = new MainPage();
+            if (!Properties.ContainsKey("logged"))
             {
-                MainPage = new MainPage();
+                LoginPage loginPage = new LoginPage();
+                MainPage = new NavigationPage(loginPage);
+                MainPage.Navigation.InsertPageBefore(_mainPage, loginPage);
             }
             else
             {
-                NavigationPage navLoginPage = new NavigationPage(new LoginPage());
-                MainPage = navLoginPage;
+                MainPage = _mainPage;
             }
-
         }
 
         protected override void OnSleep()
         {
-            // Handle when your app sleeps
+
+            SavePropertiesAsync();
         }
 
         protected override void OnResume()
@@ -60,12 +66,29 @@ namespace Demo4NER
             else location = cachedLocation;
 
 
-            if (Current.Properties.ContainsKey("UserLocation"))
-                Current.Properties["UserLocation"] = location;
-            else
-                Current.Properties.Add("UserLocation", location);
+            //if (Current.Properties.ContainsKey("UserLocation"))
+            //    Current.Properties["UserLocation"] = location;
+            //else
+            //    Current.Properties.Add("UserLocation", location);
 
             return location;
+        }
+
+        public void SaveUserInProperties(User user)
+        {
+            String serialized = JsonConvert.SerializeObject(user);
+            if (Properties.ContainsKey("logged"))
+                Properties["logged"] = serialized;
+            else
+                Properties.Add("logged", serialized);
+        }
+
+        public User GetUserFromProperties()
+        {
+            User user = null;
+            if (Properties.ContainsKey("logged"))
+                user = JsonConvert.DeserializeObject<User>((string)Properties["logged"]);
+            return user;
         }
     }
 }

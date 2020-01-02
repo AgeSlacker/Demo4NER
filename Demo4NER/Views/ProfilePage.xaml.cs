@@ -54,68 +54,29 @@ namespace Demo4NER.Views
     public partial class ProfilePage : ContentPage
     {
         public ProfileViewModel viewModel;
-        public User NewUser { get; set; } = new User();
         public List<Review> Reviews { get; set; } = new List<Review>();
         public Review RevA { get; set; } = new Review();
         public Review RevB { get; set; } = new Review();
         public Business BusinessA { get; set; } = new Business();
         public Business BusinessB { get; set; } = new Business();
 
-        public ProfilePage(/*User MyUser*/)
+        public ProfilePage()
         {
             InitializeComponent();
-            //NewUser = MyUser
-
-            //DUMMY USER WITH DUMMY REVIEWS LIST
-            NewUser.Name = "Fernandinho Silveira";
-            NewUser.Nationality = "Brasileira";
-            NewUser.Email = "fernandinho.silveirinho@gmail.com";
-            NewUser.Contact = "912313452";
-            RevA.Comment = "Este sitio é brutal.";
-            RevA.Rating = 5;
-            RevA.User = NewUser;
-            RevA.Id = 1;
-            BusinessA.Name = "FixePizza";
-            RevA.Business = BusinessA;
-            RevA.BusinessName = BusinessA.Name;
-            RevB.Comment = "Nada de especial.";
-            RevB.Rating = 3;
-            RevB.User = NewUser;
-            RevB.Id = 2;
-            BusinessB.Name = "SomeOtherStore";
-            RevB.Business = BusinessB;
-            RevB.BusinessName = BusinessB.Name;
-            Reviews.Add(RevA);
-            Reviews.Add(RevB);
-            Reviews.Add(RevA);
-            Reviews.Add(RevB);
-            Reviews.Add(RevA);
-            Reviews.Add(RevB);
-            Reviews.Add(RevA);
-            Reviews.Add(RevB);
-            Reviews.Add(RevA);
-            Reviews.Add(RevB);
-            Reviews.Add(RevA);
-            Reviews.Add(RevB);
-            Reviews.Add(RevA);
-            Reviews.Add(RevB);
-            Reviews.Add(RevA);
-            Reviews.Add(RevB);
-            NewUser.Reviews = Reviews;
-
-            //DAR USER COMO ARGUMENTO
-            BindingContext = viewModel = new ProfileViewModel(NewUser);
+            if((Application.Current as App).GetUserFromProperties() != null) { 
+                BindingContext = viewModel = new ProfileViewModel((Application.Current as App).GetUserFromProperties()); 
+            }
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            //viewModel.LoadUserCommand.Execute(null);
+            viewModel.User = (Application.Current as App).GetUserFromProperties();
         }
 
         private void Edit_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new EditProfilePage());
+            Navigation.PushAsync(new EditProfilePage((Application.Current as App).GetUserFromProperties()));
         }
     }
 }

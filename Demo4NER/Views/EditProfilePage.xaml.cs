@@ -1,6 +1,7 @@
 ﻿using Demo4NER.Models;
 using Demo4NER.ViewModels;
 using System;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
