@@ -26,7 +26,8 @@ namespace Demo4NER.Views
         {
             // Login Success
             ((App) Application.Current).SaveUserInProperties(viewModel.User);
-            Navigation.InsertPageBefore(new MainPage(), this);
+            Debug.WriteLine(viewModel.User.ToString());
+            
             if (Navigation.ModalStack.Contains(this.Parent))
                 await Navigation.PopModalAsync();
             else

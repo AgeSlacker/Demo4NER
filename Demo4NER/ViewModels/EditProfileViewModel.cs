@@ -91,14 +91,14 @@ namespace Demo4NER.ViewModels
         private async Task EditProfileExecute()
         {
             NewUser.Nationality = selectedNat.Name;
-            /*await Task.Run(() =>
+            await Task.Run(() =>
             {
                 using (var db = new NerContext())
                 {
-                    //db.Users.Add(NewUser); nao é add, devo substituir, not sure how to do it.
+                    db.Users.Update(NewUser);
                     db.SaveChanges();
                 }
-            });*/
+            });
 
             (Application.Current as App).SaveUserInProperties(NewUser);
         }
