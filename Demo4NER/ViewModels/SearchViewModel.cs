@@ -26,7 +26,7 @@ namespace Demo4NER.ViewModels
         private bool _displayLocationError = false;
         public bool DisplayLocationError
         {
-            get => _displayLocationError; 
+            get => _displayLocationError;
             set => SetProperty(ref _displayLocationError, value);
         }
         public SearchViewModel()
@@ -74,7 +74,7 @@ namespace Demo4NER.ViewModels
                 if (status == PermissionStatus.Granted)
                 {
                     Location userLocation = await ((App)Application.Current).GetLocationAsync();
-                    if (((App) Application.Current).LocationEnabled)
+                    if (((App)Application.Current).LocationEnabled)
                     {
                         foreach (Business business in result)
                         {
@@ -84,14 +84,14 @@ namespace Demo4NER.ViewModels
                         }
                         DisplayLocationError = false;
                     }
-                    else
+                }
+                else
+                {
+                    foreach (Business business in result)
                     {
-                        foreach (Business business in result)
-                        {
-                            BusinessesList.Add(business);
-                        }
-                        DisplayLocationError = true;
+                        BusinessesList.Add(business);
                     }
+                    DisplayLocationError = true;
                 }
             }
             catch (Exception exception)
