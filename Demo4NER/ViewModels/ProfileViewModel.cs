@@ -113,6 +113,10 @@ namespace Demo4NER.ViewModels
                         RevB
                     };
                     string temp;
+                    Debug.WriteLine("nome>>");
+                    Debug.WriteLine(value.Name);
+                    Debug.WriteLine("nacionalidade>>");
+                    Debug.WriteLine(value.Nationality);
                     if (!Nationality.TryGetValue(value.Nationality, out temp))
                     {
                         ImageSource = "earth.png";
@@ -147,18 +151,21 @@ namespace Demo4NER.ViewModels
 
         public ProfileViewModel(User user)
         {
-            User = user;
+            if (user != null)
+            {
+                User = user;
+            }
+            else
+            {
+                User tempUser = new User();
+                tempUser.Name = "Anonimo";
+                tempUser.Nationality = "Brasileira";
+                User = tempUser;
+            }
             Nationality.Add("Brasileira", "br.png");
             Nationality.Add("Portuguesa", "pt.png");
             Nationality.Add("Ucraniana", "ua.png");
             string temp;
-            //ALERTA, remendo para evitar nullpointer exception no inicio da app, nao sei se faz load da pagina previamente tb mas estava a dar erro por isso aqui.
-            /*if (User == null) {
-                User fake = new User();
-                fake.Nationality = "Brasileira";
-                fake.Name = "Fake Bastard";
-                User = fake;
-            }*/
             if (!Nationality.TryGetValue(User.Nationality, out temp))
             {
                 ImageSource = "earth.png";

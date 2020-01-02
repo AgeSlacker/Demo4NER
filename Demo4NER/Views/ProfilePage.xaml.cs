@@ -63,9 +63,9 @@ namespace Demo4NER.Views
         public ProfilePage()
         {
             InitializeComponent();
-            if((Application.Current as App).GetUserFromProperties() != null) { 
-                BindingContext = viewModel = new ProfileViewModel((Application.Current as App).GetUserFromProperties()); 
-            }
+            //if((Application.Current as App).GetUserFromProperties() != null) { 
+            BindingContext = viewModel = new ProfileViewModel((Application.Current as App).GetUserFromProperties()); 
+            //}
         }
 
         protected override void OnAppearing()
