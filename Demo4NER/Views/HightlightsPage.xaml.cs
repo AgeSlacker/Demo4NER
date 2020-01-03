@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Android;
 using Android.Content.PM;
 using Android.Webkit;
+using Demo4NER.Models;
 using Demo4NER.ViewModels;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
@@ -24,6 +25,7 @@ namespace Demo4NER.Views
         {
             InitializeComponent();
             BindingContext = viewModel = new HighlightsViewModel();
+            viewModel.UpdateBusinessesListCommand.Execute(null);
         }
 
         protected override async void OnAppearing()
@@ -73,6 +75,18 @@ namespace Demo4NER.Views
         {
             (Application.Current as App).Properties.Clear();
             await Application.Current.SavePropertiesAsync();
+        }
+
+        private void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            Business selectedBusiness = e.SelectedItem as Business;
+            if (selectedBusiness != null)
+                Navigation.PushModalAsync(new BusinessPage(selectedBusiness));
+        }
+
+        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
+            Navigation.PushModalAsync(new SearchControlPage(viewModel));
         }
     }
 }
