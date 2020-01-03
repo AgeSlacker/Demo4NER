@@ -15,5 +15,15 @@ namespace Demo4NER.Views
             InitializeComponent();
             BindingContext = viewModel = new EditBusinessPageViewModel(selectedBusiness);
         }
+
+        private void Save(object sender, System.EventArgs e)
+        {
+            Navigation.PopModalAsync();
+        }
+
+        private void Back(object sender, System.EventArgs e)
+        {
+            Navigation.PopModalAsync();
+        }
     }
 }

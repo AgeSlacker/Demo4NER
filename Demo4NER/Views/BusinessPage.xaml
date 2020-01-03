@@ -88,7 +88,7 @@
                           SelectionMode="None"
                           RowHeight="100"
                           SeparatorVisibility="None"/>
-                <Button Clicked="EditBusiness"/>
+                <Button Text="Edit" Clicked="EditBusiness"/>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

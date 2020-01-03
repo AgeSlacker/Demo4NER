@@ -104,10 +104,27 @@
                     </Frame>
                 </ViewCell>
             </DataTemplate>
+            <DataTemplate x:Key="EditLinkListTemplate">
+                <ViewCell>
+                    <StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Title"
+                                   VerticalOptions="CenterAndExpand"/>
+                            <Entry Text="{Binding Name}"
+                                   VerticalOptions="CenterAndExpand"/>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="URL"
+                                   VerticalOptions="CenterAndExpand"/>
+                            <Entry Text="{Binding URL}"
+                                   VerticalOptions="CenterAndExpand"/>
+                        </StackLayout>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
             <demo4Ner:BusinessTemplateSelector x:Key="BusinessTemplateSelector"
                 BusinessDataTemplateWithDistance="{StaticResource BusinessDataTemplateWithDistance}"
                 BusinessDataTemplateWithoutDistance="{StaticResource BusinessDataTemplateWithoutDistance}"/>
         </ResourceDictionary>
     </Application.Resources>
-    
 </Application>
