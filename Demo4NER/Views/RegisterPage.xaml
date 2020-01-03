@@ -53,7 +53,7 @@
                 <Label Grid.Row="1" Text="Register" HorizontalOptions="Center"  Margin="0,5,0,0" FontSize="20"/>
                 <Entry Grid.Row="2" Text="{Binding User.Email}" Placeholder="Email" PlaceholderColor="#bababa" FontSize="16"/>
                 <Entry Grid.Row="3" Text="{Binding User.Name}" Placeholder="Name" PlaceholderColor="#bababa" FontSize="16"/>
-                <Entry Grid.Row="4" Text="{Binding PreHashPassword, Mode=TwoWay}" Placeholder="Password" PlaceholderColor="#bababa" FontSize="16"/>
+                <Entry IsPassword="True" Grid.Row="4" Text="{Binding PreHashPassword, Mode=TwoWay}" Placeholder="Password" PlaceholderColor="#bababa" FontSize="16"/>
                 <Entry Grid.Row="5" Text="{Binding User.Nationality}" Placeholder="Nationality" PlaceholderColor="#bababa" FontSize="16"/>
                 <Label Grid.Row="6" 
                        Text="{Binding Error}"
