@@ -35,8 +35,7 @@ namespace Demo4NER
         {
             if (!Properties.ContainsKey("logged"))
             {
-                LoginPage loginPage = new LoginPage();
-                MainPage = new NavigationPage(loginPage);
+                MainPage = new NavigationPage(new LoginPage());
             }
             else
             {
