@@ -109,6 +109,7 @@ namespace Demo4NER
         public void SaveUserInProperties(User user)
         {
             String serialized = JsonConvert.SerializeObject(user);
+            //Debug.WriteLine(serialized);
             if (Properties.ContainsKey("logged"))
                 Properties["logged"] = serialized;
             else
