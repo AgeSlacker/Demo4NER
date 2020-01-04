@@ -25,12 +25,9 @@ namespace Demo4NER.ViewModels
             Business.Links = new List<Link>();
             Link link1 = new Link() { Name = "Site", URL = "4nerapp.com" };
             Link link2 = new Link() { Name = "Facebook", URL = "facebook.com/4nerapp" };
-            Business.Links.Add(link1); Business.Links.Add(link2);
+            Business.Links.Add(link1); 
+            Business.Links.Add(link2);
             Business.Schedule = "Dias de semana: 12h-15h 19h-00h\nFim de semana: 19h - 00h";
-            //business.Name = "Fixepizza";
-            //business.Description = "Pizzaria";
-            //business.Contact = "961234567";
-            //business.Email = "fixepizza@gmail.com";
         }
     }
 }

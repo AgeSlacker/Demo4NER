@@ -19,6 +19,7 @@ namespace Demo4NER.Views
         {
             InitializeComponent();
             BindingContext = viewModel = new DiscountsViewModel();
+            viewModel.UpdateBusinessesListCommand.Execute(null);
         }
 
         private void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)

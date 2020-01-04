@@ -1,6 +1,8 @@
-﻿using Demo4NER.Models;
+﻿using System;
+using System.Collections.ObjectModel;
+using Demo4NER.Models;
 using Demo4NER.ViewModels;
-
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -14,6 +16,22 @@ namespace Demo4NER.Views
         {
             InitializeComponent();
             BindingContext = viewModel = new BusinessPageViewModel(selectedBusiness);
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            int n = viewModel.Business.Links.Count;
+            linksView.HeightRequest = n * 30;
+        }
+
+        private async void OpenURLOnTap(object sender, EventArgs e)
+        {
+            String url = (sender as Label).Text;
+            //Device.OpenUri(new Uri(url));
+            if (!url.StartsWith("https://") && !url.StartsWith("http://"))
+                url = "https://" + url;
+            await Launcher.OpenAsync(url);
         }
     }
 }

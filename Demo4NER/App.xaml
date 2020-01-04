@@ -32,23 +32,6 @@
                     </Frame>
                 </ViewCell>
             </DataTemplate>
-            <DataTemplate x:Key="LinkListTemplate">
-                <ViewCell>
-                    <Label VerticalOptions="CenterAndExpand"
-                           FontSize="26">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="{Binding Name}"/>
-                                <Span Text="   "/>
-                                <Span Text="{Binding URL}"
-                                  TextColor="Blue"
-                                  TextDecorations="Underline">
-                                </Span>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                </ViewCell>
-            </DataTemplate>
             <DataTemplate x:Key="BusinessDataTemplateWithoutDistance">
                 <ViewCell>
                     <Frame Padding="8" Margin="10" BorderColor="DodgerBlue">
