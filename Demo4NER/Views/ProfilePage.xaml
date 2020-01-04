@@ -37,7 +37,7 @@
                 <BoxView Color="White" HeightRequest="1000" CornerRadius="500"
             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=2}" 
             RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=-600}"/>
-                <Image Source="avatar.jpg" HeightRequest="100" WidthRequest="100" 
+                <Image Source="{Binding ImageSource}" HeightRequest="100" WidthRequest="100" 
             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width, Factor=.5, Constant = -50}" 
             RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0, Property=Y, Constant=50}" />
                     <Label Text="{Binding Name}" TextColor="#3B5A9A" FontAttributes="Bold" FontSize="26"
