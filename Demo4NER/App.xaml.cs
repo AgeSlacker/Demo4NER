@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Android.Views;
 using Demo4NER.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
