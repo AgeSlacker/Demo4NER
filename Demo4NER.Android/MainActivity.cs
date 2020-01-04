@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
+using Android.Graphics;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
@@ -29,7 +30,13 @@ namespace Demo4NER.Droid
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             CrossCurrentActivity.Current.Init(this, savedInstanceState);
-            
+
+            //if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
+            //{
+            //    Window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
+            //    Window.SetStatusBarColor(Android.Graphics.Color.White);
+            //    Window.SetTitleColor(Color.Black);
+            //}
 
             LoadApplication(new App());
         }

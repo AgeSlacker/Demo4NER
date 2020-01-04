@@ -30,13 +30,10 @@
     </NavigationPage.TitleView>
     <ContentPage.Content>
         <StackLayout>
-            <Entry Placeholder="Procurar" Text="{Binding SearchTerms}"></Entry>
-            <Button Text="Go" Command="{Binding DoSearchCommand}"></Button>
-            <Label Text="Filter"></Label>
             <Label Text="GPS desativado ou não autorizado." 
                    IsVisible="{Binding DisplayLocationError}"
                    HorizontalOptions="Center"
-                   ></Label>
+            ></Label>
             <ListView ItemsSource="{Binding BusinessesList}"
                       RefreshCommand="{Binding UpdateBusinessesListCommand}"
                       IsPullToRefreshEnabled="True"

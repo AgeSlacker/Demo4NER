@@ -11,11 +11,6 @@ namespace Demo4NER.ViewModels
 {
     public class HighlightsViewModel : BaseBusinessListViewModel
     {
-        public HighlightsViewModel() : base()
-        {
-            
-        }
-
         public override async Task<List<Business>> GetBusinesses()
         {
             using (var db = new NerContext())
