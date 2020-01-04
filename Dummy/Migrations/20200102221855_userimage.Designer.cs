@@ -3,14 +3,16 @@ using System;
 using Demo4NER.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Dummy.Migrations
 {
     [DbContext(typeof(NerContext))]
-    partial class NerContextModelSnapshot : ModelSnapshot
+    [Migration("20200102221855_userimage")]
+    partial class userimage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,8 +36,6 @@ namespace Dummy.Migrations
                     b.Property<string>("Email");
 
                     b.Property<DateTime>("FeaturedEndDate");
-
-                    b.Property<bool>("HasDiscounts");
 
                     b.Property<bool>("IsFeatured");
 
