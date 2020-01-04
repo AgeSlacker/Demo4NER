@@ -6,9 +6,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Cryptography;
-using Xamarin.Forms;
-using System.IO;
-using Newtonsoft.Json;
 
 namespace Demo4NER.Models
 {
@@ -25,23 +22,6 @@ namespace Demo4NER.Models
         
         public string Nationality { get; set; }
         public string Contact { get; set; }
-        public byte[] UserImage { get; set; }
-
-        private ImageSource _imageSource = null;
-        [NotMapped]
-        [JsonIgnore]
-        public ImageSource ImageSource
-        {
-            get
-            {
-                if (_imageSource == null && UserImage != null)
-                {
-                    _imageSource = ImageSource.FromStream(() => new MemoryStream(UserImage));
-                }
-                return _imageSource;
-            }
-            set => _imageSource = value;
-        }
         public List<Business> Businesses { get; set; }
         public List<Review> Reviews { get; set; }
         public List<Service> Services{ get; set; }
