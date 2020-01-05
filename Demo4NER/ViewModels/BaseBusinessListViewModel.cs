@@ -63,22 +63,27 @@ namespace Demo4NER.ViewModels
             {
                 var businesses = await Task.Run(GetBusinesses);
                 BusinessesList.Clear();
-                var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
+                PermissionStatus status =
+                    await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
                 if (status == PermissionStatus.Granted)
                 {
-                    Location userLocation = await ((App)Application.Current).GetLocationAsync();
-                    if (((App)Application.Current).LocationEnabled)
+                    Location userLocation = await ((App) Application.Current).GetLocationAsync();
+                    if (((App) Application.Current).LocationEnabled)
                     {
                         foreach (Business business in businesses)
-                        {
-                            business.Distance =
-                                Location.CalculateDistance(business.Location, userLocation, DistanceUnits.Kilometers);
-                        }
+                            business.Distance = Location.CalculateDistance(business.Location, userLocation,
+                                DistanceUnits.Kilometers);
                         DisplayLocationError = false;
+                    }
+                    else
+                    {
+                        DisplayLocationError = true;
                     }
                 }
                 else
+                {
                     DisplayLocationError = true;
+                }
 
                 foreach (Business business in businesses)
                 {
