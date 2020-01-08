@@ -1,10 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
              x:Class="Demo4NER.Views.BusinessPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="LinksTemplate">
+                <ViewCell>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" Text="{Binding Name}"
+                               FontSize="Medium"></Label>
+                        <Label Grid.Row="0" Grid.Column="1" 
+                               Text="{Binding URL}"
+                               FontSize="Medium"
+                               TextColor="Blue"
+                               TextDecorations="Underline">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OpenURLOnTap"></TapGestureRecognizer>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <ScrollView>
             <StackLayout BindingContext="{Binding Business}" Margin="10,0,10,0">
@@ -73,16 +99,16 @@
                        TextColor="#3B5A9A" 
                        FontAttributes="Bold" 
                        FontSize="26"/>
-                <ListView ItemsSource="{Binding Links}" 
-                          ItemTemplate="{StaticResource LinkListTemplate}"
-                          SeparatorVisibility="None"
-                          SelectionMode="None"
-                          HeightRequest="120">
-                </ListView>
                 <Label Text="Reviews"
                        TextColor="#3B5A9A" 
                        FontAttributes="Bold" 
                        FontSize="26"/>
+                <ListView x:Name="linksView"
+                    ItemsSource="{Binding Links}" 
+                    ItemTemplate="{StaticResource LinksTemplate}"
+                    SeparatorVisibility="None"
+                    VerticalScrollBarVisibility="Never"
+                    RowHeight="30"/>
                 <ListView ItemsSource="{Binding Reviews}" 
                           ItemTemplate="{StaticResource ReviewListTemplate}"
                           SelectionMode="None"

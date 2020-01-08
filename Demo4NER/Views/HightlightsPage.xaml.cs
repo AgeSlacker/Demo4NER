@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Android;
 using Android.Content.PM;
 using Android.Webkit;
+using Demo4NER.Models;
 using Demo4NER.ViewModels;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
@@ -19,33 +20,49 @@ namespace Demo4NER.Views
     public partial class HighlightsPage : ContentPage
     {
         private HighlightsViewModel viewModel;
+        private bool firstTime = true;
         public HighlightsPage()
         {
             InitializeComponent();
             BindingContext = viewModel = new HighlightsViewModel();
+            viewModel.UpdateBusinessesListCommand.Execute(null);
         }
 
         protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            if (firstTime)
+            {
+                await CheckLocationPermissions();
+                firstTime = false;
+            }
+        }
+
+        private async Task CheckLocationPermissions()
         {
             PermissionStatus status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
             if (status != PermissionStatus.Granted)
             {
                 // ask for permission
-                if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Location))
+                //if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Location))
+                //{
+                bool requestPermission = await DisplayAlert("Hot babes in your area", "They want to know your location", "Of course!",
+                    "Maybe another time");
+                //}
+                if (requestPermission)
                 {
-                    await DisplayAlert("Hot babes in your area", "They want to know your location", "Of course!",
-                        "Maybe another time");
+                    var permissionStatuses = await CrossPermissions.Current.RequestPermissionsAsync(Permission.Location);
+                    status = permissionStatuses[Permission.Location];
                 }
-
-                var permissionStatuses= await CrossPermissions.Current.RequestPermissionsAsync(Permission.Location);
-                status = permissionStatuses[Permission.Location];
             }
 
             if (status == PermissionStatus.Granted)
             {
                 // grated
-
-            } else if (status == PermissionStatus.Disabled)
+                ((App) Application.Current).LocationGranted = true;
+                // TODO send event to update distance
+            }
+            else if (status == PermissionStatus.Disabled)
             {
                 await DisplayAlert("Oh no", "Enable location in your phone setting", "Sry im dumb");
             }
@@ -55,11 +72,22 @@ namespace Demo4NER.Views
 
             }
         }
-
         private async void ClearPropertiesDEBUG(object sender, EventArgs e)
         {
             (Application.Current as App).Properties.Clear();
             await Application.Current.SavePropertiesAsync();
+        }
+
+        private void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            Business selectedBusiness = e.SelectedItem as Business;
+            if (selectedBusiness != null)
+                Navigation.PushModalAsync(new BusinessPage(selectedBusiness));
+        }
+
+        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
+            Navigation.PushModalAsync(new SearchControlPage(viewModel));
         }
     }
 }

@@ -10,6 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\View1.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.6">
       <PrivateAssets>all</PrivateAssets>
@@ -19,7 +23,8 @@
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.2.6" />
     <PackageReference Include="Xam.Plugin.Media" Version="4.0.1.5" />
     <PackageReference Include="Xamarin.Forms" Version="4.3.0.947036" />  
-    <PackageReference Include="Xamarin.Essentials" Version="1.3.1" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.3.1" />  
+    <PackageReference Include="Xamarin.Forms.Maps" Version="4.3.0.947036" />
   </ItemGroup>
 
   <ItemGroup>
@@ -65,11 +70,18 @@
     <EmbeddedResource Update="Views\NewServicePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Views\SearchControlPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\SearchPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\TestPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\NewFolder\" />
   </ItemGroup>
 </Project>

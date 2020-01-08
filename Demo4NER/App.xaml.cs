@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Android.Views;
 using Demo4NER.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -22,6 +23,7 @@ namespace Demo4NER
         public ProfilePage ProfilePage { get; set; }
 
         public bool LocationEnabled { get; set; }
+        public bool LocationGranted { get; set; } = false;
 
         public App()
         {
@@ -34,8 +36,7 @@ namespace Demo4NER
         {
             if (!Properties.ContainsKey("logged"))
             {
-                LoginPage loginPage = new LoginPage();
-                MainPage = new NavigationPage(loginPage);
+                MainPage = new NavigationPage(new LoginPage());
             }
             else
             {
@@ -56,52 +57,53 @@ namespace Demo4NER
 
         public async Task<Location> GetLocationAsync(bool forcenew = false)
         {
-
             Location location = null;
-            try
+            if (LocationGranted)
             {
-                if (!forcenew)
+                try
                 {
-                    Location cachedLocation = await Geolocation.GetLastKnownLocationAsync();
-                    TimeSpan diff;
-                    if (cachedLocation != null)
+                    if (!forcenew)
                     {
-                        diff = DateTimeOffset.Now.Subtract(cachedLocation.Timestamp);
-                        if (diff.Minutes > 1)
-                            forcenew = true;
-                        else
-                            location = cachedLocation;
+                        Location cachedLocation = await Geolocation.GetLastKnownLocationAsync();
+                        TimeSpan diff;
+                        if (cachedLocation != null)
+                        {
+                            diff = DateTimeOffset.Now.Subtract(cachedLocation.Timestamp);
+                            if (diff.Minutes > 1)
+                                forcenew = true;
+                            else
+                                location = cachedLocation;
+                        }
+                        else forcenew = true;
                     }
-                    else forcenew = true;
+                    if (forcenew)
+                    {
+                        var request = new GeolocationRequest(GeolocationAccuracy.Best);
+                        location = await Geolocation.GetLocationAsync(request);
+                    }
+
+                    LocationEnabled = true;
+
                 }
-                if (forcenew)
+                catch (FeatureNotSupportedException fns)
                 {
-                    var request = new GeolocationRequest(GeolocationAccuracy.Best);
-                    location = await Geolocation.GetLocationAsync(request);
+                    Debug.WriteLine(fns);
                 }
-
-                LocationEnabled = true;
-
-            }
-            catch (FeatureNotSupportedException fns)
-            {
-                Debug.WriteLine(fns);
-            }
-            catch (FeatureNotEnabledException fne)
-            {
-                LocationEnabled = false;
-                Debug.WriteLine(fne);
-            }
-            catch (PermissionException pe)
-            {
-                Debug.WriteLine(pe);
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e);
+                catch (FeatureNotEnabledException fne)
+                {
+                    LocationEnabled = false;
+                    Debug.WriteLine(fne);
+                }
+                catch (PermissionException pe)
+                {
+                    Debug.WriteLine(pe);
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e);
+                }
             }
             return location;
-
         }
 
         public void SaveUserInProperties(User user)
@@ -123,7 +125,7 @@ namespace Demo4NER
 
         public enum LocationProperties
         {
-            On,NotEnabled,NotSupported,PermissionError
+            On, NotEnabled, NotSupported, PermissionError
         }
 
     }

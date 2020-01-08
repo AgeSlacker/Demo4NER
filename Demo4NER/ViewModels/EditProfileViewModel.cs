@@ -95,7 +95,7 @@ namespace Demo4NER.ViewModels
             {
                 using (var db = new NerContext())
                 {
-                    //db.Users.Add(NewUser); nao é add, devo substituir, not sure how to do it.
+                    db.Users.Update(NewUser);
                     db.SaveChanges();
                 }
             });

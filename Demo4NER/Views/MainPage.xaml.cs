@@ -2,6 +2,11 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Xamarin.Forms.Xaml;
@@ -19,6 +24,10 @@ namespace Demo4NER.Views
             InitializeComponent();
         }
 
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+        }
         protected override async void OnCurrentPageChanged()
         {
             base.OnCurrentPageChanged();

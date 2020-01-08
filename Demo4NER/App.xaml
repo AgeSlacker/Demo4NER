@@ -10,7 +10,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <!--Global Styles-->
-            <Color x:Key="NavigationPrimary">#3B5A9A</Color>
+            <Color x:Key="NavigationPrimary">#2196F3</Color>
             <Style TargetType="NavigationPage">
                 <Setter Property="BarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
                 <Setter Property="BarTextColor" Value="White" />
@@ -30,23 +30,6 @@
                             </StackLayout>
                         </StackLayout>
                     </Frame>
-                </ViewCell>
-            </DataTemplate>
-            <DataTemplate x:Key="LinkListTemplate">
-                <ViewCell>
-                    <Label VerticalOptions="CenterAndExpand"
-                           FontSize="20">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="{Binding Name}"/>
-                                <Span Text="   "/>
-                                <Span Text="{Binding URL}"
-                                  TextColor="Blue"
-                                  TextDecorations="Underline">
-                                </Span>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
                 </ViewCell>
             </DataTemplate>
             <DataTemplate x:Key="ReviewListTemplate">

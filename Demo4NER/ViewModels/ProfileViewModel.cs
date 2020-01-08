@@ -113,8 +113,15 @@ namespace Demo4NER.ViewModels
                         RevA,
                         RevB
                     };
-                    if (!Nationality.TryGetValue(value.Nationality, out ImageSource))
+                    string temp;
+                    if (!Nationality.TryGetValue(value.Nationality, out temp))
+                    {
                         ImageSource = "earth.png";
+                    }
+                    else
+                    {
+                        ImageSource = temp;
+                    }
                     SetProperty(ref _user, value);
                 }
             }
@@ -140,7 +147,7 @@ namespace Demo4NER.ViewModels
 
         /*private async Task LoadReviewsCommandExecute()
         {
-            using (var db = new criar context para reviews)
+            using (var db = new criar context para reviews
             {
                 var _reviews = await db.Reviews.ToListAsync();
                 Reviews.Clear();
