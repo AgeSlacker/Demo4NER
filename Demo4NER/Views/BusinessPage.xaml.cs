@@ -44,5 +44,25 @@ namespace Demo4NER.Views
         {
             viewModel.NavigateToMapViewCommand.Execute(null);
         }
+
+        private void ContactLabelOnTapped(object sender, EventArgs e)
+        {
+            try
+            {
+                Xamarin.Essentials.PhoneDialer.Open((sender as Label)?.Text);
+            }
+            catch (ArgumentNullException argumentNullException)
+            {
+
+            }
+            catch (FeatureNotSupportedException featureNotSupportedException)
+            {
+
+            }
+            catch (Exception exception)
+            {
+
+            }
+        }
     }
 }

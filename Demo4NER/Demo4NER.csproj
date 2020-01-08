@@ -34,10 +34,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Views\HightlightsPage.xaml.cs">
+    <Compile Update="Views\BusinessListingsPages\HightlightsPage.xaml.cs">
       <DependentUpon>HightlightsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\DiscountsPage.xaml.cs">
+    <Compile Update="Views\BusinessListingsPages\DiscountsPage.xaml.cs">
       <DependentUpon>DiscountsPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\MapPage.xaml.cs">
@@ -49,39 +49,35 @@
     <EmbeddedResource Update="Views\AnonUserProfilePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\DBTestsPage.xaml">
+    <EmbeddedResource Update="Views\Unused\DBTestsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\DiscountsPage.xaml">
+    <EmbeddedResource Update="Views\BusinessListingsPages\DiscountsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\EditBusinessPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\HightlightsPage.xaml">
+    <EmbeddedResource Update="Views\BusinessListingsPages\HightlightsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\NewBusinessPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\NewEstablishmentPage.xaml">
+    <EmbeddedResource Update="Views\Unused\NewEstablishmentPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\NewServicePage.xaml">
+    <EmbeddedResource Update="Views\Unused\NewServicePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\SearchControlPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\SearchPage.xaml">
+    <EmbeddedResource Update="Views\BusinessListingsPages\SearchPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\TestPage.xaml">
+    <EmbeddedResource Update="Views\Unused\TestPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views\NewFolder\" />
   </ItemGroup>
 </Project>

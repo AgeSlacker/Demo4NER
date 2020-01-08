@@ -8,7 +8,9 @@
              x:Class="Demo4NER.Views.SearchPage"
              d:NavigationPage.HasNavigationBar="False"
              Title="Procurar"
-             Padding="10">
+             Padding="10"
+             x:Name="This"
+             >
 
     <!--<NavigationPage.TitleView>
         <Grid>

@@ -85,12 +85,21 @@
                        FontSize="26"/>
                 <Label Text="{Binding Description}" 
                        FontSize="20"/>
-                <Label Text="Contacto" 
-                       TextColor="#3B5A9A" 
-                       FontAttributes="Bold" 
-                       FontSize="26"/>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Contacto" 
+                           TextColor="#3B5A9A" 
+                           FontAttributes="Bold" 
+                           FontSize="26"/>
+                    <Label Text="(Carrega no numero para ligar)" FontSize="Micro" 
+                           VerticalOptions="Center"
+                           VerticalTextAlignment="Center"></Label>
+                </StackLayout>
                 <Label Text="{Binding Contact}" 
-                       FontSize="20"/>
+                       FontSize="20">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ContactLabelOnTapped"></TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
                 <Label Text="Horário"
                        TextColor="#3B5A9A" 
                        FontAttributes="Bold" 

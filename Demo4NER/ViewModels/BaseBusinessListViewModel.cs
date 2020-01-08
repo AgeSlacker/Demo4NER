@@ -23,6 +23,7 @@ namespace Demo4NER.ViewModels
 
         public Command UpdateBusinessesListCommand { get; set; }
         public Command DoSearchCommand { get; set; }
+
         private bool _displayLocationError = false;
         public bool DisplayLocationError
         {
