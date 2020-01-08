@@ -53,10 +53,14 @@ namespace Demo4NER.ViewModels
                 else
                     DisplayLocationError = true;
 
-                foreach (Business business in businesses)
+                // Needs to be in main, UI thread 
+                Device.BeginInvokeOnMainThread(() =>
                 {
-                    BusinessesList.Add(business);
-                }
+                    foreach (Business business in businesses)
+                    {
+                        BusinessesList.Add(business);
+                    }
+                });
             }
             catch (Exception exception)
             {

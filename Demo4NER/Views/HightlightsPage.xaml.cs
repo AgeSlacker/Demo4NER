@@ -60,6 +60,7 @@ namespace Demo4NER.Views
             {
                 // grated
                 ((App) Application.Current).LocationGranted = true;
+                // TODO send event to update distance
             }
             else if (status == PermissionStatus.Disabled)
             {

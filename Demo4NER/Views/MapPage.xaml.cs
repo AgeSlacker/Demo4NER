@@ -1,18 +1,11 @@
-﻿using System;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Net.NetworkInformation;
-using Android.OS;
+﻿using System.Linq;
 using Demo4NER.Models;
 using Demo4NER.ViewModels;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
-using Debug = System.Diagnostics.Debug;
-using Map = Xamarin.Essentials.Map;
 
 namespace Demo4NER.Views
 {
@@ -33,17 +26,16 @@ namespace Demo4NER.Views
             var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
             if (status == PermissionStatus.Granted)
             {
-                Location location = await ((App)Application.Current).GetLocationAsync();
                 if (((App)Application.Current).LocationEnabled)
                 {
                     if (_firstTime)
                     {
                         var userPosition = await (Application.Current as App).GetLocationAsync();
+                        map.IsShowingUser = true;
                         map.MoveToRegion(
-                            new MapSpan(
+                            MapSpan.FromCenterAndRadius(
                                 new Position(userPosition.Latitude, userPosition.Longitude),
-                                0.01,
-                                0.01));
+                                Distance.FromKilometers(1)));
                         _firstTime = false;
                     }
                     viewModel.DisplayLocationError = false;
