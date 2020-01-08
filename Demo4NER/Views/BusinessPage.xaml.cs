@@ -39,5 +39,10 @@ namespace Demo4NER.Views
                 url = "https://" + url;
             await Launcher.OpenAsync(url);
         }
+
+        private void OnNavigateClicked(object sender, EventArgs e)
+        {
+            viewModel.NavigateToMapViewCommand.Execute(null);
+        }
     }
 }

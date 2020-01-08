@@ -18,6 +18,7 @@ namespace Demo4NER.ViewModels
             set => SetProperty(ref _business, value);
         }
         public Command LoadBusinessCommand { get; set; }
+        public Command NavigateToMapViewCommand { get; set; }
 
         public BusinessPageViewModel(Business selectedBusiness)
         {
@@ -51,6 +52,11 @@ namespace Demo4NER.ViewModels
             Business.Links.Add(link1); 
             Business.Links.Add(link2);
             Business.Schedule = "Dias de semana: 12h-15h 19h-00h\nFim de semana: 19h - 00h";
+
+            NavigateToMapViewCommand = new Command(() =>
+            {
+                MessagingCenter.Send<BaseViewModel,Business>(this,"navigate",Business);
+            });
         }
     }
 }
