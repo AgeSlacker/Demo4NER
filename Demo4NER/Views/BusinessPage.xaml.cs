@@ -22,6 +22,8 @@ namespace Demo4NER.Views
         private void EditBusiness(object sender, EventArgs e)
         {
             Navigation.PushModalAsync(new EditBusinessPage(viewModel.Business));
+        }
+
         protected override void OnAppearing()
         {
             base.OnAppearing();
