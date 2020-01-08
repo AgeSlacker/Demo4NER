@@ -40,17 +40,17 @@
                         <Label Text="{Binding Name}" 
                             TextColor="#3B5A9A" 
                             FontAttributes="Bold" 
-                            FontSize="40"
+                            FontSize="30"
                             HorizontalTextAlignment="Center" />
                         <Label Text="Restaurante" 
                             TextColor="Black" 
-                            FontSize="26"
+                            FontSize="20"
                             HorizontalTextAlignment="Center"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand">
                         <Image Source="favorite.png"
                            HorizontalOptions="EndAndExpand"
-                           HeightRequest="40" 
+                           HeightRequest="30" 
                            VerticalOptions="Center"
                            TranslationY="-10"/>
                         <Label HorizontalOptions="FillAndExpand" 
@@ -61,11 +61,11 @@
                                     <Span Text="{Binding Rating}"
                                       TextColor="#3B5A9A" 
                                       FontAttributes="Bold" 
-                                      FontSize="40"/>
+                                      FontSize="30"/>
                                     <Span Text="/5" 
                                       TextColor="#3B5A9A" 
                                       FontAttributes="Bold"
-                                      FontSize="26"/>
+                                      FontSize="20"/>
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
@@ -74,37 +74,47 @@
                 <Label Text="Morada" 
                        TextColor="#3B5A9A" 
                        FontAttributes="Bold" 
-                       FontSize="32"/>
-                <Label Text="{Binding WrittenAddress}"
                        FontSize="26"/>
+                <Label Text="{Binding WrittenAddress}"
+                       FontSize="20"/>
                 <Label Text="Descrição" 
                        TextColor="#3B5A9A" 
                        FontAttributes="Bold" 
-                       FontSize="32"/>
-                <Label Text="{Binding Description}" 
                        FontSize="26"/>
+                <Label Text="{Binding Description}" 
+                       FontSize="20"/>
                 <Label Text="Contacto" 
                        TextColor="#3B5A9A" 
                        FontAttributes="Bold" 
-                       FontSize="32"/>
-                <Label Text="{Binding Contact}" 
                        FontSize="26"/>
+                <Label Text="{Binding Contact}" 
+                       FontSize="20"/>
                 <Label Text="Horário"
                        TextColor="#3B5A9A" 
                        FontAttributes="Bold" 
-                       FontSize="32"/>
-                <Label Text="{Binding Schedule}" 
                        FontSize="26"/>
+                <Label Text="{Binding Schedule}" 
+                       FontSize="20"/>
                 <Label Text="Links"
                        TextColor="#3B5A9A" 
                        FontAttributes="Bold" 
-                       FontSize="32"/>
+                       FontSize="26"/>
+                <Label Text="Reviews"
+                       TextColor="#3B5A9A" 
+                       FontAttributes="Bold" 
+                       FontSize="26"/>
                 <ListView x:Name="linksView"
                     ItemsSource="{Binding Links}" 
                     ItemTemplate="{StaticResource LinksTemplate}"
                     SeparatorVisibility="None"
                     VerticalScrollBarVisibility="Never"
                     RowHeight="30"/>
+                <ListView ItemsSource="{Binding Reviews}" 
+                          ItemTemplate="{StaticResource ReviewListTemplate}"
+                          SelectionMode="None"
+                          RowHeight="100"
+                          SeparatorVisibility="None"/>
+                <Button Text="Edit" Clicked="EditBusiness"/>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

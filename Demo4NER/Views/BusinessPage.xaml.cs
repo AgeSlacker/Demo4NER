@@ -18,6 +18,10 @@ namespace Demo4NER.Views
             BindingContext = viewModel = new BusinessPageViewModel(selectedBusiness);
         }
 
+
+        private void EditBusiness(object sender, EventArgs e)
+        {
+            Navigation.PushModalAsync(new EditBusinessPage(viewModel.Business));
         protected override void OnAppearing()
         {
             base.OnAppearing();

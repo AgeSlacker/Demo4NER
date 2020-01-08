@@ -25,6 +25,29 @@ namespace Demo4NER.ViewModels
             Business.Links = new List<Link>();
             Link link1 = new Link() { Name = "Site", URL = "4nerapp.com" };
             Link link2 = new Link() { Name = "Facebook", URL = "facebook.com/4nerapp" };
+
+            Business.Schedule = "Dias de semana: 12h-15h 19h-00h\nFim de semana: 19h - 00h";
+            //double rating1 = double.Parse("4,9");
+            //double rating2 = double.Parse("6");
+            Review review1 = new Review()
+            {
+                Id = 0,
+                User = null,
+                Business = null,
+                BusinessName = null,
+                Rating = double.Parse("4,9"),
+                Comment = "Pretty Cool."
+            };
+            Review review2 = new Review()
+            {
+                Id = 1,
+                User = null,
+                Business = null,
+                BusinessName = null,
+                Rating = double.Parse("6"),
+                Comment = "Dope."
+            };
+            Business.Reviews = new List<Review>() { review1, review2 };
             Business.Links.Add(link1); 
             Business.Links.Add(link2);
             Business.Schedule = "Dias de semana: 12h-15h 19h-00h\nFim de semana: 19h - 00h";
