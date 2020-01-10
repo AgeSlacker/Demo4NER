@@ -64,5 +64,20 @@ namespace Demo4NER.Views
 
             }
         }
+
+        private void PostComment(object sender, EventArgs e)
+        {
+            viewModel.Business.Reviews.Add(new Review()
+            {
+                Id = 0,
+                User = null,
+                Business = viewModel.Business,
+                Rating = double.Parse(viewModel.ReviewRating),
+                Comment = viewModel.ReviewComment
+            });
+
+            viewModel.ReviewComment = "";
+            viewModel.ReviewRating = "";
+        }
     }
 }

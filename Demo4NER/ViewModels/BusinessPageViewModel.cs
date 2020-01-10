@@ -2,6 +2,7 @@
 using Demo4NER.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -11,6 +12,8 @@ namespace Demo4NER.ViewModels
     public class BusinessPageViewModel : BaseViewModel
     {
         private Business _business;
+        public String ReviewComment;
+        public String ReviewRating;
 
         public Business Business
         {
@@ -23,6 +26,7 @@ namespace Demo4NER.ViewModels
         public BusinessPageViewModel(Business selectedBusiness)
         {
             Business = selectedBusiness;
+
             Business.Links = new List<Link>();
             Link link1 = new Link() { Name = "Site", URL = "4nerapp.com" };
             Link link2 = new Link() { Name = "Facebook", URL = "facebook.com/4nerapp" };
@@ -48,7 +52,7 @@ namespace Demo4NER.ViewModels
                 Rating = double.Parse("6"),
                 Comment = "Dope."
             };
-            Business.Reviews = new List<Review>() { review1, review2 };
+            Business.Reviews = new ObservableCollection<Review>() { review1, review2 };
             Business.Links.Add(link1); 
             Business.Links.Add(link2);
             Business.Schedule = "Dias de semana: 12h-15h 19h-00h\nFim de semana: 19h - 00h";

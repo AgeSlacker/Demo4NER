@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
@@ -71,6 +72,6 @@ namespace Demo4NER.Models
         public float Rating { get; set; }
         public List<Link> Links { get; set; }
         public String Schedule { get; set; }
-        public List<Review> Reviews { get; set; }
+        public ObservableCollection<Review> Reviews { get; set; }
     }
 }
