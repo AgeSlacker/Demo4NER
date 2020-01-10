@@ -8,16 +8,31 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout BindingContext="{Binding NewBusiness}">
-                <Label Text="Imagem"></Label>
+                <Label Text="Image" FontSize="24" TextColor="#3B5A9A"></Label>
                 <Image x:Name="businessImage"></Image>
-                <Button Text="Escolher imagem" Clicked="ButtonImageSelect_OnClicked"></Button>
-                <Entry Placeholder="Nome" Text="{Binding Name}"></Entry>
-                <Entry Placeholder="Descrição" Text="{Binding Description}"></Entry>
-                <Entry Placeholder="Morada" Text="{Binding WrittenAddress}"></Entry>
-                <Entry Placeholder="Telemóvel" Text="{Binding Contact}"></Entry>
-                <Entry Placeholder="Email" Text="{Binding Email}"></Entry>
-                <Entry Placeholder="TEMP Latitide" Text="{Binding Latitude}"></Entry>
-                <Entry Placeholder="TEMP Longitude" Text="{Binding Longitude}"></Entry>
+                <Button Text="Pick an image" Clicked="ButtonImageSelect_OnClicked"></Button>
+
+                <Label Text="Name" FontSize="24" TextColor="#3B5A9A"></Label>
+                <Entry Placeholder="Name" Text="{Binding Name}"></Entry>
+
+                <Label Text="Description" FontSize="24" TextColor="#3B5A9A"></Label>
+                <Entry Placeholder="Description" Text="{Binding Description}"></Entry>
+
+                <Label Text="Address" FontSize="24" TextColor="#3B5A9A"></Label>
+                <Entry Placeholder="Address" Text="{Binding WrittenAddress}"></Entry>
+
+                <Label Text="Contact" FontSize="24" TextColor="#3B5A9A"></Label>
+                <Entry Placeholder="Contact" Text="{Binding Contact}"></Entry>
+
+                <Label Text="Email" FontSize="24" TextColor="#3B5A9A"></Label>
+                <Entry Placeholder="example@example.com" Text="{Binding Email}"></Entry>
+
+                <Label Text="Latitude" FontSize="24" TextColor="#3B5A9A"></Label>
+                <Entry Placeholder="Latitude" Text="{Binding Latitude}"></Entry>
+
+                <Label Text="Longitude" FontSize="24" TextColor="#3B5A9A"></Label>
+                <Entry Placeholder="Longitude" Text="{Binding Longitude}"></Entry>
+                
                 <Button Text="Create" Clicked="Button_OnClicked"></Button>
             </StackLayout>
         </ScrollView>

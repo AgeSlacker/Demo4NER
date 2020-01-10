@@ -62,11 +62,14 @@ namespace Demo4NER.Models
         public string Email { get; set; }
         public List<Feature> Features { get; set; }
         public bool IsFeatured { get; set; }
+        public bool HasDiscounts { get; set; }
         public DateTime FeaturedEndDate { get; set; }
         public List<Promotion> Promotions { get; set; }
         public List<Discount> Discounts { get; set; }
         public List<Click> Clicks { get; set; }
         public float Rating { get; set; }
         public List<Link> Links { get; set; }
+        public String Schedule { get; set; }
+        public List<Review> Reviews { get; set; }
     }
 }

@@ -38,7 +38,9 @@ namespace Demo4NER.Services
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySql(myDbConnection);
+            optionsBuilder.UseMySql(
+                myDbConnection,
+                options => options.EnableRetryOnFailure());
         }
     }
 }
