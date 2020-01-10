@@ -15,7 +15,7 @@ using Plugin.Permissions;
 
 namespace Demo4NER.Droid
 {
-    [Activity(Label = "4NER", Icon = "@drawable/logologin", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "4NER", Icon = "@drawable/iconcomstroke", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         public static MainActivity Instance { get; private set; }

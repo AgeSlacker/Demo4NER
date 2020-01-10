@@ -49,7 +49,7 @@ namespace Demo4NER.Views
         {
             try
             {
-                Xamarin.Essentials.PhoneDialer.Open((sender as Label)?.Text);
+                PhoneDialer.Open((sender as Label)?.Text);
             }
             catch (ArgumentNullException argumentNullException)
             {
