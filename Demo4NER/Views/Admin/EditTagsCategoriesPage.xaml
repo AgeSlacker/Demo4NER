@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:Demo4NER.ViewModels;assembly=Demo4NER"
+             mc:Ignorable="d"
+             x:Class="Demo4NER.Views.Admin.EditTagsCategoriesPage">
+    <ContentPage.Content>
+        <StackLayout x:DataType="viewModels:AdminViewModel">
+            <Label Text="{Binding Message}" TextColor="{Binding MessageColor}" HorizontalOptions="Center"></Label>
+            <StackLayout Orientation="Horizontal">
+                <Entry Placeholder="Tag" Text="{Binding TagInput.Value}" HorizontalOptions="FillAndExpand"></Entry>
+                <Button Text="Add" Command="{Binding AddTagCommand}"></Button>
+                <Button Text="Remove" Command="{Binding DeleteTagCommand}"></Button>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Entry Placeholder="Category" Text="{Binding CategoryInput.Value}" HorizontalOptions="FillAndExpand"></Entry>
+                <Button Text="Add" Command="{Binding AddCategoryCommand}"></Button>
+                <Button Text="Remove" Command="{Binding DeleteCategoryCommand}"></Button>
+            </StackLayout>
+                <ActivityIndicator IsRunning="{Binding IsBusy}"></ActivityIndicator>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

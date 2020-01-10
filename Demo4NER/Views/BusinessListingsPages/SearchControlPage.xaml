@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:comboBox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
+             xmlns:viewModels="clr-namespace:Demo4NER.ViewModels;assembly=Demo4NER"
+             xmlns:models="clr-namespace:Demo4NER.Models;assembly=Demo4NER"
+             xmlns:system="clr-namespace:System;assembly=netstandard"
+             xmlns:generic="clr-namespace:System.Collections.Generic;assembly=netstandard"
+             mc:Ignorable="d"
+             x:Class="Demo4NER.Views.SearchControlPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="TagDataTemplate">
+                <ViewCell>
+                    <StackLayout Orientation="Horizontal">
+                        <CheckBox ></CheckBox>
+                        <Label></Label>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Tags" FontSize="Title"></Label>
+            <comboBox:SfComboBox x:Name="TagsComboBox"
+                                 VerticalOptions="Fill"
+                                 DisplayMemberPath="Value"
+                                 AllowFiltering="True"
+                                 ShowSuggestionsOnFocus="True"
+                                 MaximumDropDownHeight="200"
+                                 ComboBoxMode="SuggestAppend"
+                                 MultiSelectMode="Token"
+                                 IsEditableMode="True"
+                                 SuggestionMode="Contains"
+                                 TokensWrapMode="Wrap"
+                                 DataSource="{Binding Source={x:Static viewModels:BaseBusinessListViewModel.Tags}}"
+                                 IsSelectedItemsVisibleInDropDown="False">
+            </comboBox:SfComboBox>
+
+            <!--<ListView ItemsSource="{Binding Source={x:Static viewModels:BaseBusinessListViewModel.Tags}}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Label Text="{Binding Value}"></Label>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>-->
+
+            <Label Text="Category" FontSize="Title"></Label>
+            <Picker Title="Categoria"></Picker>
+            <Entry Placeholder="Procurar" Text="{Binding SearchTerms}"></Entry>
+            <Button Text="Go" Clicked="Button_OnClicked"></Button>
+            <Button Text="voltar" Clicked="Button_OnClicked"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage> 
