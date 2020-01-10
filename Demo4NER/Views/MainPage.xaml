@@ -37,10 +37,9 @@
 
         <NavigationPage Title="Perfil" IconImageSource="avatar.png">
             <x:Arguments>
-                <views:ProfilePage></views:ProfilePage>
+                <views:MyBusinesses></views:MyBusinesses>
             </x:Arguments>
         </NavigationPage>
 
     </TabbedPage.Children>
-    <leibel></leibel>
 </TabbedPage>

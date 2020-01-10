@@ -16,7 +16,6 @@ namespace Demo4NER.Models
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
-
         public byte[] BusinessImage { get; set; }
         private ImageSource _imageSource = null;
         [NotMapped]

@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace Demo4NER.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class BusinessEditPage : ContentPage
+    public partial class MyBusinesses : ContentPage
     {
-        public BusinessEditPage()
+        public MyBusinesses()
         {
             InitializeComponent();
         }
