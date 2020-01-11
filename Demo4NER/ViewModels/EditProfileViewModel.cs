@@ -101,6 +101,7 @@ namespace Demo4NER.ViewModels
             });
 
             (Application.Current as App).SaveUserInProperties(NewUser);
+            Debug.WriteLine(NewUser.ToString());
         }
     }
 }

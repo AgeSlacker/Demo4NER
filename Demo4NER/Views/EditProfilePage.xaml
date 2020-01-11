@@ -5,24 +5,61 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="Demo4NER.Views.EditProfilePage"
-             BackgroundColor="LightGray"
+             BackgroundColor="White"
              Title="4NER">
-    
+
     <ContentPage.Content>
-        <ScrollView>
+        <AbsoluteLayout>
+            <BoxView Color="#3B5A9A" AbsoluteLayout.LayoutBounds="0, 0, 400, 200"
+                AbsoluteLayout.LayoutFlags="PositionProportional" />
+            <StackLayout AbsoluteLayout.LayoutBounds="0.5, 0.25, 160, 160"
+                AbsoluteLayout.LayoutFlags="PositionProportional">
+                <Frame  CornerRadius="80"
+                        Padding="0"
+                        Margin="0"
+                        HeightRequest="160"
+                        WidthRequest="160"
+                        IsClippedToBounds="True"
+                        BorderColor="#3B5A9A">
+                    <Image x:Name="userImage" Aspect="Fill"/>
+                </Frame>
+            </StackLayout>
+            <Button Text="Mudar Imagem" Clicked="ButtonImageSelect_OnClicked" TextColor="#3B5A9A"
+                    FontSize="18" BackgroundColor="Transparent" FontAttributes="Bold"
+                    AbsoluteLayout.LayoutBounds="0.5, 0.475, 160, 60" 
+                    AbsoluteLayout.LayoutFlags="PositionProportional"/>
+            <Image Source="{Binding ImageSource}" 
+                    AbsoluteLayout.LayoutBounds="0.85, 0.65, 120, 100" 
+                    AbsoluteLayout.LayoutFlags="PositionProportional"/>
+            <Picker Title="Selection" TitleColor="#3B5A9A" TextColor="#3B5A9A" FontSize="18" 
+                    AbsoluteLayout.LayoutBounds="0.15, 0.65, 120, 50" 
+                    AbsoluteLayout.LayoutFlags="PositionProportional"
+                    ItemsSource="{Binding Nationals}"
+                    ItemDisplayBinding="{Binding Name}"
+                    SelectedItem="{Binding selectedNat}"
+                    SelectedIndex="{Binding Index}"/>
+            <StackLayout BindingContext="{Binding NewUser}" 
+                    AbsoluteLayout.LayoutBounds="0, 0.9, 1, 0.2" 
+                    AbsoluteLayout.LayoutFlags="All"
+                    HorizontalOptions="CenterAndExpand">
+                <Entry Text="{Binding Name}" FontSize="18"/>
+                <Entry Text="{Binding Contact}" FontSize="18"/>
+                <Entry Text="{Binding Email}" FontSize="18"/>
+            </StackLayout>
+        </AbsoluteLayout>
+        <!--<ScrollView>
                 <RelativeLayout>
-                    <BoxView Color="White" HeightRequest="1000" CornerRadius="500"
+                <BoxView Color="White" HeightRequest="1000" CornerRadius="500"
             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=2}" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=-600}"/>
-                <Label Text="Carregar Imagem" TextColor="#3B5A9A" FontAttributes="Bold" FontSize="18"
-                       HorizontalTextAlignment="Center" 
-                       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=20}" 
+                <Button Text="Carregar Imagem" Clicked="ButtonImageSelect_OnClicked" TextColor="#3B5A9A" FontAttributes="Bold" FontSize="18" BackgroundColor="Transparent"
+                       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=15}" 
                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.5}" 
                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=0}"/>
                 <Label Text="Nacionalidade" TextColor="#3B5A9A" FontAttributes="Bold" FontSize="18"
             HorizontalTextAlignment="Center" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=20}" 
                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.5}" 
                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=0}"/>
-                <Image Source="avatar.jpg" HeightRequest="120" WidthRequest="120" 
+                <Image x:Name="userImage" HeightRequest="120" WidthRequest="120"
                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width, Factor=0.25, Constant = -60}" 
                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0, Property=Y, Constant=50}" />
                 <Image Source="{Binding ImageSource}" HeightRequest="100" WidthRequest="120" 
@@ -64,6 +101,6 @@
                             RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0,Constant=500}"
                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.75, Constant=-60}"/>
             </RelativeLayout>
-            </ScrollView>
+        </ScrollView>-->
     </ContentPage.Content>
 </ContentPage>

@@ -7,6 +7,7 @@
             xmlns:views="clr-namespace:Demo4NER.Views"
             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
             android:TabbedPage.ToolbarPlacement="Bottom"
+            android:TabbedPage.OffscreenPageLimit="4"
             x:Class="Demo4NER.Views.MainPage"
             NavigationPage.HasNavigationBar="False"
 >
