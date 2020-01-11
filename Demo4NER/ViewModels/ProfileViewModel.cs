@@ -8,25 +8,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-
 namespace Demo4NER.ViewModels
 {
     public class ProfileViewModel : BaseViewModel
     {
         public User User { get; set; } = new User();
-
         //public ObservableCollection<Review> Reviews { get; set; } = new ObservableCollection<Review>();
-
         public Command LoadUserCommand { get; set; }
-
         //public Command LoadReviewsCommand { get; set; }
-
         public ProfileViewModel() 
         {
             LoadUserCommand = new Command(async () => await LoadUserCommandExecute());
             //LoadReviewsCommand = new Command(async () => await LoadReviewsCommandExecute());
         }
-
         private async Task LoadReviewsCommandExecute()
         {
             using (var db = new criar context para reviews)
@@ -37,7 +31,6 @@ namespace Demo4NER.ViewModels
                     Reviews.Add(review);
             }
         }
-
         private async Task LoadUserCommandExecute()
         {
             using (var db = new NerContext()) {
@@ -57,6 +50,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Android.Content.Res;
 using Xamarin.Forms;
+using System.Diagnostics;
 
 namespace Demo4NER.ViewModels
 {
@@ -121,13 +115,24 @@ namespace Demo4NER.ViewModels
                     else
                     {
                         ImageSource = temp;
+                        Debug.WriteLine(ImageSource);
                     }
+                    Debug.WriteLine(value.Nationality);
                     SetProperty(ref _user, value);
                 }
             }
         }
 
-        public string ImageSource;
+        private string imageSource;
+        public string ImageSource
+        {
+            get { return imageSource; }
+            set
+            {
+                imageSource = value;
+                OnPropertyChanged();
+            }
+        }
 
         Dictionary<string, string> Nationality = new Dictionary<string, string>();
 

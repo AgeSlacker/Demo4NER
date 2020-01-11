@@ -10,32 +10,32 @@ using Demo4NER.ViewModels;
 
 namespace Demo4NER.Views
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ProfilePage : ContentPage
-    {
-        public ProfileViewModel viewModel;
-        public ProfilePage()
-        {
-            InitializeComponent();
-            BindingContext = viewModel = new ProfileViewModel();
-        }
+   [XamlCompilation(XamlCompilationOptions.Compile)]
+   public partial class ProfilePage : ContentPage
+   {
+       public ProfileViewModel viewModel;
+       public ProfilePage()
+       {
+           InitializeComponent();
+           BindingContext = viewModel = new ProfileViewModel();
+       }
 
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-            viewModel.LoadUserCommand.Execute(null);
-        }
+       protected override void OnAppearing()
+       {
+           base.OnAppearing();
+           viewModel.LoadUserCommand.Execute(null);
+       }
 
-        private void Edit_Clicked(object sender, EventArgs e)
-        {
-            Navigation.PushAsync(new EditProfilePage());
-        }
+       private void Edit_Clicked(object sender, EventArgs e)
+       {
+           Navigation.PushAsync(new EditProfilePage());
+       }
 
-        private void Button_OnClicked(object sender, EventArgs e)
-        {
-            Navigation.PushModalAsync(new NewBusinessPage());
-        }
-    }
+       private void Button_OnClicked(object sender, EventArgs e)
+       {
+           Navigation.PushModalAsync(new NewBusinessPage());
+       }
+   }
 }*/
 using System;
 using System.Collections.Generic;
