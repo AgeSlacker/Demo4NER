@@ -36,6 +36,8 @@ namespace Demo4NER.Models
         }
         public string Description { get; set; }
         public string Contact { get; set; }
+        public Category Category { get; set; }
+
         private Location _location = new Location();
         [NotMapped]
         public Location Location
@@ -62,16 +64,18 @@ namespace Demo4NER.Models
         public double Distance { get; set; }
         public string WrittenAddress { get; set; }
         public string Email { get; set; }
-        public List<Feature> Features { get; set; }
+        public ICollection<Feature> Features { get; set; }
         public bool IsFeatured { get; set; }
         public bool HasDiscounts { get; set; }
         public DateTime FeaturedEndDate { get; set; }
-        public List<Promotion> Promotions { get; set; }
-        public List<Discount> Discounts { get; set; }
-        public List<Click> Clicks { get; set; }
+        public ICollection<Promotion> Promotions { get; set; }
+        public ICollection<Discount> Discounts { get; set; }
+        public ICollection<Click> Clicks { get; set; }
         public float Rating { get; set; }
-        public List<Link> Links { get; set; }
+        public ICollection<Link> Links { get; set; }
         public String Schedule { get; set; }
+        public String Nationality { get; set; }
+        public ICollection<BusinessTag> BusinessTags { get; set; }
         public ObservableCollection<Review> Reviews { get; set; }
     }
 }
