@@ -25,6 +25,7 @@ namespace Demo4NER
         public ProfilePage ProfilePage { get; set; }
         public SemaphoreSlim semaphore = new SemaphoreSlim(1, 1);
         public ICollection<Business> CachedBusinesses { get; set; } = null;
+        public ICollection<Category> CachedCategories { get; set; } = null;
         public bool LocationEnabled { get; set; }
         public bool LocationGranted { get; set; } = false;
 
@@ -59,8 +60,11 @@ namespace Demo4NER
                     CachedBusinesses = await db.Businesses
                         .Include(b => b.BusinessTags)
                         .ThenInclude(bt=>bt.Tag)
+                        .Include(b=>b.Category)
                         .ToListAsync();
                     Debug.WriteLine("Loaded to cache");
+
+                    CachedCategories = await db.Categories.ToListAsync();
                 }
             });
             semaphore.Release();

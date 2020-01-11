@@ -32,6 +32,8 @@ namespace Demo4NER.ViewModels
         public static Command InitializeTagsCommand { get; set; }
         public static Command UpdateTagsCommand { get; set; }
 
+        public Command ApplyFilterCommand { get; set; }
+
         private bool _displayLocationError = false;
 
         public bool DisplayLocationError
@@ -39,6 +41,9 @@ namespace Demo4NER.ViewModels
             get => _displayLocationError;
             set => SetProperty(ref _displayLocationError, value);
         }
+
+        public Category SelectedCategory { get; set; }
+
         public BaseBusinessListViewModel()
         {
             UpdateBusinessesListCommand = new Command(async () => await UpdateBusinessesListExecute());
@@ -73,6 +78,59 @@ namespace Demo4NER.ViewModels
                     foreach (Tag tag in result) _tags.Add(tag);
                 });
             });
+            ApplyFilterCommand = new Command(async () =>
+            {
+                await UpdateBusinessesListExecute();
+                if (SelectedCategory != null)
+                {
+                    var temp = new List<Business>(BusinessesList.Where(b => b.Category == SelectedCategory));
+                    BusinessesList.Clear();
+                    foreach (Business business in temp)
+                    {
+                        BusinessesList.Add(business);
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(SearchTerms))
+                {
+                    var tokenized = SearchTerms.Split(' ');
+                    //var temp = new List<Business>(BusinessesList.Where(
+                    //    b => tokenized.Any(t => t.Contains(b.Name))));
+                    var temp = new List<Business>();
+                    foreach (string s in tokenized)
+                    {
+                        // Match by name
+                        foreach (Business business in BusinessesList)
+                        {
+                            if (business.Name.ToLower().Contains(s.ToLower()) && !temp.Contains(business))
+                            {
+                                temp.Add(business);
+                            }
+                        }
+                        // Match by tag 
+                        foreach (Business business in BusinessesList)
+                        {
+                            foreach (BusinessTag businessTag in business.BusinessTags)
+                            {
+                                var val = businessTag.Tag.Value;
+                                if (val.ToLower().Contains(s.ToLower()) && !temp.Contains(business))
+                                {
+                                    temp.Add(business);
+                                }
+                            }
+                        }
+                    }
+
+                    BusinessesList.Clear();
+                    foreach (Business business in temp)
+                    {
+                        BusinessesList.Add(business);
+                    }
+
+                    SelectedCategory = null;
+                    SearchTerms = null;
+                }
+            });
         }
         private async Task DoSearchExecute()
         {
@@ -103,7 +161,7 @@ namespace Demo4NER.ViewModels
                 // tentar ir buscar à cache primeiro
                 SemaphoreSlim semaphore = (Application.Current as App).semaphore;
                 await semaphore.WaitAsync();
-                if (((App) Application.Current).CachedBusinesses == null)
+                if (((App)Application.Current).CachedBusinesses == null)
                 {
                     Debug.WriteLine("Getting from db");
                     // Get Businesses and set to cache, otherwise use cached
@@ -161,7 +219,7 @@ namespace Demo4NER.ViewModels
                 return await db.Businesses
                     .Include(b => b.BusinessTags)
                     .ThenInclude(bt => bt.Tag)
-                    .ToListAsync(); 
+                    .ToListAsync();
             }
         }
 

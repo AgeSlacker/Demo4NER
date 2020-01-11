@@ -12,7 +12,7 @@
              x:Name="This"
              >
 
-    <!--<NavigationPage.TitleView>
+    <NavigationPage.TitleView>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="60"/>
@@ -31,7 +31,7 @@
                 </Image.GestureRecognizers>
             </Image>
         </Grid>
-    </NavigationPage.TitleView>-->
+    </NavigationPage.TitleView>
     <ContentPage.Content>
         <StackLayout x:DataType="viewModels:SearchViewModel">
             <Label Text="GPS desativado ou não autorizado." 
@@ -45,10 +45,8 @@
                       RowHeight="100"
                       ItemSelected="ListView_OnItemSelected"
                       CachingStrategy="RecycleElement"
-                      ItemTemplate="{StaticResource BusinessTemplateSelector}">
-                <ListView.Header>
-                    <Entry Placeholder="Search" ReturnType="Search"></Entry>
-                </ListView.Header>
+                      ItemTemplate="{StaticResource BusinessTemplateSelector}"
+                      VerticalOptions="FillAndExpand">
             </ListView>
         </StackLayout>
     </ContentPage.Content>

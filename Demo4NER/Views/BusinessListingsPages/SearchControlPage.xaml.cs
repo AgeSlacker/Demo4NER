@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Demo4NER.Models;
 using Demo4NER.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -25,15 +26,17 @@ namespace Demo4NER.Views
             BaseBusinessListViewModel.InitializeTagsCommand.Execute(null);
         }
 
-        private void Button_OnClicked(object sender, EventArgs e)
+        private void FilterButtonOnClicked(object sender, EventArgs e)
         {
-            viewModel.SelectedFilterIndexes = TagsComboBox.SelectedIndices as List<int>;
+            viewModel.SelectedCategory = (Category) CategoryComboBox.SelectedItem;
+            viewModel.ApplyFilterCommand.Execute(null);
             Navigation.PopModalAsync();
         }
 
-        private void SfComboBox_OnDropDownOpen(object sender, EventArgs e)
+
+        private void BackButtonOnClicked(object sender, EventArgs e)
         {
-            Debug.WriteLine("test");
+            Navigation.PopModalAsync();
         }
     }
 }
