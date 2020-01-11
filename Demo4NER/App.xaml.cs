@@ -22,6 +22,7 @@ namespace Demo4NER
     {
         public ProfilePage ProfilePage { get; set; }
 
+        public ICollection<Business> CachedBusinesses { get; set; } = null;
         public bool LocationEnabled { get; set; }
         public bool LocationGranted { get; set; } = false;
 
