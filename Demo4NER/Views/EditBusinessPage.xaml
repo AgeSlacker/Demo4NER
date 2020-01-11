@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Demo4NER.Views.EditBusinessPage">
+    <ContentPage.Content>
+        <StackLayout BindingContext="{Binding Business}" Margin="10,0,10,0">
+            <Label Text="Name"
+                   TextColor="#3B5A9A" 
+                   FontAttributes="Bold" 
+                   FontSize="30"/>
+            <Entry Text="{Binding Name}" Placeholder="{Binding Name}"/>
+            <Label Text="Descrição"
+                   TextColor="#3B5A9A" 
+                   FontAttributes="Bold" 
+                   FontSize="30"/>
+            <Editor Text="{Binding Description}"/>
+            <Label Text="Morada"
+                   TextColor="#3B5A9A" 
+                   FontAttributes="Bold" 
+                   FontSize="30"/>
+            <Editor Text="{Binding WrittenAddress}" Placeholder="{Binding WrittenAddress}"/>
+            <Label Text="Contacto"
+                   TextColor="#3B5A9A" 
+                   FontAttributes="Bold" 
+                   FontSize="30"/>
+            <Entry Text="{Binding Contact}" Placeholder="{Binding Contact}"/>
+            <Label Text="Horario"
+                   TextColor="#3B5A9A" 
+                   FontAttributes="Bold" 
+                   FontSize="30"/>
+            <Editor Text="{Binding Schedule}"/>
+            <Label Text="Link"
+                   TextColor="#3B5A9A" 
+                   FontAttributes="Bold" 
+                   FontSize="30"/>
+            <ListView ItemsSource="{Binding Links}" 
+                      ItemTemplate="{StaticResource EditLinkListTemplate}"
+                      SelectionMode="None"
+                      RowHeight="100"
+                      SeparatorVisibility="None"/>
+            <Button Text="Back" Clicked="Back"/>
+            <Button Text="Save" Clicked="Save"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

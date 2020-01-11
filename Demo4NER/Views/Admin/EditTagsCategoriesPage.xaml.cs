@@ -7,17 +7,17 @@ using Demo4NER.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace Demo4NER.Views
+namespace Demo4NER.Views.Admin
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-
-    public partial class DiscountsPage : ContentPage
+    public partial class EditTagsCategoriesPage : ContentPage
     {
-        private DiscountsViewModel viewModel;
-        public DiscountsPage()
+        private AdminViewModel viewModel;
+
+        public EditTagsCategoriesPage(AdminViewModel viewModel)
         {
             InitializeComponent();
-            BindingContext = viewModel = new DiscountsViewModel();
+            BindingContext = this.viewModel = viewModel;
         }
     }
 }

@@ -4,12 +4,10 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="Demo4NER.Views.SearchPage"
-             Title="Procurar"
-             Padding="10">
-
+             x:Class="Demo4NER.Views.DiscountsPage"
+             >
     <NavigationPage.TitleView>
-        <Grid>
+            <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="60"/>
                 <ColumnDefinition Width="*"/>
@@ -28,15 +26,14 @@
             </Image>
         </Grid>
     </NavigationPage.TitleView>
+
+
     <ContentPage.Content>
         <StackLayout>
-            <Entry Placeholder="Procurar" Text="{Binding SearchTerms}"></Entry>
-            <Button Text="Go" Command="{Binding DoSearchCommand}"></Button>
-            <Label Text="Filter"></Label>
             <Label Text="GPS desativado ou não autorizado." 
                    IsVisible="{Binding DisplayLocationError}"
                    HorizontalOptions="Center"
-                   ></Label>
+            ></Label>
             <ListView ItemsSource="{Binding BusinessesList}"
                       RefreshCommand="{Binding UpdateBusinessesListCommand}"
                       IsPullToRefreshEnabled="True"

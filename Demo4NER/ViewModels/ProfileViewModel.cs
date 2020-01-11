@@ -57,7 +57,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Android.Content.Res;
 using Xamarin.Forms;
-using System.Diagnostics;
 
 namespace Demo4NER.ViewModels
 {
@@ -122,24 +121,13 @@ namespace Demo4NER.ViewModels
                     else
                     {
                         ImageSource = temp;
-                        Debug.WriteLine(ImageSource);
                     }
-                    Debug.WriteLine(value.Nationality);
                     SetProperty(ref _user, value);
                 }
             }
         }
 
-        private string imageSource;
-        public string ImageSource
-        {
-            get { return imageSource; }
-            set
-            {
-                imageSource = value;
-                OnPropertyChanged();
-            }
-        }
+        public string ImageSource;
 
         Dictionary<string, string> Nationality = new Dictionary<string, string>();
 
