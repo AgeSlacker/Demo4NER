@@ -28,9 +28,12 @@ namespace Demo4NER.Views
                 Navigation.PushModalAsync(new BusinessPage(selectedBusiness));
         }
 
-        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        private async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
-            Navigation.PushModalAsync(new SearchControlPage(viewModel));
+            if (IsBusy) return;
+            IsBusy = true;
+            await Navigation.PushModalAsync(new SearchControlPage(viewModel));
+            IsBusy = false;
         }
     }
 }

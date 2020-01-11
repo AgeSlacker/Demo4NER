@@ -88,7 +88,11 @@ namespace Demo4NER.Views
 
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
+            if (IsBusy)
+                return;
+            IsBusy = true;
             Navigation.PushModalAsync(new SearchControlPage(viewModel));
+            IsBusy = false;
         }
 
         private void AdminPageOnClick(object sender, EventArgs e)
