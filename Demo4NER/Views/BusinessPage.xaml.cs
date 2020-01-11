@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using Demo4NER.Models;
 using Demo4NER.ViewModels;
 using Xamarin.Essentials;
@@ -67,15 +68,21 @@ namespace Demo4NER.Views
 
         private void PostComment(object sender, EventArgs e)
         {
+            Debug.WriteLine(viewModel.ReviewComment);
+            Debug.WriteLine(viewModel.ReviewRating);
+            if(viewModel.Business.Reviews == null)
+            {
+                viewModel.Business.Reviews = new ObservableCollection<Review>();
+            }
+
             viewModel.Business.Reviews.Add(new Review()
             {
                 Id = 0,
-                User = null,
+                User = viewModel.LoggedUser,
                 Business = viewModel.Business,
                 Rating = double.Parse(viewModel.ReviewRating),
                 Comment = viewModel.ReviewComment
             });
-
             viewModel.ReviewComment = "";
             viewModel.ReviewRating = "";
         }
