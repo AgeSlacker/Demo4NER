@@ -36,11 +36,11 @@
             </x:Arguments>
         </NavigationPage>
 
-        <NavigationPage Title="Perfil" IconImageSource="avatar.png">
+        <!--<NavigationPage Title="Perfil" IconImageSource="avatar.png">
             <x:Arguments>
                 <views:ProfilePage></views:ProfilePage>
             </x:Arguments>
-        </NavigationPage>
+        </NavigationPage>-->
 
     </TabbedPage.Children>
     

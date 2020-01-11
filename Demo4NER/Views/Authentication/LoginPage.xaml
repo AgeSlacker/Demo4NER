@@ -54,7 +54,7 @@
                 <Button Text="LogIn" BackgroundColor="#3897f0" TextColor="White" HeightRequest="50" VerticalOptions="Start" Grid.Row="4"
                         Command="{Binding LoginCommand}" />
                 <Button Text="Entrar como anónimo"  BackgroundColor="Gray" TextColor="White" HeightRequest="50" VerticalOptions="Start" Grid.Row="5"
-                        Clicked="AnonimusLogin"></Button>
+                        Clicked="AnonimusLogin" IsVisible="{Binding FirstTime, Source={x:Static Application.Current}}"></Button>
                 <Label Text="Login Trouble? Call the police" 
                        HorizontalOptions="Center" 
                        Grid.Row="6" 

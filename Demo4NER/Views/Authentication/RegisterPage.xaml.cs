@@ -17,6 +17,12 @@ namespace Demo4NER.Views
             BindingContext = viewModel = new RegisterViewModel();
         }
 
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            Navigation.PopAsync();
+        }
+
         private async void BackToLoginTap(object sender, EventArgs e)
         {
             await Navigation.PopAsync();

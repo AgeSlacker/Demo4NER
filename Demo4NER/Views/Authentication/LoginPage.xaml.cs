@@ -15,7 +15,7 @@ namespace Demo4NER.Views
     public partial class LoginPage : ContentPage
     {
         private LoginViewModel viewModel;
-        
+
         public LoginPage()
         {
             InitializeComponent();
@@ -26,13 +26,10 @@ namespace Demo4NER.Views
         private async void ViewModel_LoginAttempted(object sender, LoginViewModel.LoginResult e)
         {
             // Login Success
-            ((App) Application.Current).SaveUserInProperties(viewModel.User);
-            //Debug.WriteLine(viewModel.User.ToString());
+            ((App)Application.Current).SaveUserInProperties(viewModel.User);
             Navigation.InsertPageBefore(new MainPage(), this);
-            if (Navigation.ModalStack.Contains(this.Parent))
-                await Navigation.PopModalAsync();
-            else
-                await Navigation.PopAsync();
+            await Navigation.PushAsync(new FakeAssProgressBarPage());
+            //(Application.Current as App).MainPage = new MainPage();
         }
 
         private async void RegisterClickGesture(object sender, EventArgs e)
@@ -43,13 +40,10 @@ namespace Demo4NER.Views
 
         private async void AnonimusLogin(object sender, EventArgs e)
         {
-            this.viewModel.IsBusy = true;
-            await Task.Run(()=> Navigation.InsertPageBefore(new MainPage(), this));
-            this.viewModel.IsBusy = false;
-            if (Navigation.ModalStack.Contains(this.Parent))
-                await Navigation.PopModalAsync();
-            else
-                await Navigation.PopAsync();
+            await Navigation.PushAsync(new FakeAssProgressBarPage());
+            Navigation.InsertPageBefore(new MainPage(), this);
+            Navigation.RemovePage(this);
+            await Navigation.PopAsync();
         }
     }
 }

@@ -34,6 +34,25 @@ namespace Demo4NER.Views
                 CurrentPage = Children[2];
                 SelectedItem = Children[2];
             });
+
+            // check if logged or not
+            if ((Application.Current as App).GetUserFromProperties() != null)
+            {
+                // logged
+                var profileNavigationPage = new NavigationPage(new ProfilePage())
+                {
+                    IconImageSource = ImageSource.FromFile("avatar.png"), Title = "Perfil"
+                };
+                Children.Add(profileNavigationPage);
+            }
+            else
+            {
+                var aboutNavigationPage = new NavigationPage(new LoginPage())
+                {
+                    IconImageSource = ImageSource.FromFile("avatar.png"), Title = "Login"
+                };
+                Children.Add(aboutNavigationPage);
+            }
         }
 
         protected override async void OnAppearing()
@@ -45,15 +64,16 @@ namespace Demo4NER.Views
             base.OnCurrentPageChanged();
 
             // Prompt login
-            if (((NavigationPage)CurrentPage).RootPage.GetType() == typeof(ProfilePage))
-            {
-                if ((Application.Current as App).GetUserFromProperties() == null)
-                {
-                    await Navigation.PushModalAsync(new NavigationPage(new LoginPage()));
-                    CurrentPage = this.Children.First();
-                    SelectedItem = this.Children.First();
-                }
-            }
+            
+            //if (((NavigationPage)CurrentPage).RootPage.GetType() == typeof(ProfilePage))
+            //{
+            //    if ((Application.Current as App).GetUserFromProperties() == null)
+            //    {
+            //        await Navigation.PushModalAsync(new NavigationPage(new LoginPage()));
+            //        CurrentPage = this.Children.First();
+            //        SelectedItem = this.Children.First();
+            //    }
+            //}
         }
     }
 }

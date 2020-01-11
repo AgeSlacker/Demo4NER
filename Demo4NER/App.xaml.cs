@@ -24,6 +24,7 @@ namespace Demo4NER
     {
         public ProfilePage ProfilePage { get; set; }
         public SemaphoreSlim semaphore = new SemaphoreSlim(1, 1);
+        public bool FirstTime { get; set; } = true;
         public ICollection<Business> CachedBusinesses { get; set; } = null;
         public ICollection<Category> CachedCategories { get; set; } = null;
         public bool LocationEnabled { get; set; }
@@ -44,6 +45,7 @@ namespace Demo4NER
             if (!Properties.ContainsKey("logged"))
             {
                 MainPage = new NavigationPage(new LoginPage());
+                FirstTime = false;
             }
             else
             {
@@ -59,8 +61,8 @@ namespace Demo4NER
                 {
                     CachedBusinesses = await db.Businesses
                         .Include(b => b.BusinessTags)
-                        .ThenInclude(bt=>bt.Tag)
-                        .Include(b=>b.Category)
+                        .ThenInclude(bt => bt.Tag)
+                        .Include(b => b.Category)
                         .ToListAsync();
                     Debug.WriteLine("Loaded to cache");
 
