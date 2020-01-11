@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="Demo4NER.Views.MapPage">
+             x:Class="Demo4NER.Views.DiscountsPage">
 
     <NavigationPage.TitleView>
         <Grid>
@@ -16,6 +16,7 @@
             <Image Source="logoBranca" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="Center"/>
         </Grid>
     </NavigationPage.TitleView>
+
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Welcome to Xamarin.Forms!"

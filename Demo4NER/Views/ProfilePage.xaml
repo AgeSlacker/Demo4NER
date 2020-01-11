@@ -57,7 +57,6 @@
             <RelativeLayout RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=380}" 
                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
                     <ListView ItemsSource="{Binding Reviews}" HeightRequest="200" RowHeight="80" 
-
                                 RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
                     <ListView.ItemTemplate>
                         <DataTemplate>

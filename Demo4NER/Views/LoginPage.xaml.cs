@@ -2,7 +2,6 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using Demo4NER.Models;
 using Demo4NER.ViewModels;
 using Xamarin.Forms;
@@ -43,9 +42,7 @@ namespace Demo4NER.Views
 
         private async void AnonimusLogin(object sender, EventArgs e)
         {
-            this.viewModel.IsBusy = true;
-            await Task.Run(()=> Navigation.InsertPageBefore(new MainPage(), this));
-            this.viewModel.IsBusy = false;
+            Navigation.InsertPageBefore(new MainPage(), this);
             if (Navigation.ModalStack.Contains(this.Parent))
                 await Navigation.PopModalAsync();
             else

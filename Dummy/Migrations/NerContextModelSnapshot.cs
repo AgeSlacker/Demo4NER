@@ -24,8 +24,6 @@ namespace Dummy.Migrations
 
                     b.Property<byte[]>("BusinessImage");
 
-                    b.Property<int?>("CategoryId");
-
                     b.Property<string>("Contact");
 
                     b.Property<string>("Description");
@@ -37,8 +35,6 @@ namespace Dummy.Migrations
 
                     b.Property<DateTime>("FeaturedEndDate");
 
-                    b.Property<bool>("HasDiscounts");
-
                     b.Property<bool>("IsFeatured");
 
                     b.Property<double>("Latitude");
@@ -47,8 +43,6 @@ namespace Dummy.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired();
-
-                    b.Property<string>("Nationality");
 
                     b.Property<float>("Rating");
 
@@ -60,43 +54,11 @@ namespace Dummy.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
-
                     b.HasIndex("UserId");
 
                     b.ToTable("Businesses");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("Business");
-                });
-
-            modelBuilder.Entity("Demo4NER.Models.BusinessTag", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int?>("BusinessId");
-
-                    b.Property<int?>("TagId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BusinessId");
-
-                    b.HasIndex("TagId");
-
-                    b.ToTable("BusinessTags");
-                });
-
-            modelBuilder.Entity("Demo4NER.Models.Category", b =>
-                {
-                    b.Property<int>("CategoryId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Value");
-
-                    b.HasKey("CategoryId");
-
-                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("Demo4NER.Models.Click", b =>
@@ -113,7 +75,7 @@ namespace Dummy.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Clicks");
+                    b.ToTable("Cliks");
                 });
 
             modelBuilder.Entity("Demo4NER.Models.Discount", b =>
@@ -212,14 +174,18 @@ namespace Dummy.Migrations
 
             modelBuilder.Entity("Demo4NER.Models.Tag", b =>
                 {
-                    b.Property<int>("TagId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Value");
+                    b.Property<string>("Name");
 
-                    b.HasKey("TagId");
+                    b.Property<int?>("ServiceId");
 
-                    b.ToTable("Tags");
+                    b.HasKey("Id");
+
+                    b.HasIndex("ServiceId");
+
+                    b.ToTable("Tag");
                 });
 
             modelBuilder.Entity("Demo4NER.Models.User", b =>
@@ -240,6 +206,8 @@ namespace Dummy.Migrations
 
                     b.Property<string>("Password");
 
+                    b.Property<byte[]>("UserImage");
+
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
@@ -248,6 +216,8 @@ namespace Dummy.Migrations
             modelBuilder.Entity("Demo4NER.Models.Establishment", b =>
                 {
                     b.HasBaseType("Demo4NER.Models.Business");
+
+                    b.Property<int>("Category");
 
                     b.HasDiscriminator().HasValue("Establishment");
                 });
@@ -265,24 +235,9 @@ namespace Dummy.Migrations
 
             modelBuilder.Entity("Demo4NER.Models.Business", b =>
                 {
-                    b.HasOne("Demo4NER.Models.Category", "Category")
-                        .WithMany("Businesses")
-                        .HasForeignKey("CategoryId");
-
                     b.HasOne("Demo4NER.Models.User")
                         .WithMany("Businesses")
                         .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("Demo4NER.Models.BusinessTag", b =>
-                {
-                    b.HasOne("Demo4NER.Models.Business", "Business")
-                        .WithMany("BusinessTags")
-                        .HasForeignKey("BusinessId");
-
-                    b.HasOne("Demo4NER.Models.Tag", "Tag")
-                        .WithMany("BusinessTags")
-                        .HasForeignKey("TagId");
                 });
 
             modelBuilder.Entity("Demo4NER.Models.Click", b =>
@@ -327,12 +282,19 @@ namespace Dummy.Migrations
             modelBuilder.Entity("Demo4NER.Models.Review", b =>
                 {
                     b.HasOne("Demo4NER.Models.Business", "Business")
-                        .WithMany("Reviews")
+                        .WithMany()
                         .HasForeignKey("BusinessId");
 
                     b.HasOne("Demo4NER.Models.User", "User")
                         .WithMany("Reviews")
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("Demo4NER.Models.Tag", b =>
+                {
+                    b.HasOne("Demo4NER.Models.Service")
+                        .WithMany("Tags")
+                        .HasForeignKey("ServiceId");
                 });
 
             modelBuilder.Entity("Demo4NER.Models.Service", b =>

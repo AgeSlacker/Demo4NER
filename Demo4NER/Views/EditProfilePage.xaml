@@ -49,18 +49,17 @@
         </AbsoluteLayout>
         <!--<ScrollView>
                 <RelativeLayout>
-                    <BoxView Color="White" HeightRequest="1000" CornerRadius="500"
+                <BoxView Color="White" HeightRequest="1000" CornerRadius="500"
             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=2}" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=-600}"/>
-                <Label Text="Carregar Imagem" TextColor="#3B5A9A" FontAttributes="Bold" FontSize="18"
-                       HorizontalTextAlignment="Center" 
-                       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=20}" 
+                <Button Text="Carregar Imagem" Clicked="ButtonImageSelect_OnClicked" TextColor="#3B5A9A" FontAttributes="Bold" FontSize="18" BackgroundColor="Transparent"
+                       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=15}" 
                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.5}" 
                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0, Constant=0}"/>
                 <Label Text="Nacionalidade" TextColor="#3B5A9A" FontAttributes="Bold" FontSize="18"
             HorizontalTextAlignment="Center" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=20}" 
                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.5}" 
                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=0}"/>
-                <Image Source="avatar.jpg" HeightRequest="120" WidthRequest="120" 
+                <Image x:Name="userImage" HeightRequest="120" WidthRequest="120"
                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width, Factor=0.25, Constant = -60}" 
                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0, Property=Y, Constant=50}" />
                 <Image Source="{Binding ImageSource}" HeightRequest="100" WidthRequest="120" 

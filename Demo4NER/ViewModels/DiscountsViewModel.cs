@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Demo4NER.ViewModels
 {
-    class MapViewModel : BaseViewModel
+    public class DiscountsViewModel : BaseViewModel
     {
     }
 }

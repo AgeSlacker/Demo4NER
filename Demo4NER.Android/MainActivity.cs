@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
-using Android.Graphics;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
@@ -15,7 +14,7 @@ using Plugin.Permissions;
 
 namespace Demo4NER.Droid
 {
-    [Activity(Label = "4NER", Icon = "@drawable/iconcomstroke", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "Demo4NER", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         public static MainActivity Instance { get; private set; }
@@ -30,13 +29,7 @@ namespace Demo4NER.Droid
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             CrossCurrentActivity.Current.Init(this, savedInstanceState);
-            Xamarin.FormsMaps.Init(this, savedInstanceState);
-            //if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
-            //{
-            //    Window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
-            //    Window.SetStatusBarColor(Android.Graphics.Color.White);
-            //    Window.SetTitleColor(Color.Black);
-            //}
+            
 
             LoadApplication(new App());
         }

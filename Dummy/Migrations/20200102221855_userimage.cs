@@ -4,36 +4,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Dummy.Migrations
 {
-    public partial class init5 : Migration
+    public partial class userimage : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Categories",
-                columns: table => new
-                {
-                    CategoryId = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Value = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Categories", x => x.CategoryId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Tags",
-                columns: table => new
-                {
-                    TagId = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Value = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Tags", x => x.TagId);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
@@ -45,6 +19,7 @@ namespace Dummy.Migrations
                     Password = table.Column<string>(nullable: true),
                     Nationality = table.Column<string>(nullable: true),
                     Contact = table.Column<string>(nullable: true),
+                    UserImage = table.Column<byte[]>(nullable: true),
                     LastLogin = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
@@ -62,30 +37,22 @@ namespace Dummy.Migrations
                     BusinessImage = table.Column<byte[]>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     Contact = table.Column<string>(nullable: true),
-                    CategoryId = table.Column<int>(nullable: true),
                     Latitude = table.Column<double>(nullable: false),
                     Longitude = table.Column<double>(nullable: false),
                     WrittenAddress = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
                     IsFeatured = table.Column<bool>(nullable: false),
-                    HasDiscounts = table.Column<bool>(nullable: false),
                     FeaturedEndDate = table.Column<DateTime>(nullable: false),
                     Rating = table.Column<float>(nullable: false),
                     Schedule = table.Column<string>(nullable: true),
-                    Nationality = table.Column<string>(nullable: true),
                     Discriminator = table.Column<string>(nullable: false),
                     UserId = table.Column<int>(nullable: true),
+                    Category = table.Column<int>(nullable: true),
                     UserId1 = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Businesses", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Businesses_Categories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Categories",
-                        principalColumn: "CategoryId",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Businesses_Users_UserId",
                         column: x => x.UserId,
@@ -101,33 +68,7 @@ namespace Dummy.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BusinessTags",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    BusinessId = table.Column<int>(nullable: true),
-                    TagId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BusinessTags", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_BusinessTags_Businesses_BusinessId",
-                        column: x => x.BusinessId,
-                        principalTable: "Businesses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_BusinessTags_Tags_TagId",
-                        column: x => x.TagId,
-                        principalTable: "Tags",
-                        principalColumn: "TagId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Clicks",
+                name: "Cliks",
                 columns: table => new
                 {
                     Date = table.Column<DateTime>(nullable: false),
@@ -136,15 +77,15 @@ namespace Dummy.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Clicks", x => x.Date);
+                    table.PrimaryKey("PK_Cliks", x => x.Date);
                     table.ForeignKey(
-                        name: "FK_Clicks_Businesses_BusinessId",
+                        name: "FK_Cliks_Businesses_BusinessId",
                         column: x => x.BusinessId,
                         principalTable: "Businesses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Clicks_Users_UserId",
+                        name: "FK_Cliks_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
@@ -262,10 +203,25 @@ namespace Dummy.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Businesses_CategoryId",
-                table: "Businesses",
-                column: "CategoryId");
+            migrationBuilder.CreateTable(
+                name: "Tag",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    ServiceId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tag", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Tag_Businesses_ServiceId",
+                        column: x => x.ServiceId,
+                        principalTable: "Businesses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Businesses_UserId",
@@ -278,23 +234,13 @@ namespace Dummy.Migrations
                 column: "UserId1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BusinessTags_BusinessId",
-                table: "BusinessTags",
+                name: "IX_Cliks_BusinessId",
+                table: "Cliks",
                 column: "BusinessId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BusinessTags_TagId",
-                table: "BusinessTags",
-                column: "TagId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Clicks_BusinessId",
-                table: "Clicks",
-                column: "BusinessId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Clicks_UserId",
-                table: "Clicks",
+                name: "IX_Cliks_UserId",
+                table: "Cliks",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -326,15 +272,17 @@ namespace Dummy.Migrations
                 name: "IX_Reviews_UserId",
                 table: "Reviews",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tag_ServiceId",
+                table: "Tag",
+                column: "ServiceId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "BusinessTags");
-
-            migrationBuilder.DropTable(
-                name: "Clicks");
+                name: "Cliks");
 
             migrationBuilder.DropTable(
                 name: "Discounts");
@@ -352,13 +300,10 @@ namespace Dummy.Migrations
                 name: "Reviews");
 
             migrationBuilder.DropTable(
-                name: "Tags");
+                name: "Tag");
 
             migrationBuilder.DropTable(
                 name: "Businesses");
-
-            migrationBuilder.DropTable(
-                name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "Users");

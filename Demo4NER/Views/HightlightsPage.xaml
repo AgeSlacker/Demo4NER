@@ -4,8 +4,8 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="Demo4NER.Views.MapPage">
-
+             x:Class="Demo4NER.Views.HighlightsPage">
+    
     <NavigationPage.TitleView>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -16,11 +16,14 @@
             <Image Source="logoBranca" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="Center"/>
         </Grid>
     </NavigationPage.TitleView>
+    
+    
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
+            <Label Text="Página de Destaques"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
+            <Button Text="Clear app properties" BackgroundColor="Crimson" Clicked="ClearPropertiesDEBUG"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

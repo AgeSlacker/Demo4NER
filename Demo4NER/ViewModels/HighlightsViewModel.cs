@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Demo4NER.ViewModels
 {
-    public class SearchViewModel : BaseBusinessListViewModel
+    public class HighlightsViewModel : BaseViewModel
     {
     }
 }

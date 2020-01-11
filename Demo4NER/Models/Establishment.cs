@@ -6,6 +6,11 @@ namespace Demo4NER.Models
 {
     public class Establishment : Business
     {
-        //public String Category { get; set; }
+        public CategoryType Category { get; set; }
+
+        public enum CategoryType
+        {
+            BAR, CAFE // TODO: completar
+        }
     }
 }
