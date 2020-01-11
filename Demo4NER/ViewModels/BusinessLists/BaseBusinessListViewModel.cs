@@ -100,6 +100,7 @@ namespace Demo4NER.ViewModels
             IsBusy = true;
             try
             {
+                // tentar ir buscar à cache primeiro
                 SemaphoreSlim semaphore = (Application.Current as App).semaphore;
                 await semaphore.WaitAsync();
                 if (((App) Application.Current).CachedBusinesses == null)
@@ -157,7 +158,10 @@ namespace Demo4NER.ViewModels
         {
             using (var db = new NerContext())
             {
-                return await db.Businesses.ToListAsync();
+                return await db.Businesses
+                    .Include(b => b.BusinessTags)
+                    .ThenInclude(bt => bt.Tag)
+                    .ToListAsync(); 
             }
         }
 

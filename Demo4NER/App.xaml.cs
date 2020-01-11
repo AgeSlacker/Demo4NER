@@ -56,7 +56,10 @@ namespace Demo4NER
                 Debug.WriteLine("Started loading to cache");
                 using (var db = new NerContext())
                 {
-                    CachedBusinesses = await db.Businesses.ToListAsync();
+                    CachedBusinesses = await db.Businesses
+                        .Include(b => b.BusinessTags)
+                        .ThenInclude(bt=>bt.Tag)
+                        .ToListAsync();
                     Debug.WriteLine("Loaded to cache");
                 }
             });
