@@ -11,11 +11,14 @@ namespace Demo4NER.ViewModels
 {
     public class HighlightsViewModel : BaseBusinessListViewModel
     {
-        public override async Task<List<Business>> GetBusinesses()
+        public override async Task UpdateBusinessesListExecute()
         {
-            using (var db = new NerContext())
+            await base.UpdateBusinessesListExecute();
+            var tempBusiness = new List<Business>(BusinessesList.Where(b => b.IsFeatured));
+            BusinessesList.Clear();
+            foreach (Business business in tempBusiness)
             {
-                return await db.Businesses.Where(b => b.IsFeatured).ToListAsync();
+                BusinessesList.Add(business);
             }
         }
     }

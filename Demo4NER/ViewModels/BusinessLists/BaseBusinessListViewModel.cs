@@ -4,7 +4,9 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Demo4NER.Models;
 using Demo4NER.Services;
@@ -24,7 +26,7 @@ namespace Demo4NER.ViewModels
         public static bool TagsSet { get; set; }
         public string SearchTerms { get; set; }
         public ObservableCollection<Business> BusinessesList { get; set; } = new ObservableCollection<Business>();
-        public List<int> SelectedFilterIndexes { get; set; } = new List<int>(); 
+        public List<int> SelectedFilterIndexes { get; set; } = new List<int>();
         public Command UpdateBusinessesListCommand { get; set; }
         public Command DoSearchCommand { get; set; }
         public static Command InitializeTagsCommand { get; set; }
@@ -90,7 +92,7 @@ namespace Demo4NER.ViewModels
             }
         }
 
-        private async Task UpdateBusinessesListExecute()
+        public virtual async Task UpdateBusinessesListExecute()
         {
             if (IsBusy)
                 return;
@@ -98,7 +100,21 @@ namespace Demo4NER.ViewModels
             IsBusy = true;
             try
             {
-                var businesses = await Task.Run(GetBusinesses);
+                SemaphoreSlim semaphore = (Application.Current as App).semaphore;
+                await semaphore.WaitAsync();
+                if (((App) Application.Current).CachedBusinesses == null)
+                {
+                    Debug.WriteLine("Getting from db");
+                    // Get Businesses and set to cache, otherwise use cached
+                    var businesses = await Task.Run(GetBusinesses);
+                    ((App)Application.Current).CachedBusinesses = new List<Business>(businesses);
+                }
+                else
+                {
+                    Debug.WriteLine("Using cached");
+                }
+                semaphore.Release();
+
                 BusinessesList.Clear();
                 PermissionStatus status =
                     await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
@@ -107,7 +123,7 @@ namespace Demo4NER.ViewModels
                     Location userLocation = await ((App)Application.Current).GetLocationAsync();
                     if (((App)Application.Current).LocationEnabled)
                     {
-                        foreach (Business business in businesses)
+                        foreach (Business business in ((App)Application.Current).CachedBusinesses)
                             business.Distance = Location.CalculateDistance(business.Location, userLocation,
                                 DistanceUnits.Kilometers);
                         DisplayLocationError = false;
@@ -122,7 +138,7 @@ namespace Demo4NER.ViewModels
                     DisplayLocationError = true;
                 }
 
-                foreach (Business business in businesses)
+                foreach (Business business in ((App)Application.Current).CachedBusinesses)
                 {
                     BusinessesList.Add(business);
                 }

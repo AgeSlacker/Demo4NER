@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
 using Android.Views;
 using Demo4NER.Models;
@@ -10,6 +11,7 @@ using Xamarin.Forms.Xaml;
 using Demo4NER.Services;
 using Demo4NER.Views;
 using Java.Util;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.EntityFrameworkCore.Query.ExpressionVisitors.Internal;
 using Microsoft.Extensions.Logging;
@@ -21,7 +23,7 @@ namespace Demo4NER
     public partial class App : Application
     {
         public ProfilePage ProfilePage { get; set; }
-
+        public SemaphoreSlim semaphore = new SemaphoreSlim(1, 1);
         public ICollection<Business> CachedBusinesses { get; set; } = null;
         public bool LocationEnabled { get; set; }
         public bool LocationGranted { get; set; } = false;
@@ -36,7 +38,7 @@ namespace Demo4NER
             Debug.WriteLine(Properties.ToString());
         }
 
-        protected override void OnStart()
+        protected override async void OnStart()
         {
             if (!Properties.ContainsKey("logged"))
             {
@@ -46,6 +48,19 @@ namespace Demo4NER
             {
                 MainPage = new NavigationPage(new MainPage());
             }
+
+            // Pre-load businesses
+            await semaphore.WaitAsync();
+            await Task.Run(async () =>
+            {
+                Debug.WriteLine("Started loading to cache");
+                using (var db = new NerContext())
+                {
+                    CachedBusinesses = await db.Businesses.ToListAsync();
+                    Debug.WriteLine("Loaded to cache");
+                }
+            });
+            semaphore.Release();
         }
 
         protected override void OnSleep()
