@@ -11,7 +11,7 @@ namespace Demo4NER.Views
     public partial class EditProfilePage : ContentPage
     {
         public EditProfileViewModel viewModel;
-
+       
         public EditProfilePage(User MyUser)
         {
             InitializeComponent();
@@ -21,18 +21,6 @@ namespace Demo4NER.Views
         {
             viewModel.EditProfileCommand.Execute(null);
             Navigation.PopAsync();
-        }
-
-        private async void ButtonImageSelect_OnClicked(object sender, EventArgs e)
-        {
-            await CrossMedia.Current.Initialize();
-            var image = await CrossMedia.Current.PickPhotoAsync();
-            userImage.Source = ImageSource.FromStream(() => image.GetStream());
-            MemoryStream memoryStream = new MemoryStream();
-            image.GetStream().CopyTo(memoryStream);
-            viewModel.NewUser.UserImage = memoryStream.ToArray();
-            viewModel.NewUser.ImageSource = userImage.Source;
-            //Debug.WriteLine("Here after loading the image");
         }
     }
 }
