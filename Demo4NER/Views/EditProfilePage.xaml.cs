@@ -13,7 +13,7 @@ namespace Demo4NER.Views
     public partial class EditProfilePage : ContentPage
     {
         public EditProfileViewModel viewModel;
-       
+
         public EditProfilePage(User MyUser)
         {
             InitializeComponent();
@@ -35,7 +35,7 @@ namespace Demo4NER.Views
             image.GetStream().CopyTo(memoryStream);
             viewModel.NewUser.UserImage = memoryStream.ToArray();
             viewModel.NewUser.ImageSource = userImage.Source;
-            Debug.WriteLine("Here after loading the image");
+            //Debug.WriteLine("Here after loading the image");
         }
     }
 }
