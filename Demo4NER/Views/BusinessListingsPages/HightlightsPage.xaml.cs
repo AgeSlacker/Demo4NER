@@ -8,6 +8,7 @@ using Android.Content.PM;
 using Android.Webkit;
 using Demo4NER.Models;
 using Demo4NER.ViewModels;
+using Demo4NER.Views.Admin;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
 using Xamarin.Forms;
@@ -88,6 +89,11 @@ namespace Demo4NER.Views
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
             Navigation.PushModalAsync(new SearchControlPage(viewModel));
+        }
+
+        private void AdminPageOnClick(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new AdminHubPage());
         }
     }
 }

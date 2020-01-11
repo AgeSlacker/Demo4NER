@@ -25,8 +25,11 @@ namespace Demo4NER
         public bool LocationEnabled { get; set; }
         public bool LocationGranted { get; set; } = false;
 
+        private String syncfusionLicenceKey =
+            "MTk0OTU1QDMxMzcyZTM0MmUzMGxKZDBKQ0lZZUdwSEd3NG1mRUV5MS8rQ0ZQWVdiRm55c2l4MlRTT2M0RE09";
         public App()
         {
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(syncfusionLicenceKey);
             InitializeComponent();
             DependencyService.Register<MockDataStore>();
             Debug.WriteLine(Properties.ToString());

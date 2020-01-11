@@ -18,13 +18,20 @@ namespace Demo4NER.ViewModels
 {
     public class BaseBusinessListViewModel : BaseViewModel
     {
+        private static ObservableCollection<Tag> _tags = new ObservableCollection<Tag>();
+        public static ObservableCollection<Tag> Tags => _tags;
+
+        public static bool TagsSet { get; set; }
         public string SearchTerms { get; set; }
         public ObservableCollection<Business> BusinessesList { get; set; } = new ObservableCollection<Business>();
-
+        public List<int> SelectedFilterIndexes { get; set; } = new List<int>(); 
         public Command UpdateBusinessesListCommand { get; set; }
         public Command DoSearchCommand { get; set; }
+        public static Command InitializeTagsCommand { get; set; }
+        public static Command UpdateTagsCommand { get; set; }
 
         private bool _displayLocationError = false;
+
         public bool DisplayLocationError
         {
             get => _displayLocationError;
@@ -34,8 +41,37 @@ namespace Demo4NER.ViewModels
         {
             UpdateBusinessesListCommand = new Command(async () => await UpdateBusinessesListExecute());
             DoSearchCommand = new Command(async () => await DoSearchExecute());
-        }
+            InitializeTagsCommand = new Command(async () =>
+            {
+                // Initialize tags
+                if (TagsSet) return;
+                TagsSet = true;
+                await Task.Run(() =>
+                {
+                    ICollection<Tag> result = null;
+                    using (var db = new NerContext())
+                    {
+                        result = db.Tags.ToList();
+                    }
+                    foreach (Tag tag in result) _tags.Add(tag);
+                });
+            });
+            UpdateTagsCommand = new Command(async () =>
+            {
+                _tags = new ObservableCollection<Tag>(); // TODO Why .Clear() does not work?
+                await Task.Run(() =>
+                {
+                    ICollection<Tag> result = null;
 
+                    using (var db = new NerContext())
+                    {
+                        result = db.Tags.ToList();
+                    }
+
+                    foreach (Tag tag in result) _tags.Add(tag);
+                });
+            });
+        }
         private async Task DoSearchExecute()
         {
             BusinessesList.Clear();
@@ -68,8 +104,8 @@ namespace Demo4NER.ViewModels
                     await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
                 if (status == PermissionStatus.Granted)
                 {
-                    Location userLocation = await ((App) Application.Current).GetLocationAsync();
-                    if (((App) Application.Current).LocationEnabled)
+                    Location userLocation = await ((App)Application.Current).GetLocationAsync();
+                    if (((App)Application.Current).LocationEnabled)
                     {
                         foreach (Business business in businesses)
                             business.Distance = Location.CalculateDistance(business.Location, userLocation,
