@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using Demo4NER.ViewModels;
 using Xamarin.Forms;
 
@@ -15,6 +16,14 @@ namespace Demo4NER.Views
         {
             InitializeComponent();
             BindingContext = viewModel = new RegisterViewModel();
+            viewModel.RegisterSuccessful += ViewModel_RegisterSuccessful;
+        }
+
+        private async void ViewModel_RegisterSuccessful(object sender, EventArgs e)
+        {
+            SuccessLabel.IsVisible = true;
+            await Task.Delay(1000);
+            await Navigation.PopAsync();
         }
 
         protected override void OnDisappearing()

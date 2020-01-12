@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace Demo4NER.ViewModels
     {
         public User User { get; set; } = new User();
         private string _preHashPassword;
+        public event EventHandler RegisterSuccessful;
 
         public string PreHashPassword
         {
@@ -40,10 +42,23 @@ namespace Demo4NER.ViewModels
             IsBusy = true;
             try
             {
+                Error = null;
+                var dbUser = await Task.Run(() =>
+                {
+                    using (NerContext db = new NerContext())
+                    {
+                        return db.Users.FirstOrDefault(u => u.Email == User.Email);
+                    }
+                });
+
+                if (dbUser != null)
+                {
+                    Error = "Já existe um utilizador com esse email.";
+                    return;
+                }
+
                 if (string.IsNullOrEmpty(User.Email) || !(User.Email.Contains("@")))
                 {
-                    // TODO get if user already registered, on another thread so the user can have
-                    // real time feedback
                     Error = "Email inválido!";
                     return;
                 }
@@ -59,10 +74,18 @@ namespace Demo4NER.ViewModels
                 }
                 else if (string.IsNullOrEmpty(PreHashPassword)) // TODO verificar se pass é segura
                 {
+                    PreHashPassword = null;
                     Error = "Password invália";
+                    return;
+                } else if (PreHashPassword.Length < 8)
+                {
+                    PreHashPassword = null;
+                    Error = "Password tem que ter pelo menos 8 caracteres";
                     return;
                 }
                 // Success!
+
+                
 
                 byte[] salt;
                 new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
@@ -83,6 +106,9 @@ namespace Demo4NER.ViewModels
                         db.SaveChanges();
                     }
                 });
+
+                // Redirect to login page
+                OnRegisterSuccessful();
             }
             catch (Exception exception)
             {
@@ -90,9 +116,13 @@ namespace Demo4NER.ViewModels
             }
             finally
             {
-                PreHashPassword = null;
                 IsBusy = false;
             }
+        }
+
+        protected virtual void OnRegisterSuccessful()
+        {
+            RegisterSuccessful?.Invoke(this, EventArgs.Empty);
         }
     }
 }

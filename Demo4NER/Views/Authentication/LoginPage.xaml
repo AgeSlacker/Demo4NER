@@ -47,9 +47,12 @@
                 <Label BackgroundColor="#bababa" Grid.Column="2" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
             </StackLayout>
             <Label Text="Login With Facebook" TextColor="#485992"  HorizontalOptions="Center"/>-->
-                <StackLayout HeightRequest="40">
+                <StackLayout VerticalOptions="FillAndExpand">
                 <Label HeightRequest="1" BackgroundColor="#e3e3e3"/> <!-- fake ass bar -->
-                <Label Text="Don't have an account? Sign Up" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Center">
+                <Label Text="Don't have an account? Sign Up" 
+                       VerticalOptions="FillAndExpand" 
+                       VerticalTextAlignment="Start" 
+                       HorizontalTextAlignment="Center">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer Tapped="RegisterClickGesture"></TapGestureRecognizer>
                     </Label.GestureRecognizers>

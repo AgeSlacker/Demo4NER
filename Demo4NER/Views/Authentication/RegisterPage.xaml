@@ -26,6 +26,7 @@
                         </x:Array>
                     </Picker.ItemsSource>
                 </Picker>-->
+                <ActivityIndicator IsRunning="{Binding IsBusy}"></ActivityIndicator>
                 <Image Source="downarrow.png" HeightRequest="10" Opacity="0.6" VerticalOptions="Start" Margin="0,17,5,0"/>
             </StackLayout>
 
@@ -47,12 +48,22 @@
                 <Label Grid.Row="1" Text="Register" HorizontalOptions="Center"  Margin="0,5,0,0" FontSize="20"/>
                 <Entry Grid.Row="2" Text="{Binding User.Email}" Placeholder="Email" PlaceholderColor="#bababa" FontSize="16"/>
                 <Entry Grid.Row="3" Text="{Binding User.Name}" Placeholder="Name" PlaceholderColor="#bababa" FontSize="16"/>
-                <Entry IsPassword="True" Grid.Row="4" Text="{Binding PreHashPassword, Mode=TwoWay}" Placeholder="Password" PlaceholderColor="#bababa" FontSize="16"/>
+                <Entry IsPassword="True" Grid.Row="4" Text="{Binding PreHashPassword, Mode=TwoWay}" 
+                       Placeholder="Password" 
+                       PlaceholderColor="#bababa" 
+                       FontSize="16"
+                       ClearButtonVisibility="WhileEditing"/>
                 <Entry Grid.Row="5" Text="{Binding User.Nationality}" Placeholder="Nationality" PlaceholderColor="#bababa" FontSize="16"/>
                 <Label Grid.Row="6" 
                        Text="{Binding Error}"
                        TextColor="Crimson"
                        HorizontalOptions="CenterAndExpand"></Label>
+                <Label x:Name="SuccessLabel" 
+                       Grid.Row="6" 
+                       Text="Registration Successful" 
+                       TextColor="Green"
+                       HorizontalOptions="CenterAndExpand"
+                       IsVisible="False"></Label>
                 <Button Grid.Row="7"
                         Text="Register" 
                         BackgroundColor="#3897f0" 
@@ -84,10 +95,12 @@
 
             </Grid>
 
-            <StackLayout BackgroundColor="#ffffff">
-
+            <StackLayout VerticalOptions="FillAndExpand">
                 <Label HeightRequest="1" BackgroundColor="#e3e3e3"/>
-                <Label Text="Already have an account? Sign In" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Center">
+                <Label Text="Already have an account? Sign In" 
+                       VerticalOptions="FillAndExpand" 
+                       VerticalTextAlignment="Start" 
+                       HorizontalTextAlignment="Center">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer Tapped="BackToLoginTap"></TapGestureRecognizer>
                     </Label.GestureRecognizers>
