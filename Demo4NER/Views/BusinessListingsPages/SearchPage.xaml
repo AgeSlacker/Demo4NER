@@ -43,7 +43,8 @@
                       IsPullToRefreshEnabled="True"
                       IsRefreshing="{Binding IsBusy, Mode=OneWay}"
                       RowHeight="100"
-                      ItemSelected="ListView_OnItemSelected"
+                      ItemTapped="ListView_OnItemTapped"
+                      SelectionMode="None"
                       CachingStrategy="RecycleElement"
                       ItemTemplate="{StaticResource BusinessTemplateSelector}"
                       VerticalOptions="FillAndExpand">

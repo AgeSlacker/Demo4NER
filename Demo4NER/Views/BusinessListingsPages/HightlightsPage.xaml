@@ -39,7 +39,8 @@
                       IsPullToRefreshEnabled="True"
                       IsRefreshing="{Binding IsBusy, Mode=OneWay}"
                       RowHeight="100"
-                      ItemSelected="ListView_OnItemSelected"
+                      ItemTapped="ListView_OnItemTapped"
+                      SelectionMode="None"
                       CachingStrategy="RecycleElement"
                       ItemTemplate="{StaticResource BusinessTemplateSelector}"/>
             <Button Text="Clear app properties" BackgroundColor="Crimson" Clicked="ClearPropertiesDEBUG"></Button>

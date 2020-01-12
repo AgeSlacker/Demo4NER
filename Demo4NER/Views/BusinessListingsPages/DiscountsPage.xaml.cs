@@ -22,11 +22,11 @@ namespace Demo4NER.Views
             viewModel.UpdateBusinessesListCommand.Execute(null);
         }
 
-        private void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private void ListView_OnItemTapped(object sender, ItemTappedEventArgs e)
         {
-            Business selectedBusiness = e.SelectedItem as Business;
-            if (selectedBusiness != null)
-                Navigation.PushModalAsync(new BusinessPage(selectedBusiness));
+            Business business = e.Item as Business;
+            if (business != null)
+                Navigation.PushModalAsync(new BusinessPage(business));
         }
 
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
