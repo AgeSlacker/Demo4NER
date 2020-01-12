@@ -14,10 +14,12 @@ namespace Demo4NER.Views
     public partial class FakeAssProgressBarPage : ContentPage
     {
         private uint timeMillis;
-        public FakeAssProgressBarPage(uint timeMillis = 2000)
+        private bool rootSwaped;
+        public FakeAssProgressBarPage(uint timeMillis = 2000, bool rootSwaped = false)
         {
             InitializeComponent();
             this.timeMillis = timeMillis;
+            this.rootSwaped = rootSwaped;
         }
 
         protected override async void OnAppearing()
@@ -25,6 +27,7 @@ namespace Demo4NER.Views
             base.OnAppearing();
             await ProgressBar.ProgressTo(1, timeMillis, Easing.CubicIn);
             //await Task.Delay(3000);
+            if (rootSwaped) return;
             await Navigation.PopAsync();
         }
 

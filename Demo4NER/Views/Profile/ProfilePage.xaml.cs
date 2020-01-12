@@ -81,8 +81,8 @@ namespace Demo4NER.Views
         private async void LogoutButtonClicked(object sender, EventArgs e)
         {
             (Application.Current as App).RemoveUserFromProperties();
-            await Navigation.PushAsync(new FakeAssProgressBarPage(1000));
-            await Task.Delay(1000);
+            await Navigation.PushModalAsync(new FakeAssProgressBarPage(500,true));
+            await Task.Delay(500);
             (Application.Current as App).FirstTime = true;
             (Application.Current as App).MainPage = new NavigationPage( new LoginPage());
         }

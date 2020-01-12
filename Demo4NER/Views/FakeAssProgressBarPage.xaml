@@ -10,7 +10,7 @@
              NavigationPage.HasBackButton="False">
     <ContentPage.Content>
         <StackLayout>
-            <Image Source="iconcomstroke.png"></Image>
+            <Image Source="logo_branco.png"></Image>
             <ProgressBar ProgressColor="AliceBlue" Margin="50" x:Name="ProgressBar" ></ProgressBar>
         </StackLayout>
     </ContentPage.Content>

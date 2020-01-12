@@ -55,11 +55,11 @@ namespace Demo4NER.Views
             }
         }
 
-        protected override async void OnAppearing()
-        {
+        protected override void OnAppearing()
+        { 
             base.OnAppearing();
         }
-        protected override async void OnCurrentPageChanged()
+        protected override void OnCurrentPageChanged()
         {
             base.OnCurrentPageChanged();
 
