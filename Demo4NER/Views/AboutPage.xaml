@@ -29,7 +29,7 @@
             <Label Margin="10,0,10,0">It's great for people living abroad, businesses looking to boost their reach and to get to know new cultures.</Label>
 
             <Label Margin="0,20,0,0" HorizontalOptions="Center" FontSize="32" FontAttributes="Bold" TextColor="#3B5A9A">About Us</Label>
-            <Image Source="us.jpg" WidthRequest="500"></Image>
+            <Image Source="the_creators.jpg" WidthRequest="500"></Image>
             <Label Margin="10,20,10,40">We are a group of Software Engineering students from the Faculty of Science and Techonology of Universidade de Coimbra developing this app for the class of Processes of Management and Inovation.</Label>
 
             <Grid WidthRequest="100" HorizontalOptions="Center" Margin="0,0,0,50">

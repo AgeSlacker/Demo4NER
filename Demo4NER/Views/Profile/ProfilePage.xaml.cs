@@ -86,5 +86,10 @@ namespace Demo4NER.Views
             (Application.Current as App).FirstTime = true;
             (Application.Current as App).MainPage = new NavigationPage( new LoginPage());
         }
+
+        private void AboutButtonOnClick(object sender, EventArgs e)
+        {
+            Navigation.PushModalAsync(new AboutPage());
+        }
     }
 }

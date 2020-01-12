@@ -8,7 +8,23 @@
 
     <ContentPage.Content>
         <StackLayout>
-            <ActivityIndicator IsRunning="{Binding IsBusy}"></ActivityIndicator>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <ActivityIndicator IsRunning="{Binding IsBusy}"
+                                   HorizontalOptions="Center"
+                                   Grid.Column="1"></ActivityIndicator>
+                <Label Text="About" 
+                       HorizontalOptions="End"
+                       Grid.Column="2">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="AboutLabelOnTap"></TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
+            </Grid>
             <!--<StackLayout Orientation="Horizontal" HorizontalOptions="End" Margin="0,5,0,0" Grid.Row="0">
                 <Picker x:Name="picker"
                     Title="Language"
@@ -26,7 +42,8 @@
                 <Image Source="downarrow.png"  HeightRequest="10" Opacity="0.6" VerticalOptions="Start" Margin="0,17,5,0"/>
             </StackLayout>-->
 
-            <Image Source="logologin.png" WidthRequest="225"/>
+            <Image Source="logologin.png" WidthRequest="225">
+            </Image>
             <Entry Grid.Row="1" 
                    Text="{Binding User.Email}"
                    Placeholder="Email" PlaceholderColor="#bababa" FontSize="16"/>

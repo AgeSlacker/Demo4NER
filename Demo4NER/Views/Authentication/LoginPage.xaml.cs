@@ -68,5 +68,10 @@ namespace Demo4NER.Views
             Navigation.RemovePage(this);
             await Navigation.PopAsync();
         }
+
+        private void AboutLabelOnTap(object sender, EventArgs e)
+        {
+            Navigation.PushModalAsync(new AboutPage());
+        }
     }
 }
