@@ -23,6 +23,7 @@ namespace Demo4NER
     public partial class App : Application
     {
         public ProfilePage ProfilePage { get; set; }
+        public MainPage MainAppPage { get; set; }
         public SemaphoreSlim semaphore = new SemaphoreSlim(1, 1);
         public bool FirstTime { get; set; } = true;
         public ICollection<Business> CachedBusinesses { get; set; } = null;
@@ -45,11 +46,11 @@ namespace Demo4NER
             if (!Properties.ContainsKey("logged"))
             {
                 MainPage = new NavigationPage(new LoginPage());
-                FirstTime = false;
             }
             else
             {
-                MainPage = new NavigationPage(new MainPage());
+                MainAppPage = new MainPage();
+                MainPage = new NavigationPage(MainAppPage);
             }
 
             // Pre-load businesses
@@ -149,6 +150,14 @@ namespace Demo4NER
             if (Properties.ContainsKey("logged"))
                 user = JsonConvert.DeserializeObject<User>((string)Properties["logged"]);
             return user;
+        }
+
+        public void RemoveUserFromProperties()
+        {
+            if (Properties.ContainsKey("logged"))
+            {
+                Properties.Remove("logged");
+            }
         }
 
         public enum LocationProperties

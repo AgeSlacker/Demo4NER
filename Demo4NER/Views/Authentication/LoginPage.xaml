@@ -3,17 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Demo4NER.Views.LoginPage"
              NavigationPage.HasNavigationBar="False"
-             BackgroundColor="White">
+             BackgroundColor="White"
+             Padding="20">
 
     <ContentPage.Content>
-        <Grid BackgroundColor="White">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="50"/>
-            </Grid.RowDefinitions>
+        <StackLayout>
             <ActivityIndicator IsRunning="{Binding IsBusy}"></ActivityIndicator>
-            <StackLayout Orientation="Horizontal" HorizontalOptions="End" Margin="0,5,0,0" Grid.Row="0">
+            <!--<StackLayout Orientation="Horizontal" HorizontalOptions="End" Margin="0,5,0,0" Grid.Row="0">
                 <Picker x:Name="picker"
                     Title="Language"
                     TitleColor="Black"
@@ -28,62 +24,37 @@
                     </Picker.ItemsSource>
                 </Picker>
                 <Image Source="downarrow.png"  HeightRequest="10" Opacity="0.6" VerticalOptions="Start" Margin="0,17,5,0"/>
-            </StackLayout>
-            <Grid Grid.Row="1" Margin="20,0,20,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="200"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
+            </StackLayout>-->
 
-                </Grid.RowDefinitions>
-                <Image Source="logologin.png" HeightRequest="150" VerticalOptions="EndAndExpand"/>
-                <Entry Grid.Row="1" 
-                       Text="{Binding User.Email}"
-                       Placeholder="Email" PlaceholderColor="#bababa" FontSize="16"/>
-                <Entry Grid.Row="2"
-                       Text="{Binding PasswordInput}"
-                       IsPassword="True"
-                       Placeholder="Password" PlaceholderColor="#bababa" FontSize="16"/>
-                <Label Grid.Row="3" Text="{Binding Error, Mode=TwoWay}" HorizontalOptions="Center" TextColor="Crimson"></Label>
-                <Button Text="LogIn" BackgroundColor="#3897f0" TextColor="White" HeightRequest="50" VerticalOptions="Start" Grid.Row="4"
-                        Command="{Binding LoginCommand}" />
-                <Button Text="Entrar como anónimo"  BackgroundColor="Gray" TextColor="White" HeightRequest="50" VerticalOptions="Start" Grid.Row="5"
-                        Clicked="AnonimusLogin" IsVisible="{Binding FirstTime, Source={x:Static Application.Current}}"></Button>
-                <Label Text="Login Trouble? Call the police" 
-                       HorizontalOptions="Center" 
-                       Grid.Row="6" 
-                       Margin="0,10,0,0" 
-                       FontSize="12">
-                </Label>
-                <Grid Grid.Row="7">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Label BackgroundColor="#bababa" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
-                    <Label Text="Or" Grid.Column="1" VerticalOptions="Center" Margin="10,0,10,0"/>
-                    <Image Source="facebook.png" Grid.Column="1" VerticalOptions="Center" Margin="10,0,10,0"/>
-                    <Label BackgroundColor="#bababa" Grid.Column="2" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
-                </Grid>
-                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Grid.Row="8">
-                    <Label Text="Login With Facebook" TextColor="#485992"  />
-                </StackLayout>
-            </Grid>
-            <StackLayout Grid.Row="2" BackgroundColor="#ffffff">
-                <Label HeightRequest="1" BackgroundColor="#e3e3e3"/>
+            <Image Source="logologin.png" WidthRequest="225"/>
+            <Entry Grid.Row="1" 
+                   Text="{Binding User.Email}"
+                   Placeholder="Email" PlaceholderColor="#bababa" FontSize="16"/>
+            <Entry Grid.Row="2"
+                   Text="{Binding PasswordInput}"
+                   IsPassword="True"
+                   Placeholder="Password" PlaceholderColor="#bababa" FontSize="16"/>
+            <Label Grid.Row="3" Text="{Binding Error, Mode=TwoWay}" HorizontalOptions="Center" TextColor="Crimson"></Label>
+            <Button Text="LogIn" BackgroundColor="#3897f0" TextColor="White" HeightRequest="50" VerticalOptions="Start"
+                    Command="{Binding LoginCommand}" />
+            <Button Text="Entrar como anónimo"  BackgroundColor="Gray" TextColor="White" HeightRequest="50" VerticalOptions="Start" Grid.Row="5"
+                    Clicked="AnonimusLogin" IsVisible="{Binding FirstTime, Source={x:Static Application.Current}}"></Button>
+                
+            <!--<Label Text="Or" VerticalOptions="Center" HorizontalOptions="Center" Margin="10,0,10,0"/>
+            <StackLayout Orientation="Horizontal">
+                <Label BackgroundColor="#bababa" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+                <Image Source="facebook.png" VerticalOptions="Center" Margin="10,0,10,0" WidthRequest="50"/>
+                <Label BackgroundColor="#bababa" Grid.Column="2" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+            </StackLayout>
+            <Label Text="Login With Facebook" TextColor="#485992"  HorizontalOptions="Center"/>-->
+                <StackLayout HeightRequest="40">
+                <Label HeightRequest="1" BackgroundColor="#e3e3e3"/> <!-- fake ass bar -->
                 <Label Text="Don't have an account? Sign Up" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Center">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer Tapped="RegisterClickGesture"></TapGestureRecognizer>
                     </Label.GestureRecognizers>
                 </Label>
             </StackLayout>
-        </Grid>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

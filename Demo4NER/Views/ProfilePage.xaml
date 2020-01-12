@@ -26,7 +26,8 @@
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Edit"
-                    Clicked="Edit_Clicked"/>
+                     Clicked="Edit_Clicked"/>
+        <ToolbarItem Text="Logout" Clicked="LogoutButtonClicked"></ToolbarItem>
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>

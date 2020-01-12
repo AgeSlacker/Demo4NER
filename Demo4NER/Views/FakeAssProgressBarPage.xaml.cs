@@ -13,16 +13,17 @@ namespace Demo4NER.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class FakeAssProgressBarPage : ContentPage
     {
-
-        public FakeAssProgressBarPage()
+        private uint timeMillis;
+        public FakeAssProgressBarPage(uint timeMillis = 2000)
         {
             InitializeComponent();
+            this.timeMillis = timeMillis;
         }
 
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            await ProgressBar.ProgressTo(1, 2000, Easing.CubicIn);
+            await ProgressBar.ProgressTo(1, timeMillis, Easing.CubicIn);
             //await Task.Delay(3000);
             await Navigation.PopAsync();
         }
