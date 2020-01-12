@@ -64,6 +64,7 @@ namespace Demo4NER
                         .Include(b => b.BusinessTags)
                         .ThenInclude(bt => bt.Tag)
                         .Include(b => b.Category)
+                        .Include(b=>b.Reviews)
                         .ToListAsync();
                     Debug.WriteLine("Loaded to cache");
 

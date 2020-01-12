@@ -17,8 +17,15 @@ namespace Demo4NER.ViewModels
         public String ReviewComment { get; set; }
         public String ReviewRating { get; set; }
         public User LoggedUser;
-        public Boolean IsLogged;
+
+        public bool IsLogged
+        {
+            get => _isLogged;
+            set => SetProperty(ref _isLogged, value);
+        } 
+
         public Review NewReview;
+        private bool _isLogged = false;
 
         public Business Business
         {
@@ -57,9 +64,8 @@ namespace Demo4NER.ViewModels
 
             PostCommentCommand = new Command(async() => await PostCommentAsync());
 
-            LoadReviewsCommand = new Command(async () => await LoadReviewsAsync());
-
-            LoadReviewsCommand.Execute(null);
+            //LoadReviewsCommand = new Command(async () => await LoadReviewsAsync());
+            //LoadReviewsCommand.Execute(null);
         }
         
         public async Task PostCommentAsync()
@@ -91,6 +97,7 @@ namespace Demo4NER.ViewModels
             {
                 using (var db = new NerContext())
                 {
+                    // TODO check if both needed
                     db.Reviews.Update(NewReview);
                     db.Businesses.Update(Business);
                     db.SaveChanges();
@@ -99,38 +106,38 @@ namespace Demo4NER.ViewModels
             });
         }
 
-        public async Task LoadReviewsAsync()
-        {
-            await Task.Run(async () =>
-            {
-                using (var db = new NerContext())
-                {
-                    //var reviews = db.Reviews.SqlQuery("SELECT * FROM reviews WHERE BusinessId = " + Business.Id);
+        //public async Task LoadReviewsAsync()
+        //{
+        //    await Task.Run(async () =>
+        //    {
+        //        using (var db = new NerContext())
+        //        {
+        //            //var reviews = db.Reviews.SqlQuery("SELECT * FROM reviews WHERE BusinessId = " + Business.Id);
 
-                    Debug.WriteLine("0");
-                    if(Business.Reviews != null)
-                    {
-                        Business.Reviews.Clear();
-                    }
-                    else
-                    {
-                        Business.Reviews = new ObservableCollection<Review>();
-                    }
-                    Debug.WriteLine("1");
-                    var reviews = await db.Reviews.ToListAsync();
-                    Debug.WriteLine("2");
-                    foreach (Review review in reviews)
-                    {
-                        Debug.WriteLine(review.Business.ToString());
-                        if(review.Business.Id == Business.Id)
-                        {
-                            Business.Reviews.Add(review);
-                        }
-                    }
-                    Debug.WriteLine("Num= " + Business.Reviews.Count);
-                    OnPropertyChanged();
-                }
-            });
-        }
+        //            Debug.WriteLine("0");
+        //            if(Business.Reviews != null)
+        //            {
+        //                Business.Reviews.Clear();
+        //            }
+        //            else
+        //            {
+        //                Business.Reviews = new ObservableCollection<Review>();
+        //            }
+        //            Debug.WriteLine("1");
+        //            var reviews = await db.Reviews.ToListAsync();
+        //            Debug.WriteLine("2");
+        //            foreach (Review review in reviews)
+        //            {
+        //                Debug.WriteLine(review.Business.ToString());
+        //                if(review.Business.Id == Business.Id)
+        //                {
+        //                    Business.Reviews.Add(review);
+        //                }
+        //            }
+        //            Debug.WriteLine("Num= " + Business.Reviews.Count);
+        //            OnPropertyChanged();
+        //        }
+        //    });
+        //}
     }
 }

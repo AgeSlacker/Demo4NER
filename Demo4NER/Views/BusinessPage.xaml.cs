@@ -32,6 +32,8 @@ namespace Demo4NER.Views
             base.OnAppearing();
             int n = viewModel.Business.Links.Count;
             linksView.HeightRequest = n * 30;
+            int nr = viewModel.Business.Reviews.Count;
+            ReviewList.HeightRequest = nr * 100;
         }
 
         private async void OpenURLOnTap(object sender, EventArgs e)

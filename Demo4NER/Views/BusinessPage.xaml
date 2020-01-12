@@ -123,20 +123,33 @@
                        TextColor="#3B5A9A" 
                        FontAttributes="Bold" 
                        FontSize="26"/>
-                    <ListView ItemsSource="{Binding Reviews}" 
-                          ItemTemplate="{StaticResource ReviewListTemplate}"
-                          SelectionMode="None"
-                          RowHeight="100"
-                          SeparatorVisibility="None"/>
+                    <ListView x:Name="ReviewList"
+                                ItemsSource="{Binding Reviews}" 
+                                ItemTemplate="{StaticResource ReviewListTemplate}"
+                                SelectionMode="None"
+                                RowHeight="-1"
+                                VerticalScrollBarVisibility="Always" 
+                                SeparatorVisibility="None"
+                                HasUnevenRows="True"
+                        />
                 </StackLayout>
-                <Button Text="Edit" Clicked="EditBusiness"/>
-                <StackLayout IsVisible="{Binding isLogged}">
+                <Button Text="Edit" Clicked="EditBusiness" IsVisible="False"/>
+                <StackLayout IsVisible="{Binding IsLogged}">
+                    <Label Text="Adicionar review"
+                           TextColor="#3B5A9A"
+                           FontAttributes="Bold"
+                           FontSize="26"></Label>
                     <StackLayout Orientation="Horizontal">
                         <Label Text="Rating: "/>
                         <Entry Text="{Binding ReviewRating}"
                                HorizontalOptions="EndAndExpand"/>
                     </StackLayout>
-                    <Editor Text="{Binding ReviewComment}"/>
+                    <Frame CornerRadius="2" HasShadow="False" Padding="0">
+                        <Editor Text="{Binding ReviewComment}"
+                                IsTextPredictionEnabled="True"
+                                AutoSize="TextChanges"
+                                />
+                    </Frame>
                     <Button Text="Post Review"
                         Clicked="PostComment"/>
                 </StackLayout>
