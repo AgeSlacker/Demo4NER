@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using Demo4NER.Models;
+using Demo4NER.Services;
 using Demo4NER.ViewModels;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -63,6 +66,11 @@ namespace Demo4NER.Views
             {
 
             }
+        }
+
+        private void PostComment(object sender, EventArgs e)
+        {
+            viewModel.PostCommentCommand.Execute(null);
         }
     }
 }
