@@ -76,6 +76,6 @@ namespace Demo4NER.Models
         public String Schedule { get; set; }
         public String Nationality { get; set; }
         public ICollection<BusinessTag> BusinessTags { get; set; }
-        public ObservableCollection<Review> Reviews { get; set; }
+        public ICollection<Review> Reviews { get; set; }
     }
 }
