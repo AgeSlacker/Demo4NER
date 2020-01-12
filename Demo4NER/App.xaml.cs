@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Android.Views;
@@ -62,10 +63,11 @@ namespace Demo4NER
                 {
                     CachedBusinesses = await db.Businesses
                         .Include(b => b.BusinessTags)
-                        .ThenInclude(bt => bt.Tag)
+                            .ThenInclude(bt => bt.Tag)
                         .Include(b => b.Category)
                         .Include(b=>b.Reviews)
-                        .ToListAsync();
+                            .ThenInclude(r=>r.User) 
+                        .ToListAsync();// TODO make this safer
                     Debug.WriteLine("Loaded to cache");
 
                     CachedCategories = await db.Categories.ToListAsync();
