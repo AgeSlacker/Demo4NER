@@ -35,8 +35,8 @@
                       SelectionMode="None"
                       CachingStrategy="RecycleElement"
                       ItemTemplate="{StaticResource BusinessTemplateSelector}"/>
-            <Button Text="Clear app properties" BackgroundColor="Crimson" Clicked="ClearPropertiesDEBUG"></Button>
-            <Button Text="ADMIN PAGE" Clicked="AdminPageOnClick"></Button>
+            <!--<Button Text="Clear app properties" BackgroundColor="Crimson" Clicked="ClearPropertiesDEBUG"></Button>
+            <Button Text="ADMIN PAGE" Clicked="AdminPageOnClick"></Button>-->
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
