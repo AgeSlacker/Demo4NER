@@ -118,12 +118,6 @@
                         VerticalScrollBarVisibility="Never"
                         RowHeight="30"/>
                 </StackLayout>
-                <StackLayout IsVisible="{Binding isLogged}">
-                    <Entry Text="{Binding ReviewRating}"/>
-                    <Editor Text="{Binding ReviewComment}"/>
-                    <Button Text="Post Review"
-                        Clicked="PostComment"/>
-                </StackLayout>
                 <StackLayout BindingContext="{Binding Business}">
                     <Label Text="Reviews"
                        TextColor="#3B5A9A" 
@@ -134,7 +128,17 @@
                           SelectionMode="None"
                           RowHeight="100"
                           SeparatorVisibility="None"/>
-                    <Button Text="Edit" Clicked="EditBusiness"/>
+                </StackLayout>
+                <Button Text="Edit" Clicked="EditBusiness"/>
+                <StackLayout IsVisible="{Binding isLogged}">
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Rating: "/>
+                        <Entry Text="{Binding ReviewRating}"
+                               HorizontalOptions="EndAndExpand"/>
+                    </StackLayout>
+                    <Editor Text="{Binding ReviewComment}"/>
+                    <Button Text="Post Review"
+                        Clicked="PostComment"/>
                 </StackLayout>
             </StackLayout>
         </ScrollView>
