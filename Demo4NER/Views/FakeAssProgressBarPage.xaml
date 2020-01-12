@@ -9,8 +9,8 @@
              NavigationPage.HasNavigationBar="False"
              NavigationPage.HasBackButton="False">
     <ContentPage.Content>
-        <StackLayout>
-            <Image Source="logo_branco.png"></Image>
+        <StackLayout VerticalOptions="Center">
+            <Image Source="logo_branco.png" HeightRequest="200"></Image>
             <ProgressBar ProgressColor="AliceBlue" Margin="50" x:Name="ProgressBar" ></ProgressBar>
         </StackLayout>
     </ContentPage.Content>
