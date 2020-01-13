@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:converters="clr-namespace:Demo4NER.Converters;assembly=Demo4NER"
              mc:Ignorable="d"
              x:Class="Demo4NER.Views.HighlightsPage">
 
@@ -18,8 +19,11 @@
             </Label>
         </Grid>
     </NavigationPage.TitleView>
-
-
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:NotConverter x:Key="NotConverter"></converters:NotConverter>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
             <Label Text="GPS desativado ou não autorizado." 
@@ -34,7 +38,16 @@
                       ItemTapped="ListView_OnItemTapped"
                       SelectionMode="None"
                       CachingStrategy="RecycleElement"
-                      ItemTemplate="{StaticResource BusinessTemplateSelector}"/>
+                      ItemTemplate="{StaticResource BusinessTemplateSelector}"
+                      IsVisible="{Binding IsListEmpty, Converter={StaticResource NotConverter}}"/>
+            <Label Text="Não foram encontrados resultados"
+                   HorizontalOptions="Center"
+                   IsVisible="{Binding IsListEmpty}"></Label>
+            <Button Text="Reset filter" 
+                    FontSize="Micro" 
+                    IsVisible="{Binding IsListEmpty}"
+                    HorizontalOptions="Center"
+                    Command="{Binding UpdateBusinessesListCommand}"></Button>
             <!--<Button Text="Clear app properties" BackgroundColor="Crimson" Clicked="ClearPropertiesDEBUG"></Button>
             <Button Text="ADMIN PAGE" Clicked="AdminPageOnClick"></Button>-->
         </StackLayout>

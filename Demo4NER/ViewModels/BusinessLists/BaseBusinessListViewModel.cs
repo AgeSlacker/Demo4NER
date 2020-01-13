@@ -35,6 +35,7 @@ namespace Demo4NER.ViewModels
         public Command ApplyFilterCommand { get; set; }
 
         private bool _displayLocationError = false;
+        private bool _isListEmpty;
 
         public bool DisplayLocationError
         {
@@ -42,12 +43,18 @@ namespace Demo4NER.ViewModels
             set => SetProperty(ref _displayLocationError, value);
         }
 
+        public bool IsListEmpty
+        {
+            get => _isListEmpty;
+            set => SetProperty(ref _isListEmpty,value);
+        }
+
         public Category SelectedCategory { get; set; }
 
         public BaseBusinessListViewModel()
         {
             UpdateBusinessesListCommand = new Command(async () => await UpdateBusinessesListExecute());
-            DoSearchCommand = new Command(async () => await DoSearchExecute());
+            //DoSearchCommand = new Command(async () => await DoSearchExecute());
             InitializeTagsCommand = new Command(async () =>
             {
                 // Initialize tags
@@ -130,6 +137,7 @@ namespace Demo4NER.ViewModels
                     SelectedCategory = null;
                     SearchTerms = null;
                 }
+                IsListEmpty = !BusinessesList.Any();
             });
         }
         private async Task DoSearchExecute()
@@ -208,6 +216,7 @@ namespace Demo4NER.ViewModels
             }
             finally
             {
+                IsListEmpty = !BusinessesList.Any();
                 IsBusy = false;
             }
         }

@@ -24,7 +24,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout VerticalOptions="Center" Spacing="30" Margin="50,0,50,0">
             <!--<Label Text="Tags" FontSize="Title"></Label>
             <comboBox:SfComboBox x:Name="TagsComboBox"
                                  VerticalOptions="Fill"
@@ -50,7 +50,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>-->
-                <Button Text="Resetar" Command="{Binding UpdateBusinessesListCommand}" FontSize="Micro"></Button>
+                
             <StackLayout Orientation="Horizontal" >
                 <Label Text="Categoria" FontSize="Large" HorizontalOptions="Start" ></Label>
                 <comboBox:SfComboBox x:Name="CategoryComboBox"
@@ -82,10 +82,11 @@
                 </comboBox:SfComboBox>
             </StackLayout>
 
-            <Entry Placeholder="Procurar" Text="{Binding SearchTerms}"></Entry>
-            <StackLayout Orientation="Horizontal">
+            <Entry Placeholder="Procurar (nome, tags, ...)" Text="{Binding SearchTerms}"></Entry>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                 <Button Text="Procurar" Clicked="FilterButtonOnClicked"></Button>
-                <Button Text="voltar" Clicked="BackButtonOnClicked"></Button>
+                <Button Text="Resetar" Command="{Binding UpdateBusinessesListCommand}" Clicked="BackButtonOnClicked"></Button>
+                <Button Text="Voltar" Clicked="BackButtonOnClicked"></Button>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

@@ -14,11 +14,19 @@ namespace Demo4NER.Views
     {
         private MapViewModel viewModel;
         private bool _firstTime = true;
-        
+        private Map map;
         public MapPage()
         {
             InitializeComponent();
             BindingContext = viewModel = new MapViewModel();
+
+            // Create map
+            map = new Map(MapSpan.FromCenterAndRadius(
+                new Position(40.205085, -8.410108),
+                Distance.FromKilometers(5)));
+            map.SetBinding(Map.ItemsSourceProperty,"BusinessesList");
+            map.ItemTemplate = (DataTemplate) Resources["MapItemTemplate"];
+            MainLayout.Children.Add(map);
             viewModel.UpdateBusinessesCommand.Execute(null);
             MessagingCenter.Subscribe<BaseViewModel,Business>(this,"navigate",(sender,bus) =>
             {
@@ -42,10 +50,10 @@ namespace Demo4NER.Views
                     {
                         var userPosition = await (Application.Current as App).GetLocationAsync();
                         map.IsShowingUser = true;
-                        map.MoveToRegion(
-                            MapSpan.FromCenterAndRadius(
-                                new Position(userPosition.Latitude, userPosition.Longitude),
-                                Distance.FromKilometers(1)));
+                        //map.MoveToRegion(
+                        //    MapSpan.FromCenterAndRadius(
+                        //        new Position(userPosition.Latitude, userPosition.Longitude),
+                        //        Distance.FromKilometers(1)));
                         _firstTime = false;
                     }
                     viewModel.DisplayLocationError = false;

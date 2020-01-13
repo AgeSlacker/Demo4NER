@@ -12,6 +12,14 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:LocationToPositionConverter x:Key="LocationToPositionConverter"></converters:LocationToPositionConverter>
+            <DataTemplate x:Key="MapItemTemplate" x:DataType="models:Business">
+                <maps:Pin 
+                    Label="{Binding Name}"
+                    Position="{Binding Location, Converter={StaticResource LocationToPositionConverter}}"
+                    Type="Place"
+                    MarkerClicked="Pin_OnMarkerClicked"
+                    InfoWindowClicked="Pin_OnInfoWindowClicked"></maps:Pin>
+            </DataTemplate>
         </ResourceDictionary>
     </ContentPage.Resources>
     <NavigationPage.TitleView>
@@ -26,26 +34,12 @@
         </Grid>
     </NavigationPage.TitleView>
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout x:Name="MainLayout">
             <Label 
                 Text="Localização desligada ou sem permissões" 
                 IsVisible="{Binding DisplayLocationError}"
                 HorizontalOptions="Center"
                 ></Label>
-            <maps:Map x:DataType="viewModels:MapViewModel"
-                      x:Name="map" 
-                      ItemsSource="{Binding BusinessesList}">
-                <maps:Map.ItemTemplate>
-                    <DataTemplate x:DataType="models:Business">
-                        <maps:Pin 
-                        Label="{Binding Name}"
-                        Position="{Binding Location, Converter={StaticResource LocationToPositionConverter}}"
-                        Type="Place"
-                        MarkerClicked="Pin_OnMarkerClicked"
-                        InfoWindowClicked="Pin_OnInfoWindowClicked"></maps:Pin>
-                    </DataTemplate>
-                </maps:Map.ItemTemplate>
-            </maps:Map>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
