@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Demo4NER.Models;
 using Demo4NER.Services;
@@ -35,14 +36,28 @@ namespace Demo4NER.ViewModels
             IsBusy = true;
             try
             {
-                var businesses = new List<Business>(((App) Application.Current).CachedBusinesses);
+                // tentar ir buscar à cache primeiro
+                SemaphoreSlim semaphore = (Application.Current as App).semaphore;
+                await semaphore.WaitAsync();
+                if (((App)Application.Current).CachedBusinesses == null)
+                {
+                    Debug.WriteLine("Getting from db");
+                    // Get Businesses and set to cache, otherwise use cached
+                    var businesses = await Task.Run(GetBusinesses);
+                    ((App)Application.Current).CachedBusinesses = new List<Business>(businesses);
+                }
+                else
+                {
+                    Debug.WriteLine("Using cached");
+                }
+                semaphore.Release();
                 var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
                 if (status == PermissionStatus.Granted)
                 {
                     Location userLocation = await ((App)Application.Current).GetLocationAsync();
                     if (((App)Application.Current).LocationEnabled)
                     {
-                        foreach (Business business in businesses)
+                        foreach (Business business in ((App)Application.Current).CachedBusinesses)
                         {
                             business.Distance =
                                 Location.CalculateDistance(business.Location, userLocation, DistanceUnits.Kilometers);
@@ -57,7 +72,7 @@ namespace Demo4NER.ViewModels
                 await Device.InvokeOnMainThreadAsync(() =>
                 {
                     BusinessesList.Clear();
-                    foreach (Business business in businesses)
+                    foreach (Business business in (Application.Current as App).CachedBusinesses)
                     {
                         BusinessesList.Add(business);
                     }
