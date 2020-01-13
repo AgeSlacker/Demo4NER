@@ -24,19 +24,19 @@ namespace Demo4NER.Views
             map = new Map(MapSpan.FromCenterAndRadius(
                 new Position(40.205085, -8.410108),
                 Distance.FromKilometers(5)));
-            map.SetBinding(Map.ItemsSourceProperty,"BusinessesList");
-            map.ItemTemplate = (DataTemplate) Resources["MapItemTemplate"];
+            map.SetBinding(Map.ItemsSourceProperty, "BusinessesList");
+            map.ItemTemplate = (DataTemplate)Resources["MapItemTemplate"];
             MainLayout.Children.Add(map);
             viewModel.UpdateBusinessesCommand.Execute(null);
-            MessagingCenter.Subscribe<BaseViewModel,Business>(this,"navigate",(sender,bus) =>
-            {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    // TODO set to map
-                    Pin pin = GetPinFromBusiness(bus);
-                    map.MoveToRegion(MapSpan.FromCenterAndRadius(pin.Position,Distance.FromKilometers(1)));
-                });
-            });
+            MessagingCenter.Subscribe<BaseViewModel, Business>(this, "navigate", (sender, bus) =>
+               {
+                   Device.BeginInvokeOnMainThread(() =>
+                   {
+                       // TODO set to map
+                       Pin pin = GetPinFromBusiness(bus);
+                       map.MoveToRegion(MapSpan.FromCenterAndRadius(pin.Position, Distance.FromKilometers(1)));
+                   });
+               });
         }
 
         protected override async void OnAppearing()
@@ -100,26 +100,23 @@ namespace Demo4NER.Views
             //}
         }
 
-        private void Pin_OnMarkerClicked(object sender, PinClickedEventArgs e)
-        {
-
-        }
-
         private async void Pin_OnInfoWindowClicked(object sender, PinClickedEventArgs e)
         {
             // find Business by Position
-            await Navigation.PushModalAsync(new BusinessPage(GetBusinessFromPin(sender as Pin)));
+            Business business = GetBusinessFromPin(sender as Pin);
+            if (business != null)
+                await Navigation.PushModalAsync(new BusinessPage(business));
         }
 
         private Business GetBusinessFromPin(Pin pin)
         {
             Position pos = pin.Position;
-            return viewModel.BusinessesList.First(b => b.Longitude == pos.Longitude && b.Latitude == pos.Latitude);
+            return (Application.Current as App).CachedBusinesses.FirstOrDefault(b => b.Longitude == pos.Longitude && b.Latitude == pos.Latitude);
         }
 
         private Pin GetPinFromBusiness(Business business)
         {
-            return map.Pins.First(p =>
+            return map.Pins.FirstOrDefault(p =>
                 p.Position.Longitude == business.Longitude && p.Position.Latitude == business.Latitude);
         }
     }
