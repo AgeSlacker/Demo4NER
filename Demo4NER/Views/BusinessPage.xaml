@@ -36,7 +36,7 @@
         <ScrollView>
             <StackLayout Margin="10,0,10,0">
                 <StackLayout BindingContext="{Binding Business}">
-                    <Image Source="{Binding ImageSource}"/>
+                    <Image Source="{Binding ImageSource}" HeightRequest="200"/>
                     <Button Text="Go to map" Clicked="OnNavigateClicked"/>
                     <StackLayout Orientation="Horizontal">
                         <StackLayout>
