@@ -45,7 +45,7 @@
                             FontAttributes="Bold" 
                             FontSize="30"
                             HorizontalTextAlignment="Center" />
-                            <Label Text="Restaurante" 
+                            <Label Text="{Binding Category.Value}" 
                             TextColor="Black" 
                             FontSize="20"
                             HorizontalTextAlignment="Center"/>

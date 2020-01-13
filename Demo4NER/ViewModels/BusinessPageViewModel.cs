@@ -40,8 +40,8 @@ namespace Demo4NER.ViewModels
         public BusinessPageViewModel(Business selectedBusiness)
         {
             Business = selectedBusiness;
-            ReviewComment = "";
-            ReviewRating = "";
+            //ReviewComment = "";
+            //ReviewRating = "";
 
             LoggedUser = (Application.Current as App).GetUserFromProperties();
             if(LoggedUser != null)
@@ -49,13 +49,13 @@ namespace Demo4NER.ViewModels
                 IsLogged = true;
             }
             Business.Links = new List<Link>();
-            Link link1 = new Link() { Name = "Site", URL = "4nerapp.com" };
-            Link link2 = new Link() { Name = "Facebook", URL = "facebook.com/4nerapp" };
+            //Link link1 = new Link() { Name = "Site", URL = "4nerapp.com" };
+            //Link link2 = new Link() { Name = "Facebook", URL = "facebook.com/4nerapp" };
 
-            Business.Schedule = "Dias de semana: 12h-15h 19h-00h\nFim de semana: 19h - 00h";
-            Business.Links.Add(link1); 
-            Business.Links.Add(link2);
-            Business.Schedule = "Dias de semana: 12h-15h 19h-00h\nFim de semana: 19h - 00h";
+            //Business.Schedule = "Dias de semana: 12h-15h 19h-00h\nFim de semana: 19h - 00h";
+            //Business.Links.Add(link1); 
+            //Business.Links.Add(link2);
+            //Business.Schedule = "Dias de semana: 12h-15h 19h-00h\nFim de semana: 19h - 00h";
 
             NavigateToMapViewCommand = new Command(() =>
             {

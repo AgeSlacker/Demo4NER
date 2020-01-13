@@ -36,7 +36,6 @@ namespace Demo4NER.ViewModels
             try
             {
                 var businesses = new List<Business>(((App) Application.Current).CachedBusinesses);
-                BusinessesList.Clear();
                 var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
                 if (status == PermissionStatus.Granted)
                 {
@@ -55,8 +54,9 @@ namespace Demo4NER.ViewModels
                     DisplayLocationError = true;
 
                 // Needs to be in main, UI thread 
-                Device.BeginInvokeOnMainThread(() =>
+                await Device.InvokeOnMainThreadAsync(() =>
                 {
+                    BusinessesList.Clear();
                     foreach (Business business in businesses)
                     {
                         BusinessesList.Add(business);
