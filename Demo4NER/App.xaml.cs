@@ -29,6 +29,9 @@ namespace Demo4NER
         public bool FirstTime { get; set; } = true;
         public ICollection<Business> CachedBusinesses { get; set; } = null;
         public ICollection<Category> CachedCategories { get; set; } = null;
+
+        public Command SendRefreshCommand { get; set; }
+
         public bool LocationEnabled { get; set; }
         public bool LocationGranted { get; set; } = false;
 
@@ -40,6 +43,7 @@ namespace Demo4NER
             InitializeComponent();
             DependencyService.Register<MockDataStore>();
             Debug.WriteLine(Properties.ToString());
+            SendRefreshCommand = new Command(SendRefreshToAllPages);
         }
 
         protected override async void OnStart()
@@ -85,6 +89,11 @@ namespace Demo4NER
         protected override void OnResume()
         {
             // Handle when your app resumes
+        }
+
+        public void SendRefreshToAllPages()
+        {
+            MessagingCenter.Send<App>(this,"refresh");
         }
 
         public async Task<Location> GetLocationAsync(bool forcenew = false)

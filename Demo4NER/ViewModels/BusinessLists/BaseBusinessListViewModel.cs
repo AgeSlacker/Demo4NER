@@ -46,7 +46,7 @@ namespace Demo4NER.ViewModels
         public bool IsListEmpty
         {
             get => _isListEmpty;
-            set => SetProperty(ref _isListEmpty,value);
+            set => SetProperty(ref _isListEmpty, value);
         }
 
         public Category SelectedCategory { get; set; }
@@ -139,6 +139,7 @@ namespace Demo4NER.ViewModels
                 }
                 IsListEmpty = !BusinessesList.Any();
             });
+            MessagingCenter.Subscribe<App>(this, "refresh", async (app) => { await UpdateBusinessesListExecute(); });
         }
         private async Task DoSearchExecute()
         {

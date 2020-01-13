@@ -8,6 +8,7 @@
              xmlns:models="clr-namespace:Demo4NER.Models;assembly=Demo4NER"
              xmlns:converters="clr-namespace:Demo4NER.Converters;assembly=Demo4NER"
              mc:Ignorable="d"
+             Padding="0,10,0,0"
              x:Class="Demo4NER.Views.MapPage">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -34,11 +35,15 @@
     </NavigationPage.TitleView>
     <ContentPage.Content>
         <StackLayout x:Name="MainLayout">
-            <Label 
-                Text="Localização desligada ou sem permissões" 
-                IsVisible="{Binding DisplayLocationError}"
-                HorizontalOptions="Center"
-                ></Label>
+            <Label Text="GPS desativado ou não autorizado. Clica aqui para tentar outra vez." 
+                   IsVisible="{Binding DisplayLocationError}"
+                   HorizontalOptions="Center"
+                   FontSize="Micro"
+            >
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SendRefreshCommand ,Source={x:Static Application.Current}}"></TapGestureRecognizer>
+                </Label.GestureRecognizers>
+            </Label>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

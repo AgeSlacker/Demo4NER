@@ -38,7 +38,7 @@ namespace Demo4NER.Views
                    });
                });
         }
-
+        // TODO change GPS error to global elemnt on all pages para n repetir
         protected override async void OnAppearing()
         {
             var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);

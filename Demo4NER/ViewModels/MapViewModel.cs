@@ -24,6 +24,7 @@ namespace Demo4NER.ViewModels
         public MapViewModel()
         {
             UpdateBusinessesCommand = new Command(async () => await UpdateBusinessesListExecute());
+            MessagingCenter.Subscribe<App>(this, "refresh", async (app) => { await UpdateBusinessesListExecute(); });
         }
 
         private async Task UpdateBusinessesListExecute()
