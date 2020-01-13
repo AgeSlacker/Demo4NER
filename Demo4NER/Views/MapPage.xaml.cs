@@ -28,13 +28,14 @@ namespace Demo4NER.Views
             map.ItemTemplate = (DataTemplate)Resources["MapItemTemplate"];
             MainLayout.Children.Add(map);
             viewModel.UpdateBusinessesCommand.Execute(null);
-            MessagingCenter.Subscribe<BaseViewModel, Business>(this, "navigate", (sender, bus) =>
+            MessagingCenter.Subscribe<BaseViewModel, Business>(this, "navigate", async (sender, bus) =>
                {
-                   Device.BeginInvokeOnMainThread(() =>
+                   await Device.InvokeOnMainThreadAsync(() =>
                    {
                        // TODO set to map
                        Pin pin = GetPinFromBusiness(bus);
-                       map.MoveToRegion(MapSpan.FromCenterAndRadius(pin.Position, Distance.FromKilometers(1)));
+                       if (pin != null)
+                           map.MoveToRegion(MapSpan.FromCenterAndRadius(pin.Position, Distance.FromKilometers(1)));
                    });
                });
         }
@@ -116,8 +117,16 @@ namespace Demo4NER.Views
 
         private Pin GetPinFromBusiness(Business business)
         {
-            return map.Pins.FirstOrDefault(p =>
+            Pin pin = map.Pins.FirstOrDefault(p =>
                 p.Position.Longitude == business.Longitude && p.Position.Latitude == business.Latitude);
+            if (pin == null)
+            {
+                viewModel.UpdateBusinessesCommand.Execute(null);
+                pin = map.Pins.FirstOrDefault(p =>
+                    p.Position.Longitude == business.Longitude && p.Position.Latitude == business.Latitude);
+            }
+
+            return pin;
         }
     }
 }

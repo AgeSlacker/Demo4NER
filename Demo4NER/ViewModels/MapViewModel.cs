@@ -35,7 +35,7 @@ namespace Demo4NER.ViewModels
             IsBusy = true;
             try
             {
-                var businesses = await Task.Run(GetBusinesses);
+                var businesses = new List<Business>(((App) Application.Current).CachedBusinesses);
                 BusinessesList.Clear();
                 var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
                 if (status == PermissionStatus.Granted)

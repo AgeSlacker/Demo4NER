@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 using Demo4NER.Models;
@@ -15,6 +15,25 @@ namespace Demo4NER.ViewModels
         public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>() ?? new MockDataStore();
         public IDataStore<User> UserStore => DependencyService.Get<IDataStore<User>>() ?? new UserDataStore();
 
+        public Command SendAskRefreshCommand { get; set; }
+
+        public bool IsRefreshing    
+        {
+            get => _isRefreshing;
+            set => SetProperty(ref _isRefreshing,value);
+        }
+
+        public BaseViewModel()
+        {
+            SendAskRefreshCommand = new Command(async () =>
+            {
+                if (IsRefreshing) return;
+                IsRefreshing = true;
+                await Task.Run(()=>((App) Application.Current).SendRefreshToAllPages());
+                IsRefreshing = false;
+            });
+        }
+
         bool isBusy = false;
         public bool IsBusy
         {
@@ -23,6 +42,8 @@ namespace Demo4NER.ViewModels
         }
 
         string title = string.Empty;
+        private bool _isRefreshing;
+
         public string Title
         {
             get { return title; }
@@ -41,6 +62,8 @@ namespace Demo4NER.ViewModels
             OnPropertyChanged(propertyName);
             return true;
         }
+
+
 
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;

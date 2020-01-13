@@ -59,21 +59,23 @@ namespace Demo4NER.Views
         { 
             base.OnAppearing();
         }
-        protected override void OnCurrentPageChanged()
+        protected override async void OnCurrentPageChanged()
         {
             base.OnCurrentPageChanged();
 
             // Prompt login
-            
-            //if (((NavigationPage)CurrentPage).RootPage.GetType() == typeof(ProfilePage))
-            //{
-            //    if ((Application.Current as App).GetUserFromProperties() == null)
-            //    {
-            //        await Navigation.PushModalAsync(new NavigationPage(new LoginPage()));
-            //        CurrentPage = this.Children.First();
-            //        SelectedItem = this.Children.First();
-            //    }
-            //}
+
+            if (((NavigationPage)CurrentPage).RootPage.GetType() == typeof(MapPage))
+            {
+                if (!(Application.Current as App).Properties.ContainsKey("mapTipShowed"))
+                {
+                    await((NavigationPage)CurrentPage).RootPage.DisplayAlert("Dica",
+                        "Podes carregar nos pins vermelhos e no nome do ponto de intere"
+                        + "sse para ver mais detalhes ou abrir a navegação para o mapa.",
+                        "Ok");
+                    (Application.Current as App).Properties.Add("mapTipShowed", true);
+                }
+            }
         }
     }
 }

@@ -32,15 +32,24 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="GPS desativado ou não autorizado. Clica aqui para tentar outra vez." 
-                   IsVisible="{Binding DisplayLocationError}"
-                   HorizontalOptions="Center"
-                   FontSize="Micro"
-            >
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding SendRefreshCommand ,Source={x:Static Application.Current}}"></TapGestureRecognizer>
-                </Label.GestureRecognizers>
-            </Label>
+            <Grid IsVisible="{Binding DisplayLocationError}" HeightRequest="20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Text="GPS desativado ou não autorizado. Clica aqui para tentar outra vez." 
+                       HorizontalOptions="Center"
+                       FontSize="Micro"
+                       Grid.Column="1"
+                       VerticalTextAlignment="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SendAskRefreshCommand}"></TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
+                <ActivityIndicator IsRunning="{Binding IsRefreshing}"
+                                   Grid.Column="2" HeightRequest="20"></ActivityIndicator>
+            </Grid>
             <ListView ItemsSource="{Binding BusinessesList}"
                       RefreshCommand="{Binding UpdateBusinessesListCommand}"
                       IsPullToRefreshEnabled="True"
@@ -50,7 +59,8 @@
                       SelectionMode="None"
                       CachingStrategy="RecycleElement"
                       ItemTemplate="{StaticResource BusinessTemplateSelector}"
-                      IsVisible="{Binding IsListEmpty, Converter={StaticResource NotConverter}}"/>
+                      IsVisible="{Binding IsListEmpty, Converter={StaticResource NotConverter}}"
+                      HasUnevenRows="False"/>
             <Label Text="Não foram encontrados resultados"
                    HorizontalOptions="Center"
                    IsVisible="{Binding IsListEmpty}"></Label>

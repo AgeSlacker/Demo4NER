@@ -47,8 +47,10 @@ namespace Demo4NER.Views
                 // ask for permission
                 //if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Location))
                 //{
-                bool requestPermission = await DisplayAlert("Hot babes in your area", "They want to know your location", "Of course!",
-                    "Maybe another time");
+                bool requestPermission = await DisplayAlert("Permissões de localização", 
+                    "O 4NERApp precisa de necessita de permissões de localização para funcionar.", 
+                    "Permitir",
+                    "Não permitir");
                 //}
                 if (requestPermission)
                 {
