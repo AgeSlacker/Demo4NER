@@ -34,45 +34,11 @@ namespace Demo4NER.Views
             base.OnAppearing();
             if (firstTime)
             {
-                await CheckLocationPermissions();
+                await (Application.Current as App).CheckLocationPermissionsFromPage(this);
                 firstTime = false;
             }
         }
 
-        private async Task CheckLocationPermissions()
-        {
-            PermissionStatus status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
-            if (status != PermissionStatus.Granted)
-            {
-                // ask for permission
-                //if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Location))
-                //{
-                bool requestPermission = await DisplayAlert("Hot babes in your area", "They want to know your location", "Of course!",
-                    "Maybe another time");
-                //}
-                if (requestPermission)
-                {
-                    var permissionStatuses = await CrossPermissions.Current.RequestPermissionsAsync(Permission.Location);
-                    status = permissionStatuses[Permission.Location];
-                }
-            }
-
-            if (status == PermissionStatus.Granted)
-            {
-                // grated
-                ((App) Application.Current).LocationGranted = true;
-                // TODO send event to update distance
-            }
-            else if (status == PermissionStatus.Disabled)
-            {
-                await DisplayAlert("Oh no", "Enable location in your phone setting", "Sry im dumb");
-            }
-            else if (status != PermissionStatus.Unknown)
-            {
-                // denied
-
-            }
-        }
         private async void ClearPropertiesDEBUG(object sender, EventArgs e)
         {
             (Application.Current as App).Properties.Clear();

@@ -22,7 +22,6 @@ namespace Demo4NER.ViewModels
     {
         private static ObservableCollection<Tag> _tags = new ObservableCollection<Tag>();
         public static ObservableCollection<Tag> Tags => _tags;
-
         public static bool TagsSet { get; set; }
         public string SearchTerms { get; set; }
         public ObservableCollection<Business> BusinessesList { get; set; } = new ObservableCollection<Business>();
@@ -31,8 +30,8 @@ namespace Demo4NER.ViewModels
         public Command DoSearchCommand { get; set; }
         public static Command InitializeTagsCommand { get; set; }
         public static Command UpdateTagsCommand { get; set; }
-
         public Command ApplyFilterCommand { get; set; }
+        public Command UpdateBusinessLocationCommand { get; set; }
 
         private bool _displayLocationError = false;
 
@@ -48,6 +47,7 @@ namespace Demo4NER.ViewModels
         {
             UpdateBusinessesListCommand = new Command(async () => await UpdateBusinessesListExecute());
             DoSearchCommand = new Command(async () => await DoSearchExecute());
+            UpdateBusinessLocationCommand = new Command(async ()=> await UpdateBusinessLocation());
             InitializeTagsCommand = new Command(async () =>
             {
                 // Initialize tags
@@ -131,7 +131,9 @@ namespace Demo4NER.ViewModels
                     SearchTerms = null;
                 }
             });
+            MessagingCenter.Subscribe<App>(this,"locationUpdate", async (sender) => { await UpdateBusinessLocation(); });
         }
+
         private async Task DoSearchExecute()
         {
             BusinessesList.Clear();
@@ -175,27 +177,6 @@ namespace Demo4NER.ViewModels
                 semaphore.Release();
 
                 BusinessesList.Clear();
-                PermissionStatus status =
-                    await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
-                if (status == PermissionStatus.Granted)
-                {
-                    Location userLocation = await ((App)Application.Current).GetLocationAsync();
-                    if (((App)Application.Current).LocationEnabled)
-                    {
-                        foreach (Business business in ((App)Application.Current).CachedBusinesses)
-                            business.Distance = Location.CalculateDistance(business.Location, userLocation,
-                                DistanceUnits.Kilometers);
-                        DisplayLocationError = false;
-                    }
-                    else
-                    {
-                        DisplayLocationError = true;
-                    }
-                }
-                else
-                {
-                    DisplayLocationError = true;
-                }
 
                 foreach (Business business in ((App)Application.Current).CachedBusinesses)
                 {
@@ -210,6 +191,36 @@ namespace Demo4NER.ViewModels
             {
                 IsBusy = false;
             }
+        }
+
+        private async Task UpdateBusinessLocation()
+        {
+
+            PermissionStatus status =
+                await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
+            if (status == PermissionStatus.Granted)
+            {
+                var temp = new List<Business>(BusinessesList);
+                BusinessesList.Clear();
+                //Location userLocation = await ((App)Application.Current).GetLocationAsync();
+                if (((App)Application.Current).LocationEnabled)
+                {
+                    foreach (Business business in temp)
+                    {
+                        BusinessesList.Add(business);
+                    }
+                    DisplayLocationError = false;
+                }
+                else
+                {
+                    DisplayLocationError = true;
+                }
+            }
+            else
+            {
+                DisplayLocationError = true;
+            }
+
         }
 
         public virtual async Task<List<Business>> GetBusinesses()

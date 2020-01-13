@@ -17,6 +17,8 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.EntityFrameworkCore.Query.ExpressionVisitors.Internal;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
 using Xamarin.Essentials;
 
 namespace Demo4NER
@@ -65,8 +67,8 @@ namespace Demo4NER
                         .Include(b => b.BusinessTags)
                             .ThenInclude(bt => bt.Tag)
                         .Include(b => b.Category)
-                        .Include(b=>b.Reviews)
-                            .ThenInclude(r=>r.User) 
+                        .Include(b => b.Reviews)
+                            .ThenInclude(r => r.User)
                         .ToListAsync();// TODO make this safer
                     Debug.WriteLine("Loaded to cache");
 
@@ -74,6 +76,8 @@ namespace Demo4NER
                 }
             });
             semaphore.Release();
+
+            await LocationUpdate(); // Try to load location beforehand
         }
 
         protected override void OnSleep()
@@ -90,50 +94,46 @@ namespace Demo4NER
         public async Task<Location> GetLocationAsync(bool forcenew = false)
         {
             Location location = null;
-            if (LocationGranted)
+            try
             {
-                try
+                if (!forcenew)
                 {
-                    if (!forcenew)
+                    Location cachedLocation = await Geolocation.GetLastKnownLocationAsync();
+                    if (cachedLocation != null)
                     {
-                        Location cachedLocation = await Geolocation.GetLastKnownLocationAsync();
-                        TimeSpan diff;
-                        if (cachedLocation != null)
-                        {
-                            diff = DateTimeOffset.Now.Subtract(cachedLocation.Timestamp);
-                            if (diff.Minutes > 1)
-                                forcenew = true;
-                            else
-                                location = cachedLocation;
-                        }
-                        else forcenew = true;
+                        TimeSpan diff = DateTimeOffset.Now.Subtract(cachedLocation.Timestamp);
+                        if (diff.Minutes > 1)
+                            forcenew = true;
+                        else
+                            location = cachedLocation;
                     }
-                    if (forcenew)
-                    {
-                        var request = new GeolocationRequest(GeolocationAccuracy.Best);
-                        location = await Geolocation.GetLocationAsync(request);
-                    }
+                    else forcenew = true;
+                }
+                if (forcenew)
+                {
+                    var request = new GeolocationRequest(GeolocationAccuracy.Best);
+                    location = await Geolocation.GetLocationAsync(request);
+                }
 
-                    LocationEnabled = true;
+                LocationEnabled = true;
 
-                }
-                catch (FeatureNotSupportedException fns)
-                {
-                    Debug.WriteLine(fns);
-                }
-                catch (FeatureNotEnabledException fne)
-                {
-                    LocationEnabled = false;
-                    Debug.WriteLine(fne);
-                }
-                catch (PermissionException pe)
-                {
-                    Debug.WriteLine(pe);
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine(e);
-                }
+            }
+            catch (FeatureNotSupportedException fns)
+            {
+                Debug.WriteLine(fns);
+            }
+            catch (FeatureNotEnabledException fne)
+            {
+                LocationEnabled = false;
+                Debug.WriteLine(fne);
+            }
+            catch (PermissionException pe)
+            {
+                Debug.WriteLine(pe);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
             }
             return location;
         }
@@ -160,6 +160,56 @@ namespace Demo4NER
             if (Properties.ContainsKey("logged"))
             {
                 Properties.Remove("logged");
+            }
+        }
+
+        public async Task CheckLocationPermissionsFromPage(Page page)
+        {
+            PermissionStatus status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
+            if (status != PermissionStatus.Granted)
+            {
+                // ask for permission
+                //if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Location))
+                //{
+                bool requestPermission = await page.DisplayAlert("Hot babes in your area", "They want to know your location", "Of course!",
+                    "Maybe another time");
+                //}
+                if (requestPermission)
+                {
+                    var permissionStatuses = await CrossPermissions.Current.RequestPermissionsAsync(Permission.Location);
+                    status = permissionStatuses[Permission.Location];
+                }
+            }
+
+            if (status == PermissionStatus.Granted)
+            {
+                await LocationUpdate();
+            }
+            else if (status == PermissionStatus.Disabled)
+            {
+                await page.DisplayAlert("Oh no", "Enable location in your phone setting", "Sry im dumb");
+            }
+            else if (status != PermissionStatus.Unknown)
+            {
+                // denied
+
+            }
+        }
+
+        private async Task LocationUpdate()
+        {
+            if (CachedBusinesses != null)
+            {
+                var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
+                if (status != PermissionStatus.Granted) return;
+                var userLocation = await GetLocationAsync();
+                if (userLocation == null) return;
+                foreach (Business business in CachedBusinesses)
+                {
+                    business.Distance = Location.CalculateDistance(business.Location, userLocation,
+                        DistanceUnits.Kilometers);
+                }
+                MessagingCenter.Send<App>(this, "locationUpdate");
             }
         }
 
