@@ -51,6 +51,12 @@
     <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
     <BundleAssemblies>false</BundleAssemblies>
     <AndroidLinkMode>None</AndroidLinkMode>
+    <AndroidKeyStore>true</AndroidKeyStore>
+    <AndroidSigningKeyStore>C:\Users\Acer\AppData\Local\Xamarin\Mono for Android\Keystore\4NERApp\4NERApp.keystore</AndroidSigningKeyStore>
+    <AndroidSigningStorePass>milosfanclub</AndroidSigningStorePass>
+    <AndroidSigningKeyAlias>4NERApp</AndroidSigningKeyAlias>
+    <AndroidSigningKeyPass>milosfanclub</AndroidSigningKeyPass>
+    <!--<AndroidPackageFormat>aab</AndroidPackageFormat>-->
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />

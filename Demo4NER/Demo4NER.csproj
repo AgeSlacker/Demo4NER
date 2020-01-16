@@ -9,6 +9,14 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 
+  <!--<PropertyGroup>
+    <AndroidKeyStore>True</AndroidKeyStore>
+    <AndroidSigningKeyStore>C:\Users\Acer\AppData\Local\Xamarin\Mono for Android\Keystore\4NERApp\4NERApp.keystore</AndroidSigningKeyStore>
+    <AndroidSigningStorePass>milosfanclub</AndroidSigningStorePass>
+    <AndroidSigningKeyAlias>4NERApp</AndroidSigningKeyAlias>
+    <AndroidSigningKeyPass>milosfanclub</AndroidSigningKeyPass>
+  </PropertyGroup>-->
+
   <ItemGroup>
     <Compile Remove="Views\View1.cs" />
   </ItemGroup>

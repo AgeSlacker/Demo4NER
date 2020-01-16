@@ -1,0 +1,1 @@
+msbuild -restore Demo4NER.Android.csproj -t:SignAndroidPackage -p:Configuration=Release -p:AndroidKeyStore=True -p:AndroidSigningKeyStore="C:\Users\Acer\AppData\Local\Xamarin\Mono for Android\Keystore\4NERApp\4NERApp.keystore" -p:AndroidSigningStorePass=milosfanclub -p:AndroidSigningKeyAlias=4NERApp -p:AndroidSigningKeyPass=milosfanclub  
