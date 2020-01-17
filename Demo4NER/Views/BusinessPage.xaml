@@ -87,7 +87,7 @@
                        TextColor="#3B5A9A" 
                        FontAttributes="Bold"
                        FontSize="Large"/>
-                    <Label Text="{Binding Description}"/>
+                    <Label Text="{Binding Description}" LineBreakMode="CharacterWrap"/>
                     <Label Text="Contacto" 
                        TextColor="#3B5A9A" 
                        FontAttributes="Bold"

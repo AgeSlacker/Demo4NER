@@ -73,6 +73,7 @@ namespace Demo4NER
                             .ThenInclude(r=>r.User) 
                         .Include(b=>b.Links)
                         .Include(b=>b.Category)
+                        .OrderBy(b=>b.Name)
                         .ToListAsync();// TODO make this safer
                     Debug.WriteLine("Loaded to cache");
 
