@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:Demo4NER.ViewModels;assembly=Demo4NER"
              xmlns:converters="clr-namespace:Demo4NER.Converters;assembly=Demo4NER"
+             xmlns:xForms="clr-namespace:Syncfusion.SfRating.XForms;assembly=Syncfusion.SfRating.XForms"
              x:Class="Demo4NER.Views.BusinessPage"
              Padding="20,0,20,0">
     <ContentPage.Resources>
@@ -47,6 +48,7 @@
                             HorizontalTextAlignment="Center"/>
                             <Label Text="{Binding Category.Value, StringFormat='Categoria: {0}'}"/>
                         </StackLayout>
+                        <!-- Rating -->
                         <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand">
                             <Image Source="favorite.png"
                            HorizontalOptions="EndAndExpand"
@@ -122,7 +124,7 @@
                        FontAttributes="Bold" 
                        FontSize="Large"/>
                     <ListView x:Name="ReviewList"
-                                ItemsSource="{Binding Reviews}" 
+                                ItemsSource="{Binding Reviews, Mode=TwoWay}" 
                                 ItemTemplate="{StaticResource ReviewListTemplate}"
                                 SelectionMode="None"
                                 RowHeight="-1"
@@ -136,23 +138,35 @@
                        HorizontalOptions="Center"
                        IsVisible="{Binding IsLogged, Converter={StaticResource NotConverter}}"></Label>
                 <StackLayout IsVisible="{Binding IsLogged}">
-                    <Label Text="Adicionar review"
+                    <Label Text="Adicionar avaliação"
                            TextColor="#3B5A9A"
                            FontAttributes="Bold"
-                           FontSize="26"></Label>
-                    <StackLayout Orientation="Horizontal">
-                        <Label Text="Rating: "/>
-                        <Entry Text="{Binding ReviewRating}"
-                               HorizontalOptions="EndAndExpand"/>
+                           FontSize="Large"></Label>
+                    <StackLayout>
+                        <Label Text="Avalie este estabelecimento:" HorizontalOptions="Center"/>
+                        <!--<Entry Text="{Binding ReviewRating}"
+                               HorizontalOptions="EndAndExpand"/>-->
+                        <!-- New Rating -->
+                        <xForms:SfRating Precision="Half"
+                                         ItemSize="35"
+                                         HorizontalOptions="Center"
+                                         Value="{Binding ReviewRating}">
+                            <xForms:SfRating.RatingSettings>
+                                <xForms:SfRatingSettings RatedFill="Gold"
+                                                         RatedStrokeWidth="0"
+                                                         RatedStroke="Black"
+                                                         UnRatedFill="LightGray"
+                                                         UnRatedStrokeWidth="0"/>
+                            </xForms:SfRating.RatingSettings>
+                        </xForms:SfRating>
                     </StackLayout>
                     <Frame CornerRadius="2" HasShadow="False" Padding="0">
                         <Editor Text="{Binding ReviewComment}"
+                                Placeholder="O que gostou? O que não gostou?"
                                 IsTextPredictionEnabled="True"
-                                AutoSize="TextChanges"
-                                />
+                                AutoSize="TextChanges"/>
                     </Frame>
-                    <Button Text="Post Review"
-                        Clicked="PostComment"/>
+                    <Button Text="Avaliar" Command="{Binding PostCommentCommand}" HorizontalOptions="Center"/>
                 </StackLayout>
             </StackLayout>
         </ScrollView>

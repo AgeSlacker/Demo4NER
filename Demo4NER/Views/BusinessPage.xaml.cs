@@ -30,10 +30,16 @@ namespace Demo4NER.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            int n = viewModel.Business.Links.Count;
-            linksView.HeightRequest = n * 30;
-            int nr = viewModel.Business.Reviews.Count;
-            ReviewList.HeightRequest = nr * 100;
+            if (viewModel.Business.Links != null) // TODO make sure it's never null
+            {
+                int n = viewModel.Business.Links.Count;
+                linksView.HeightRequest = n * 30;
+            }
+            if (viewModel.Business.Reviews != null)
+            {
+                int nr = viewModel.Business.Reviews.Count;
+                ReviewList.HeightRequest = nr * 100;
+            }
         }
 
         private async void OpenURLOnTap(object sender, EventArgs e)
@@ -68,11 +74,6 @@ namespace Demo4NER.Views
             {
 
             }
-        }
-
-        private void PostComment(object sender, EventArgs e)
-        {
-            viewModel.PostCommentCommand.Execute(null);
         }
     }
 }

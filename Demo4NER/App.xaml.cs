@@ -48,6 +48,8 @@ namespace Demo4NER
 
         protected override async void OnStart()
         {
+            // Pre-load businesses
+            await semaphore.WaitAsync(); // Make ViewModels wait for cached Businesses to load
             if (!Properties.ContainsKey("logged"))
             {
                 MainPage = new NavigationPage(new LoginPage());
@@ -58,8 +60,6 @@ namespace Demo4NER
                 MainPage = new NavigationPage(MainAppPage);
             }
 
-            // Pre-load businesses
-            await semaphore.WaitAsync();
             await Task.Run(async () =>
             {
                 Debug.WriteLine("Started loading to cache");

@@ -39,12 +39,22 @@ namespace Demo4NER.ViewModels
 
         public BusinessPageViewModel(Business selectedBusiness)
         {
+            Business = selectedBusiness;
+            if (Business.Reviews == null)
+            {
+                Business.Reviews = new ObservableCollection<Review>();
+            }
+
+            if (Business.Links == null)
+            {
+                Business.Links = new ObservableCollection<Link>(); // TODO move this to model maybe ?
+            }
+
             NavigateToMapViewCommand = new Command(() =>
             {
                 MessagingCenter.Send<BaseViewModel,Business>(this,"navigate",Business);
             });
 
-            Business = selectedBusiness;
             LoggedUser = (Application.Current as App).GetUserFromProperties();
             if(LoggedUser != null)
             {
@@ -55,11 +65,6 @@ namespace Demo4NER.ViewModels
         
         public async Task PostCommentAsync()
         {
-            if (Business.Reviews == null)
-            {
-                Business.Reviews = new ObservableCollection<Review>();
-            }
-
             NewReview = new Review()
             {
                 //Id = 10,
@@ -68,8 +73,10 @@ namespace Demo4NER.ViewModels
                 Rating = double.Parse(ReviewRating),
                 Comment = ReviewComment
             };
-
-            Business.Reviews.Add(NewReview);
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                Business.Reviews.Add(NewReview);
+            });
             ReviewComment = "";
             ReviewRating = "";
 
@@ -83,46 +90,12 @@ namespace Demo4NER.ViewModels
                 using (var db = new NerContext())
                 {
                     // TODO check if both needed
-                    db.Reviews.Update(NewReview);
+                    //db.Reviews.Update(NewReview);
                     db.Businesses.Update(Business);
                     db.SaveChanges();
-                    OnPropertyChanged();
+                    //OnPropertyChanged(); // Acho que n faz nada
                 }
             });
         }
-
-        //public async Task LoadReviewsAsync()
-        //{
-        //    await Task.Run(async () =>
-        //    {
-        //        using (var db = new NerContext())
-        //        {
-        //            //var reviews = db.Reviews.SqlQuery("SELECT * FROM reviews WHERE BusinessId = " + Business.Id);
-
-        //            Debug.WriteLine("0");
-        //            if(Business.Reviews != null)
-        //            {
-        //                Business.Reviews.Clear();
-        //            }
-        //            else
-        //            {
-        //                Business.Reviews = new ObservableCollection<Review>();
-        //            }
-        //            Debug.WriteLine("1");
-        //            var reviews = await db.Reviews.ToListAsync();
-        //            Debug.WriteLine("2");
-        //            foreach (Review review in reviews)
-        //            {
-        //                Debug.WriteLine(review.Business.ToString());
-        //                if(review.Business.Id == Business.Id)
-        //                {
-        //                    Business.Reviews.Add(review);
-        //                }
-        //            }
-        //            Debug.WriteLine("Num= " + Business.Reviews.Count);
-        //            OnPropertyChanged();
-        //        }
-        //    });
-        //}
     }
 }
