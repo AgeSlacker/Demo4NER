@@ -31,8 +31,9 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <FlexLayout AlignContent="Center">
-            <Label Text="Obrigado por experimentar a nossa app"></Label>
+        <FlexLayout AlignContent="Center"> <!-- TODO ver long text wrapping -->
+            <Label Text="Estamos em fase de testes por isto essa pagina não esta acessível no momento. Você possui conta e consegue comentar em nossas páginas, porém ainda não é possível ver seus dados e editá-los.
+Vamos lançar updates em breve para melhorar sua experiência."></Label>
             <!--<Editor Placeholder="Mande-nos o seu feedback!"
                     IsTextPredictionEnabled="True"
                     AutoSize="TextChanges"/>

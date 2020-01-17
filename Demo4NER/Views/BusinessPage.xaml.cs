@@ -38,7 +38,7 @@ namespace Demo4NER.Views
             if (viewModel.Business.Reviews != null)
             {
                 int nr = viewModel.Business.Reviews.Count;
-                ReviewList.HeightRequest = nr * 100;
+                ReviewList.HeightRequest = nr * 110;
             }
         }
 
