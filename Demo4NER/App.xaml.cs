@@ -71,6 +71,7 @@ namespace Demo4NER
                         .Include(b => b.Category)
                         .Include(b=>b.Reviews)
                             .ThenInclude(r=>r.User) 
+                        .Include(b=>b.Links)
                         .Include(b=>b.Category)
                         .ToListAsync();// TODO make this safer
                     Debug.WriteLine("Loaded to cache");

@@ -3,7 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:Demo4NER.ViewModels;assembly=Demo4NER"
-             x:Class="Demo4NER.Views.BusinessPage">
+             xmlns:converters="clr-namespace:Demo4NER.Converters;assembly=Demo4NER"
+             x:Class="Demo4NER.Views.BusinessPage"
+             Padding="20,0,20,0">
     <ContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="LinksTemplate">
@@ -16,11 +18,9 @@
                             <ColumnDefinition Width="*"></ColumnDefinition>
                             <ColumnDefinition Width="2*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Row="0" Grid.Column="0" Text="{Binding Name}"
-                               FontSize="Medium"></Label>
+                        <Label Grid.Row="0" Grid.Column="0" Text="{Binding Name}"></Label>
                         <Label Grid.Row="0" Grid.Column="1" 
                                Text="{Binding URL}"
-                               FontSize="Medium"
                                TextColor="Blue"
                                TextDecorations="Underline">
                             <Label.GestureRecognizers>
@@ -30,25 +30,22 @@
                     </Grid>
                 </ViewCell>
             </DataTemplate>
+            <converters:NotConverter x:Key="NotConverter"></converters:NotConverter>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout Margin="10,0,10,0">
+            <StackLayout Padding="0,0,0,25">
                 <StackLayout BindingContext="{Binding Business}">
                     <Image Source="{Binding ImageSource}" HeightRequest="200"/>
-                    <Button Text="Go to map" Clicked="OnNavigateClicked"/>
                     <StackLayout Orientation="Horizontal">
-                        <StackLayout>
+                        <StackLayout Padding="0,0,0,20">
                             <Label Text="{Binding Name}" 
                             TextColor="#3B5A9A" 
                             FontAttributes="Bold" 
-                            FontSize="30"
-                            HorizontalTextAlignment="Center" />
-                            <Label Text="{Binding Category.Value}" 
-                            TextColor="Black" 
-                            FontSize="20"
+                            FontSize="35"
                             HorizontalTextAlignment="Center"/>
+                            <Label Text="{Binding Category.Value, StringFormat='Categoria: {0}'}"/>
                         </StackLayout>
                         <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand">
                             <Image Source="favorite.png"
@@ -77,40 +74,41 @@
                     <Label Text="Morada" 
                        TextColor="#3B5A9A" 
                        FontAttributes="Bold" 
-                       FontSize="26"/>
-                    <Label Text="{Binding WrittenAddress}"
-                       FontSize="20"/>
+                       FontSize="Large"/>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="{Binding WrittenAddress}"
+                               HorizontalOptions="FillAndExpand"/>
+                        <ImageButton Source="pin_map"
+                                     BackgroundColor="Transparent"
+                                     HeightRequest="30"
+                                     Clicked="OnNavigateClicked"/>
+                    </StackLayout>
                     <Label Text="Descrição" 
                        TextColor="#3B5A9A" 
-                       FontAttributes="Bold" 
-                       FontSize="26"/>
-                    <Label Text="{Binding Description}" 
-                       FontSize="20"/>
-                    <StackLayout Orientation="Horizontal">
-                        <Label Text="Contacto" 
-                           TextColor="#3B5A9A" 
-                           FontAttributes="Bold" 
-                           FontSize="26"/>
-                        <Label Text="(Carrega no numero para ligar)" FontSize="Micro" 
-                           VerticalOptions="Center"
-                           VerticalTextAlignment="Center"></Label>
+                       FontAttributes="Bold"
+                       FontSize="Large"/>
+                    <Label Text="{Binding Description}"/>
+                    <Label Text="Contacto" 
+                       TextColor="#3B5A9A" 
+                       FontAttributes="Bold"
+                       FontSize="Large"/>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                        <Label Text="{Binding Contact}" FontSize="Medium" HorizontalOptions="FillAndExpand"/>
+                        <ImageButton Source="phone"
+                                     HeightRequest="30"
+                                     Clicked="ContactLabelOnTapped"
+                                     BackgroundColor="Transparent"
+                        />
                     </StackLayout>
-                    <Label Text="{Binding Contact}" 
-                       FontSize="20">
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="ContactLabelOnTapped"></TapGestureRecognizer>
-                        </Label.GestureRecognizers>
-                    </Label>
                     <Label Text="Horário"
                        TextColor="#3B5A9A" 
-                       FontAttributes="Bold" 
-                       FontSize="26"/>
-                    <Label Text="{Binding Schedule}"
-                       FontSize="20"/>
+                       FontAttributes="Bold"
+                       FontSize="Large"/>
+                    <Label Text="{Binding Schedule}"/>
                     <Label Text="Links"
                        TextColor="#3B5A9A"
                        FontAttributes="Bold"
-                       FontSize="26"/>
+                       FontSize="Large"/>
                     <ListView x:Name="linksView"
                         ItemsSource="{Binding Links}"
                         ItemTemplate="{StaticResource LinksTemplate}"
@@ -122,7 +120,7 @@
                     <Label Text="Reviews"
                        TextColor="#3B5A9A" 
                        FontAttributes="Bold" 
-                       FontSize="26"/>
+                       FontSize="Large"/>
                     <ListView x:Name="ReviewList"
                                 ItemsSource="{Binding Reviews}" 
                                 ItemTemplate="{StaticResource ReviewListTemplate}"
@@ -130,10 +128,13 @@
                                 RowHeight="-1"
                                 VerticalScrollBarVisibility="Always" 
                                 SeparatorVisibility="None"
-                                HasUnevenRows="True"
-                        />
+                                HasUnevenRows="True"/>
                 </StackLayout>
                 <Button Text="Edit" Clicked="EditBusiness" IsVisible="False"/>
+                <Label Text="Tens que estar loggado para poder fazer comentários."
+                       FontSize="Micro"
+                       HorizontalOptions="Center"
+                       IsVisible="{Binding IsLogged, Converter={StaticResource NotConverter}}"></Label>
                 <StackLayout IsVisible="{Binding IsLogged}">
                     <Label Text="Adicionar review"
                            TextColor="#3B5A9A"

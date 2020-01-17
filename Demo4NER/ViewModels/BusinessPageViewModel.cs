@@ -39,33 +39,18 @@ namespace Demo4NER.ViewModels
 
         public BusinessPageViewModel(Business selectedBusiness)
         {
-            Business = selectedBusiness;
-            //ReviewComment = "";
-            //ReviewRating = "";
-
-            LoggedUser = (Application.Current as App).GetUserFromProperties();
-            if(LoggedUser != null)
-            {
-                IsLogged = true;
-            }
-            Business.Links = new List<Link>();
-            //Link link1 = new Link() { Name = "Site", URL = "4nerapp.com" };
-            //Link link2 = new Link() { Name = "Facebook", URL = "facebook.com/4nerapp" };
-
-            //Business.Schedule = "Dias de semana: 12h-15h 19h-00h\nFim de semana: 19h - 00h";
-            //Business.Links.Add(link1); 
-            //Business.Links.Add(link2);
-            //Business.Schedule = "Dias de semana: 12h-15h 19h-00h\nFim de semana: 19h - 00h";
-
             NavigateToMapViewCommand = new Command(() =>
             {
                 MessagingCenter.Send<BaseViewModel,Business>(this,"navigate",Business);
             });
 
+            Business = selectedBusiness;
+            LoggedUser = (Application.Current as App).GetUserFromProperties();
+            if(LoggedUser != null)
+            {
+                IsLogged = true;
+            }
             PostCommentCommand = new Command(async() => await PostCommentAsync());
-
-            //LoadReviewsCommand = new Command(async () => await LoadReviewsAsync());
-            //LoadReviewsCommand.Execute(null);
         }
         
         public async Task PostCommentAsync()

@@ -22,11 +22,10 @@
                             <Image Source="{Binding ImageSource}" WidthRequest="100" VerticalOptions="Center"></Image>
                             <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="Center">
                                 <Label Text="{Binding Name}" 
-                                       HorizontalOptions="CenterAndExpand"
-                                       FontAttributes="Bold"
-                                       FontFamily="Comic Sans"
-                                />
-                                <Label Text="{Binding Distance, StringFormat='a {0:F2}Km de sí'}"/>
+                                       HorizontalOptions="Center"
+                                       FontAttributes="Bold"/>
+                                <Label Text="{Binding Distance, StringFormat='a {0:F2}Km de si'}"
+                                       HorizontalOptions="Center"/>
                             </StackLayout>
                         </StackLayout>
                     </Frame>
@@ -79,10 +78,8 @@
                             <Image Source="{Binding ImageSource}" WidthRequest="100" VerticalOptions="Center"></Image>
                             <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="Center">
                                 <Label Text="{Binding Name}" 
-                                       HorizontalOptions="CenterAndExpand"
-                                       FontAttributes="Bold"
-                                       FontFamily="Comic Sans"
-                                />
+                                       HorizontalOptions="Center"
+                                       FontAttributes="Bold"/>
                             </StackLayout>
                         </StackLayout>
                     </Frame>
