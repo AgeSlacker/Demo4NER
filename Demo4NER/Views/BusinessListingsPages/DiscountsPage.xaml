@@ -6,8 +6,7 @@
              xmlns:converters="clr-namespace:Demo4NER.Converters;assembly=Demo4NER"
              mc:Ignorable="d"
              x:Class="Demo4NER.Views.DiscountsPage"
-             Padding="10"
-             >
+             Padding="10">
     <NavigationPage.TitleView>
             <Grid>
             <Grid.ColumnDefinitions>
@@ -31,7 +30,8 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout>
+        <Label Text="De momento não temos nenhum desconto." HorizontalOptions="Center"></Label>
+        <!--<StackLayout>
             <Grid IsVisible="{Binding DisplayLocationError}" HeightRequest="20">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
@@ -69,6 +69,6 @@
                     IsVisible="{Binding IsListEmpty}"
                     HorizontalOptions="Center"
                     Command="{Binding UpdateBusinessesListCommand}"></Button>
-        </StackLayout>
+        </StackLayout>-->
     </ContentPage.Content>
 </ContentPage>

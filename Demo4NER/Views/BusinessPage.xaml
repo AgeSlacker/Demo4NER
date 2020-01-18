@@ -144,9 +144,8 @@
                         <Label Text="{Binding Contact}" FontSize="Medium" HorizontalOptions="FillAndExpand"/>
                         <ImageButton Source="phone"
                                      HeightRequest="30"
-                                     Clicked="ContactLabelOnTapped"
                                      BackgroundColor="Transparent"
-                        />
+                                     Clicked="PhoneImageButton_OnClicked"/>
                     </StackLayout>
                     <Label Text="Horário"
                        TextColor="#3B5A9A" 
@@ -186,7 +185,7 @@
                         <xForms:SfRating Precision="Half"
                                          ItemSize="35"
                                          HorizontalOptions="Center"
-                                         Value="{Binding ReviewRating}">
+                                         Value="{Binding ReviewRating, Mode=TwoWay}">
                             <xForms:SfRating.RatingSettings>
                                 <xForms:SfRatingSettings RatedFill="Gold"
                                                          RatedStrokeWidth="0"
@@ -197,7 +196,7 @@
                         </xForms:SfRating>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal" Margin="0,0,0,10">
-                    <Editor Text="{Binding ReviewComment}"
+                    <Editor Text="{Binding ReviewComment, Mode=TwoWay}"
                             Placeholder="O que gostou? O que não gostou?"
                             IsTextPredictionEnabled="True"
                             AutoSize="TextChanges"
@@ -206,7 +205,7 @@
                     </StackLayout>
                 </StackLayout>
                 <ListView x:Name="ReviewList"
-                            ItemsSource="{Binding Business.Reviews, Mode=TwoWay}" 
+                            ItemsSource="{Binding Reviews}" 
                             ItemTemplate="{StaticResource ReviewListTemplate}"
                             SelectionMode="None"
                             RowHeight="-1"

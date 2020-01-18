@@ -5,8 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Internal;
 using Xamarin.Forms;
 
 namespace Demo4NER.ViewModels
@@ -14,10 +16,22 @@ namespace Demo4NER.ViewModels
     public class BusinessPageViewModel : BaseViewModel
     {
         private Business _business;
-        public String ReviewComment { get; set; }
-        public String ReviewRating { get; set; }
-        public User LoggedUser;
+        public String ReviewComment
+        {
+            get => _reviewComment;
+            set => SetProperty(ref _reviewComment,value);
+        }
+        public float ReviewRating
+        {
+            get => _reviewRating;
+            set => SetProperty(ref _reviewRating,value);
+        }
 
+        public bool UserAlreadyCommented { get; set; } // TODO restrict one comment per user
+
+        public User LoggedUser;
+        public event EventHandler ReviewsUpdated;
+        public event EventHandler UserAlreadyReviewed;
         public bool IsLogged
         {
             get => _isLogged;
@@ -26,6 +40,10 @@ namespace Demo4NER.ViewModels
 
         public Review NewReview;
         private bool _isLogged = false;
+        private string _reviewComment;
+        private float _reviewRating;
+
+        public ObservableCollection<Review> Reviews { get; set; } = new ObservableCollection<Review>();
 
         public Business Business
         {
@@ -43,7 +61,14 @@ namespace Demo4NER.ViewModels
             if (Business.Reviews == null)
             {
                 Business.Reviews = new ObservableCollection<Review>();
+
             }
+
+            foreach (Review businessReview in Business.Reviews)
+            {
+                Reviews.Add(businessReview);
+            }
+
 
             if (Business.Links == null)
             {
@@ -56,29 +81,33 @@ namespace Demo4NER.ViewModels
             });
 
             LoggedUser = (Application.Current as App).GetUserFromProperties();
-            if(LoggedUser != null)
-            {
-                IsLogged = true;
-            }
+            if (LoggedUser != null) IsLogged = true;
             PostCommentCommand = new Command(async() => await PostCommentAsync());
         }
         
         public async Task PostCommentAsync()
         {
+            if (Business.Reviews.Any(r=>r.User.UserId == LoggedUser.UserId))
+            {
+                OnUserAlreadyReviewed();
+                return; // TODO change review
+            }
             NewReview = new Review()
             {
                 //Id = 10,
                 User = LoggedUser,
                 Business = Business,
-                Rating = double.Parse(ReviewRating),
+                Rating = ReviewRating,
                 Comment = ReviewComment
             };
             Device.BeginInvokeOnMainThread(() =>
             {
                 Business.Reviews.Add(NewReview);
+                Reviews.Add(NewReview); // TODO why this works
+                OnReviwsUpdated();
             });
             ReviewComment = "";
-            ReviewRating = "";
+            ReviewRating = 0;
 
             await PostCommentExecute();
         }
@@ -96,6 +125,16 @@ namespace Demo4NER.ViewModels
                     //OnPropertyChanged(); // Acho que n faz nada
                 }
             });
+        }
+
+        protected virtual void OnReviwsUpdated()
+        {
+            ReviewsUpdated?.Invoke(this, EventArgs.Empty);
+        }
+
+        protected virtual void OnUserAlreadyReviewed()
+        {
+            UserAlreadyReviewed?.Invoke(this, EventArgs.Empty);
         }
     }
 }

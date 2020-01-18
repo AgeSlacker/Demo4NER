@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Demo4NER.Models;
 using Demo4NER.Services;
 using Demo4NER.ViewModels;
+using Javax.Xml.Transform;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -19,6 +20,20 @@ namespace Demo4NER.Views
         {
             InitializeComponent();
             BindingContext = viewModel = new BusinessPageViewModel(selectedBusiness);
+            viewModel.ReviewsUpdated += ViewModelOnReviewsUpdated;
+            viewModel.UserAlreadyReviewed += ViewModelOnUserAlreadyReviewed;
+        }
+
+        private void ViewModelOnUserAlreadyReviewed(object sender, EventArgs e)
+        {
+            DisplayAlert("Erro",
+                "Já existe um comentário deste utilizador neste negócio. A funcionalidade de alterar o comentário ainda não está implementada, virá numa versão futura!",
+                "Ok");
+        }
+
+        private void ViewModelOnReviewsUpdated(object sender, EventArgs e)
+        {
+            ResizeLists();
         }
 
 
@@ -30,6 +45,11 @@ namespace Demo4NER.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            ResizeLists();
+        }
+
+        private void ResizeLists()
+        {
             if (viewModel.Business.Links != null) // TODO make sure it's never null
             {
                 int n = viewModel.Business.Links.Count;
@@ -56,11 +76,11 @@ namespace Demo4NER.Views
             viewModel.NavigateToMapViewCommand.Execute(null);
         }
 
-        private void ContactLabelOnTapped(object sender, EventArgs e)
+        private void PhoneImageButton_OnClicked(object sender, EventArgs e)
         {
             try
             {
-                PhoneDialer.Open((sender as Label)?.Text);
+                PhoneDialer.Open(viewModel.Business.Contact);
             }
             catch (ArgumentNullException argumentNullException)
             {

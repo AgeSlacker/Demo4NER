@@ -22,7 +22,8 @@
              BackgroundColor="White"
              x:Class="Demo4NER.Views.ProfilePage"
              IconImageSource="logo_branco.png"
-             Title="4NER">
+             Title="4NER"
+             Padding="10">
 
     <ContentPage.ToolbarItems>
         <!--<ToolbarItem Text="Edit" Clicked="Edit_Clicked"/>-->
@@ -31,9 +32,12 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <FlexLayout AlignContent="Center"> <!-- TODO ver long text wrapping -->
-            <Label Text="Estamos em fase de testes por isto essa pagina não esta acessível no momento. Você possui conta e consegue comentar em nossas páginas, porém ainda não é possível ver seus dados e editá-los.
-Vamos lançar updates em breve para melhorar sua experiência."></Label>
+        <FlexLayout AlignItems="Center"> <!-- TODO ver long text wrapping -->
+            <Label FontSize="Medium" Text="
+Estamos em fase de testes por isto essa pagina não esta acessível no momento.
+Você possui conta e consegue comentar em nossas páginas, porém ainda não é possível ver seus dados e editá-los.
+Vamos lançar updates em breve para melhorar sua experiência.
+                   "/>
             <!--<Editor Placeholder="Mande-nos o seu feedback!"
                     IsTextPredictionEnabled="True"
                     AutoSize="TextChanges"/>
